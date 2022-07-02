@@ -297,12 +297,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAXHitDistance: 1
-  BoxCastSize1: {x: 1, y: 1, z: 1}
-  BoxCastSize2: {x: 0, y: 0, z: 0}
-  originTransform: {fileID: 515133576}
-  targetTransform1: {fileID: 1483184364}
-  targetTransform2: {fileID: 445758212}
-  _origin1: {x: 0, y: 0, z: 0}
+  BoxCastSize1: {x: 0.25, y: 0.25, z: 0.25}
+  BoxCastSize2: {x: 0.25, y: 0.25, z: 0.25}
+  _originTransform: {fileID: 515133576}
+  _targetPos1: {fileID: 1483184364}
+  _targetPos2: {fileID: 445758212}
+  _origin: {x: 0, y: 0, z: 0}
   _dir1: {x: 0, y: 0, z: 0}
   _dir2: {x: 0, y: 0, z: 0}
 --- !u!114 &1625774087025512982

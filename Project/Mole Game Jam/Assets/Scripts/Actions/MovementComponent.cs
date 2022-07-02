@@ -15,9 +15,7 @@ public class MovementComponent : MonoBehaviour
         movementDirection.Normalize();
         rb.velocity = movementDirection * speed;
         if (movementDirection != Vector3.zero)
-        {
-            //rb.MoveRotation(Quaternion.LookRotation(movementDirection, Vector3.up));
-            transform.rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-        }
+            transform.rotation = 
+                Quaternion.LookRotation(movementDirection, Vector3.up);
     }
 }

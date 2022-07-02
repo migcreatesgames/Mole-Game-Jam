@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     Rigidbody rb;
+    Character character;
 
     float horizontal;
     float vertical;
-    public float runSpeed = 5.0f;
+    
+
+    void Awake() {
+        rb = GetComponent<Rigidbody>(); 
+        character = GetComponent<Character>();
+    }
 
     // Start is called before the first frame update
     void Start ()
     {
-        rb = GetComponent<Rigidbody>(); 
+        
     }
 
     void Update ()
@@ -33,9 +39,9 @@ public class CharacterController : MonoBehaviour
     {  
         var movementDirection = new Vector3(horizontal, 0, vertical);
         movementDirection.Normalize();
-        rb.velocity = movementDirection * runSpeed;
+        rb.velocity = movementDirection * character.RunSpeed;
         if (movementDirection != Vector3.zero) {
             rb.MoveRotation(Quaternion.LookRotation(movementDirection, Vector3.up));
         }
-    }
+    }  
 }

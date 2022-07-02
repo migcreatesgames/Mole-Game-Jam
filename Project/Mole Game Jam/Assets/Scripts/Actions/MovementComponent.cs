@@ -4,7 +4,6 @@ public class MovementComponent : MonoBehaviour
 {
     Rigidbody rb;
   
-
     void Start ()
     {
         rb = GetComponent<Rigidbody>(); 

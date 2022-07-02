@@ -4,39 +4,43 @@ using UnityEngine;
 
 public class DigComponent : MonoBehaviour
 {
+    private float _curHitDistance;
+
     public float MAXHitDistance = 10;
     
     public Vector3 BoxCastSize1, BoxCastSize2;
-    public Vector3 _origin;
-    public Vector3 _dir;
+    public Transform originTransform;   
+    public Transform targetTransform1;
+    public Transform targetTransform2;
+    public Vector3 _origin1;
+    public Vector3 _dir1, _dir2;
     private Vector3 _targetPos1, _targetPos2;
-
-
-    void Start()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
-
 
     public void Dig(Entity digger)
     {
-        _origin = digger.gameObject.transform.position;
-        _dir = _origin + (Vector3.forward  * MAXHitDistance);
+        // stop player from moving
+        // check if section in front of player can be dug or far enough from obstables/wall to dig
+        // if so start dig animation
+        // else tell player area not diggable or too close to wall
+
+        _origin1 = originTransform.position;//digger.gameObject.transform.localPosition;
+        _dir1 = (_origin1 - targetTransform1.position);
+        _dir2 = (targetTransform1.position - targetTransform2.position);
+
+
+
     }
 
     private void OnDrawGizmos()
     {
-        
-        Debug.DrawRay(_origin, _dir.normalized, Color.red);
-        Gizmos.DrawWireCube(_origin + Vector3.forward, BoxCastSize1);
+        // check for diggable wall in front of player  
+       
+        Debug.DrawRay(_origin1, -_dir1, Color.red);
+        Gizmos.DrawWireCube(targetTransform1.position, BoxCastSize1);
 
-        //Debug.DrawRay(_origin , Vector3.down * MAXHitDistance, Color.blue);
-        //Gizmos.DrawWireCube(_origin + (_dir.normalized * MAXHitDistance), BoxCastSize2);
+        Debug.DrawRay(targetTransform1.position, -_dir2, Color.blue);
+        Gizmos.DrawWireCube(targetTransform2.position, BoxCastSize2);
+        // if no wall is detected, check if floor is diggable
+     
     }
 }

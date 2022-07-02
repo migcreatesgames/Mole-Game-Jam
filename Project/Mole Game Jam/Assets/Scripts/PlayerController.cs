@@ -39,7 +39,7 @@ public class PlayerController : Entity
 
     void FixedUpdate()
     {
-        _movementComponent.Move(_xInput, _yInput);
+        _movementComponent.Move(_xInput, _yInput, Speed);
     }
 }
 

@@ -19,15 +19,11 @@ public class DigDetection : MonoBehaviour
     public Vector3 _dir1, _dir2;
 
     private Vector3 _hitPoint1, _hitPoint2;
-
+    private RaycastHit m_Hit;
     public bool Detect(Entity digger)
     {
-        // stop player from moving
-        // check if section in front of player can be dug or far enough from obstables/wall to dig
-        // if so start dig animation
-        // else tell player area not diggable or too close to wall
-        // if no wall is detected, check if floor is diggable
         // check for diggable wall in front of player  
+        // if no wall is detected, check if floor is diggable
 
         _origin = _originTransform.position;//digger.gameObject.transform.localPosition;
         _dir1 = -(_origin - _targetPos1.position);
@@ -36,6 +32,7 @@ public class DigDetection : MonoBehaviour
         _hitPoint2 = _targetPos2.position;
 
         RaycastHit[] hits = Physics.RaycastAll(_origin, _dir1, 1f);
+        //RaycastHit floorDetect = Physics.BoxCastAll(_hitPoint2, BoxCastSize2, _dir2, out m_Hit, transform.rotation);
 
         foreach (RaycastHit hit in hits)
         {
@@ -59,6 +56,7 @@ public class DigDetection : MonoBehaviour
         Gizmos.DrawWireCube(_hitPoint1, BoxCastSize1);
 
         Debug.DrawRay(_hitPoint1, -_dir2, Color.blue);
-        Gizmos.DrawWireCube(_hitPoint2, BoxCastSize2);
+        Gizmos.DrawWireSphere(_hitPoint2, .5f);
+        //Gizmos.DrawWireCube(_hitPoint2, BoxCastSize2);
     }
 }

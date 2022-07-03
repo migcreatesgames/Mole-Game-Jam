@@ -9,6 +9,7 @@ public class PlayerController : Entity
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
+
     private CarryComponent _carryComponent;
 
     void Awake()

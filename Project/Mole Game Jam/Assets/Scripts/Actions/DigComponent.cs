@@ -7,14 +7,16 @@ public class DigComponent : MonoBehaviour
 {
     private DigDetection _detect;
 
-    private void Start ()
+    private void Start () => Init();
+
+    private void Init()
     {
         _detect = GetComponentInChildren<DigDetection>();
     }
 
+
     public void Dig(Entity digger)
     {
-
         // check if section in front of player can be dug
         // or far enough from obstables/wall to dig
         if (_detect.Detect(digger))

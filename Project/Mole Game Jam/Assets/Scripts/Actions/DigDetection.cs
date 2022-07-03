@@ -24,7 +24,6 @@ public class DigDetection : MonoBehaviour
     {
         // check for diggable wall in front of player  
         // if no wall is detected, check if floor is diggable
-
         _origin = _originTransform.position;//digger.gameObject.transform.localPosition;
         _dir1 = -(_origin - _targetPos1.position);
         _dir2 = (_targetPos1.position - _targetPos2.position);
@@ -32,8 +31,9 @@ public class DigDetection : MonoBehaviour
         _hitPoint2 = _targetPos2.position;
 
         RaycastHit[] hits = Physics.RaycastAll(_origin, _dir1, 1f);
-        //RaycastHit floorDetect = Physics.BoxCastAll(_hitPoint2, BoxCastSize2, _dir2, out m_Hit, transform.rotation);
-
+        //RaycastHit floorDetect =
+            //Physics.BoxCastAll(_hitPoint2, BoxCastSize2, _dir2, out m_Hit, transform.rotation);
+     
         foreach (RaycastHit hit in hits)
         {
             if (hit.transform != null)
@@ -47,6 +47,23 @@ public class DigDetection : MonoBehaviour
                 return true;
             }
         }
+        RaycastHit[] floorDetect =
+         Physics.SphereCastAll(_hitPoint2, .5f, _dir2);
+
+        foreach (RaycastHit hit in floorDetect)
+        {
+            if (hit.transform != null)
+            {
+                //hitDetect2 = true;
+                //_hitPoint1 = hit.point;
+                //_hitPoint2 = hit.point - new Vector3(0, .5f, 0);
+                //_dir1 = -(_origin - _hitPoint1);
+
+                Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name}");
+            
+            }
+
+        }        
         return false;
     }
 
@@ -56,7 +73,7 @@ public class DigDetection : MonoBehaviour
         Gizmos.DrawWireCube(_hitPoint1, BoxCastSize1);
 
         Debug.DrawRay(_hitPoint1, -_dir2, Color.blue);
-        Gizmos.DrawWireSphere(_hitPoint2, .5f);
+        Gizmos.DrawWireSphere(_hitPoint2, .35f);
         //Gizmos.DrawWireCube(_hitPoint2, BoxCastSize2);
     }
 }

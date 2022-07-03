@@ -5,7 +5,7 @@ public class PlayerController : Entity
     private float _xInput;
     private float _yInput;
 
-    private static PlayerController _instance;
+    public static PlayerController _instance;
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
@@ -30,6 +30,8 @@ public class PlayerController : Entity
     {
         if (_inputHandler)
         {
+            //_inputHandler.HandleInput(_instance);
+            
             _xInput = Input.GetAxisRaw("Horizontal");
             _yInput = Input.GetAxisRaw("Vertical");
 

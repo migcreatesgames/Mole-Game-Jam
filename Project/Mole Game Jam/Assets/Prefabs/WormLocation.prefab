@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Textures0:
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
-  - {x: 0.25000006, y: -0.5}
-  - {x: 0.25000006, y: 0.5}
+  - {x: 0.25000003, y: -0.5}
+  - {x: 0.25000003, y: 0.5}
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
   - {x: 0.25, y: -0.5}
@@ -497,10 +497,10 @@ MonoBehaviour:
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.8660254, y: 0, z: -0.50000006, w: -1}
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 790
+  m_VersionIndex: 793
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1102,8 +1102,8 @@ MonoBehaviour:
   m_Textures0:
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
-  - {x: 0.25000006, y: -0.5}
-  - {x: 0.25000006, y: 0.5}
+  - {x: 0.25000003, y: -0.5}
+  - {x: 0.25000003, y: 0.5}
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
   - {x: 0.25, y: -0.5}
@@ -1163,10 +1163,10 @@ MonoBehaviour:
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.8660254, y: 0, z: -0.50000006, w: -1}
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 787
+  m_VersionIndex: 790
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1513,6 +1513,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2670568764427490794}
+  - component: {fileID: 6993063499820652048}
+  - component: {fileID: 4084978577978454871}
   m_Layer: 0
   m_Name: WormLocation
   m_TagString: Untagged
@@ -1539,6 +1541,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6993063499820652048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243677963706397035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a68dd022bca64d8d911c5908c8b4f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &4084978577978454871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243677963706397035}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.75258857}
+  m_Center: {x: 0.39999998, y: 0, z: -0.28}
 --- !u!1 &7376598768667811617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,8 +2002,8 @@ MonoBehaviour:
   m_Textures0:
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
-  - {x: 0.25000006, y: -0.5}
-  - {x: 0.25000006, y: 0.5}
+  - {x: 0.25000003, y: -0.5}
+  - {x: 0.25000003, y: 0.5}
   - {x: -0.25, y: -0.5}
   - {x: -0.25, y: 0.5}
   - {x: 0.25, y: -0.5}
@@ -2036,10 +2063,10 @@ MonoBehaviour:
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: 0.00000006882553, y: 0, z: 1, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
-  - {x: -0.8660254, y: 0, z: 0.49999994, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: 0.000000068825514, y: 0, z: 1, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
+  - {x: -0.86602545, y: 0, z: 0.49999997, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.86602545, y: 0, z: 0.50000006, w: -1}
   - {x: -0.8660254, y: 0, z: -0.50000006, w: -1}
@@ -2105,7 +2132,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 790
+  m_VersionIndex: 793
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

@@ -167,9 +167,9 @@ GameObject:
   - component: {fileID: 9151564591147791002}
   - component: {fileID: 3697642850386123479}
   - component: {fileID: 7635563426439201111}
-  - component: {fileID: 1654540670796118654}
   - component: {fileID: 7635563426439201108}
   - component: {fileID: 1625774087025512982}
+  - component: {fileID: 7842952907510312127}
   - component: {fileID: 7635563426439201112}
   m_Layer: 0
   m_Name: Player
@@ -297,18 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5eb5cb2e8ba1b45abe11574445497a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1654540670796118654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4770208113249358771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb81d212ef274ce48413fe4e0850e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7635563426439201108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +320,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fc6d8fe76c084b4c90844701abb573b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runSpeedsCarryingWorms:
+  - 5
+  - 4
+  - 3
+  - 2
+--- !u!114 &7842952907510312127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770208113249358771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55378ade967bb4a7896b0b1c52412dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &7635563426439201112

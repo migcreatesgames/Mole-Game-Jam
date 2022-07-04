@@ -16,6 +16,7 @@ public class PlayerController : Entity
 
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
+    
 
     void Awake()
     {
@@ -53,6 +54,7 @@ public class PlayerController : Entity
 
     void FixedUpdate()
     {
+        Speed = _carryComponent.RunSpeedCarryingWorms;
         _movementComponent.Move(_xInput, _yInput, Speed);
     }
 

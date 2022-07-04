@@ -1,0 +1,120 @@
+using UnityEngine;
+
+public class DigDetection : MonoBehaviour
+{
+    [SerializeField]
+    private float _minHitDistance = 1f;
+    private bool _detectionEnabled = true;
+    private bool _checkFloor = false;
+
+    public float MAXHitDistance = 10;
+
+    public Vector3 BoxCastSize1, BoxCastSize2;
+    public Vector3 _origin;
+    public Vector3 _dir1, _dir2;
+
+    [SerializeField]
+    private Transform _originTransform;
+    [SerializeField]
+    private Transform _targetPos1;
+    [SerializeField]
+    public Transform _targetPos2;
+    private Transform _digTargetPos; 
+
+    public Vector3 _hitPoint1, _hitPoint2;
+
+    private DetectionResults _results;
+    public DetectionResults Results { get => _results; set => _results = value; }
+    public Transform DigTargetPos { get => _digTargetPos; set => _digTargetPos = value; }
+
+    private void FixedUpdate()
+    {
+        Debug.Log($"_checkFloor: {_checkFloor}");
+        if (_detectionEnabled)
+            Detect();
+    }
+
+    private void Detect()
+    {
+        // check for diggable wall in front of player  
+        // if no wall is detected, check if floor is diggable
+        _origin = _originTransform.position;
+        _dir1 = -(_origin - _targetPos1.position);
+        _dir2 = (_targetPos1.position - _targetPos2.position);
+        _hitPoint1 = _targetPos1.position;
+        _hitPoint2 = _targetPos2.position;
+
+        RaycastHit[] hits = Physics.RaycastAll(_origin, _dir1, 1f);
+        if (hits.Length == 0)
+            _checkFloor = true;
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.transform != null)
+            {
+                //Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+
+                if (hit.transform.gameObject.tag == "DiggableWall")
+                {
+                    _results = DetectionResults.dig_wall;
+                    _checkFloor = false;
+                }
+
+                if (hit.transform.gameObject.tag == "Wall")
+                {
+                    _hitPoint1 = hit.point;
+                    _hitPoint2 = hit.point - new Vector3(0, .5f, 0);
+                    _dir1 = -(_origin - _hitPoint1);
+
+                    // check distance between player and wall
+                    if (CheckDistance(_origin, _hitPoint1))
+                        _checkFloor = true;
+                    else
+                    {
+                        _checkFloor = false ;
+                        _results = DetectionResults.not_enough_space;
+                    }
+                }
+            }
+        }
+
+        if (!_checkFloor)
+            return;
+        
+        RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
+
+        foreach (RaycastHit hit in floorDetect)
+        {
+            if (hit.transform.gameObject.tag == "Player")
+                continue;
+
+            //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+            if (hit.transform.gameObject.tag == "DiggableFloor")
+                _results = DetectionResults.dig_floor;
+            if (hit.transform.gameObject.tag == "Hole")
+                _results = DetectionResults.hole;
+        }
+    }
+
+    private bool CheckDistance(Vector3 pos1, Vector3 pos2)
+    {
+        float distance = Vector3.Distance(pos1, pos2);
+        if (distance < _minHitDistance)
+            return false;
+        return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(_origin, _dir1, Color.red);
+        Gizmos.DrawWireCube(_hitPoint1, BoxCastSize1);
+
+        Debug.DrawRay(_hitPoint1, -_dir2, Color.blue);
+        Gizmos.DrawWireSphere(_hitPoint2, .35f);
+    }
+}
+
+public enum DetectionResults
+{
+    dig_wall, dig_floor, not_enough_space, wall, hole 
+}

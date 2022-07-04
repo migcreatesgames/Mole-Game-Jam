@@ -5,12 +5,17 @@ public class PlayerController : Entity
     private float _xInput;
     private float _yInput;
 
+    private bool _enableMovement = true; 
+
     private static PlayerController _instance;
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
 
     private CarryComponent _carryComponent;
+
+    public static PlayerController Instance { get => _instance; set => _instance = value; }
+    public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
 
     void Awake()
     {
@@ -30,11 +35,19 @@ public class PlayerController : Entity
     {
         if (_inputHandler)
         {
-            _xInput = Input.GetAxisRaw("Horizontal");
-            _yInput = Input.GetAxisRaw("Vertical");
-
+            //_inputHandler.HandleInput(_instance);
+            if (_enableMovement)
+            {
+                _xInput = Input.GetAxisRaw("Horizontal");
+                _yInput = Input.GetAxisRaw("Vertical");
+            }
+            if (Input.GetButtonDown("Dig"))
+            {
+                Debug.Log("holding Dig Button");
+                _digComponent.Dig(this);    
+            }
             // if dig button is being held
-            _digComponent.Dig(this);
+            
         }
     }
 
@@ -42,5 +55,7 @@ public class PlayerController : Entity
     {
         _movementComponent.Move(_xInput, _yInput, Speed);
     }
+
+    
 }
 

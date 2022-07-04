@@ -35,6 +35,10 @@ public class PlayerController : Entity
             _xInput = Input.GetAxisRaw("Horizontal");
             _yInput = Input.GetAxisRaw("Vertical");
 
+            if (Input.GetButtonDown("Dig"))
+            {
+                Debug.Log("holding Dig Button");
+            }
             // if dig button is being held
             _digComponent.Dig(this);
         }

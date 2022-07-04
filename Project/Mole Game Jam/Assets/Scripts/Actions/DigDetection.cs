@@ -22,7 +22,6 @@ public class DigDetection : MonoBehaviour
     private Transform _digTargetPos; 
 
     public Vector3 _hitPoint1, _hitPoint2;
-    private RaycastHit m_Hit;
 
     private DetectionResults _results;
     public DetectionResults Results { get => _results; set => _results = value; }
@@ -39,16 +38,16 @@ public class DigDetection : MonoBehaviour
     {
         // check for diggable wall in front of player  
         // if no wall is detected, check if floor is diggable
-        _origin = _originTransform.position;//digger.gameObject.transform.localPosition;
+        _origin = _originTransform.position;
         _dir1 = -(_origin - _targetPos1.position);
         _dir2 = (_targetPos1.position - _targetPos2.position);
         _hitPoint1 = _targetPos1.position;
         _hitPoint2 = _targetPos2.position;
 
-
         RaycastHit[] hits = Physics.RaycastAll(_origin, _dir1, 1f);
         if (hits.Length == 0)
             _checkFloor = true;
+
         foreach (RaycastHit hit in hits)
         {
             if (hit.transform != null)

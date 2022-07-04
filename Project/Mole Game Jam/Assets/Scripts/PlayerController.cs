@@ -4,6 +4,8 @@ public class PlayerController : Entity
 {
     private float _xInput;
     private float _yInput;
+    private float curDigHoldTime = 0f;
+    private float MAXDigHoldTime = 3f;
 
     private bool _enableMovement = true; 
 
@@ -41,13 +43,38 @@ public class PlayerController : Entity
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
             }
-            if (Input.GetButtonDown("Dig"))
+            if (Input.GetButton("Dig"))
             {
+        
                 Debug.Log("holding Dig Button");
-                _digComponent.Dig(this);    
+                Debug.Log($"dig state: {_digComponent.DigState}");
+                
+                if (curDigHoldTime > MAXDigHoldTime)
+                {
+                    // stop digging
+                    curDigHoldTime = 0f;
+                    _digComponent.DigState = DigComponent.DigStates.digging_complete;
+                }
+                if (curDigHoldTime == 0 && _digComponent.DigState == DigComponent.DigStates.digging_complete)
+                {
+                    // start digging
+                    curDigHoldTime += .01f;
+                    _digComponent.DigState = DigComponent.DigStates.init_dig;
+                    _digComponent.Dig(this);
+                }
+                if (curDigHoldTime < MAXDigHoldTime)
+                {
+                    // continue digging
+                    Debug.Log("continure digging");
+                    curDigHoldTime += .01f;
+                    _digComponent.Dig(this);
+                }     
             }
-            // if dig button is being held
-            
+        }
+
+        if (Input.GetButtonUp("Dig"))
+        {
+            curDigHoldTime = 0f;
         }
     }
 

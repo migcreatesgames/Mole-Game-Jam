@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - DiggableWall
   - DiggableFloor
+  - Hole
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DigComponent : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _holePrefab;
     private DigDetection _detect;
     private enum DigStates
     {
@@ -25,35 +27,32 @@ public class DigComponent : MonoBehaviour
         // check if section in front of player can be dug
         // or far enough from obstables/wall to dig
         DetectionResults results = _detect.Results;
-        
-        
+        Debug.Log($"results: {_detect.Results}");
         // init dig action
         SetupDig(results);
 
-        switch (_digStates)
-        {
-            case DigStates.init_dig:
-                break;
-            case DigStates.digging:
-                break;
-            case DigStates.digging_complete:
-       
-                break;
-            default:
-                break;
-        }
-      
-
+        //switch (_digStates)
+        //{
+        //    case DigStates.init_dig:
+        //        break;
+        //    case DigStates.digging:
+        //        break;
+        //    case DigStates.digging_complete:
+        //        
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     private void SetupDig(DetectionResults results)
     {
           switch (results)        
         {
-
             case DetectionResults.dig_wall:
                 // get dig target location
                 // stop player from moving
+                PlayerController.Instance.EnableMovement = true; 
                 // start "setup dig" animation
 
                 // start and increment counter that tracks time that
@@ -62,26 +61,38 @@ public class DigComponent : MonoBehaviour
             case DetectionResults.dig_floor:
                 // get dig target location
                 // stop player from moving
+                Transform targetPos = _detect.DigTargetPos;
+                SpawnDigPrefab();
+                //SpawnDigPrefab(targetPos);
                 // start "setup dig" animation
-
+                // Play didding particles
+                // play digging sound
+                PlayerController.Instance.EnableMovement = true;
                 // start and increment counter that tracks time that
                 // button is held down
-                break;
+                break;  
             case DetectionResults.not_enough_space:
-                // else tell player area not diggable or too close to wall
-                Debug.Log("warning: nothing to dig / too close to wall");
+                Debug.Log("warning: not enough space, too close to wall ");
                 break;
             case DetectionResults.wall:
                 // else tell player area not diggable or too close to wall
-                Debug.Log("warning: nothing to dig / too close to wall");
+                Debug.Log("warning: can't brake through a regular wall");
                 break;
             case DetectionResults.hole:
-                // else tell player area not diggable or too close to wall
-                Debug.Log("warning: nothing to dig / too close to wall");
+                Debug.Log("warning: can't dig next on hole");
                 break;
             default:
                 break;
         }
+    }
+
+    public void SpawnDigPrefab()
+    {
+
+        var tmp = Instantiate(_holePrefab, _detect._targetPos2) ;
+        tmp.transform.parent = null;
+        tmp.transform.position = _detect._hitPoint2 -new Vector3(0,.1f,0); 
+
     }
   
 }

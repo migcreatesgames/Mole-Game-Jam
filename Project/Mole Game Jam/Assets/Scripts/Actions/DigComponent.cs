@@ -60,30 +60,44 @@ public class DigComponent : MonoBehaviour
                 // button is held down
                 break;
             case DetectionResults.dig_floor:
+                if (_digState == DigComponent.DigStates.digging_complete)
+                {
+                    SpawnDigPrefab();
+                    PlayerController.Instance.EnableMovement = true;
+                    return;
+                }
                 if (_digState != DigStates.digging)
                 {
                     // get dig target location
                     // stop player from moving
                     Transform targetPos = _detect.DigTargetPos;
-                    SpawnDigPrefab();
+                    
+                    //PlayerController.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    PlayerController.Instance.EnableMovement = false;
                     //SpawnDigPrefab(targetPos);
                     // start "setup dig" animation
                     // Play didding particles
                     // play digging sound
                     _digState = DigStates.digging;
-                    PlayerController.Instance.EnableMovement = true;
+
                     // start and increment counter that tracks time that
                     // button is held down
                 }
+    
+
 
                 break;  
             case DetectionResults.not_enough_space:
+                PlayerController.Instance.EnableMovement = true;
                 Debug.Log("warning: not enough space, too close to wall ");
                 break;
             case DetectionResults.wall:
+
+                PlayerController.Instance.EnableMovement = true;
                 Debug.Log("warning: can't brake through a regular wall");
                 break;
             case DetectionResults.hole:
+                PlayerController.Instance.EnableMovement = true;
                 Debug.Log("warning: can't dig next on hole");
                 break;
             default:

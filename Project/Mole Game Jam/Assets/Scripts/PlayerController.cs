@@ -48,21 +48,24 @@ public class PlayerController : Entity
         
                 Debug.Log("holding Dig Button");
                 Debug.Log($"dig state: {_digComponent.DigState}");
+                Debug.Log($"curDigHoldTime : {curDigHoldTime}");
                 
-                if (curDigHoldTime > MAXDigHoldTime)
+                if (curDigHoldTime > MAXDigHoldTime && _digComponent.DigState == DigComponent.DigStates.digging)
                 {
                     // stop digging
                     curDigHoldTime = 0f;
                     _digComponent.DigState = DigComponent.DigStates.digging_complete;
+                    _digComponent.Dig(this);
                 }
                 if (curDigHoldTime == 0 && _digComponent.DigState == DigComponent.DigStates.digging_complete)
                 {
                     // start digging
                     curDigHoldTime += .01f;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
                     _digComponent.DigState = DigComponent.DigStates.init_dig;
                     _digComponent.Dig(this);
                 }
-                if (curDigHoldTime < MAXDigHoldTime)
+                if (curDigHoldTime < MAXDigHoldTime && _digComponent.DigState == DigComponent.DigStates.digging)
                 {
                     // continue digging
                     Debug.Log("continure digging");
@@ -75,6 +78,8 @@ public class PlayerController : Entity
         if (Input.GetButtonUp("Dig"))
         {
             curDigHoldTime = 0f;
+            _digComponent.DigState = DigComponent.DigStates.digging_complete;
+            PlayerController.Instance.EnableMovement = true;
         }
     }
 

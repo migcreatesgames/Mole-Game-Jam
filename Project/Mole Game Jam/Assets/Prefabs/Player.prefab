@@ -327,6 +327,7 @@ MonoBehaviour:
   - 4
   - 3
   - 2
+  MAX_num_of_worms_carried: 3
 --- !u!114 &7842952907510312127
 MonoBehaviour:
   m_ObjectHideFlags: 0

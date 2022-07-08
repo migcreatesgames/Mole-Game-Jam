@@ -32,10 +32,18 @@ public class CarryComponent : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
+        // picking up worm
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried) {
             _numOfWormsCarried++;
             GameObject.Destroy(worm.gameObject);
+        }
+
+        // feeding the nest
+        var nest = other.GetComponent<Nest>();
+        if (nest && _numOfWormsCarried > 0) {
+            nest.RegainHealth(_numOfWormsCarried * GameManager.Instance.WORM_HP);
+            _numOfWormsCarried = 0;
         }
     }
 }

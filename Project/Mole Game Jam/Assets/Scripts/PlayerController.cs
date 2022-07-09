@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : Entity
 {
@@ -13,12 +14,11 @@ public class PlayerController : Entity
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
-
     private CarryComponent _carryComponent;
-
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
-    
+
+    [SerializeField] TempUI _ui;
 
     void Awake()
     {
@@ -32,6 +32,14 @@ public class PlayerController : Entity
         _movementComponent = GetComponent<MovementComponent>();
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        _ui.SetMoleHealthText(Health);
+        OnDamageTakenEvent.AddListener(_ui.SetMoleHealthText);
+        OnRegainHealthEvent.AddListener(_ui.SetMoleHealthText);
     }
 
     void Update()

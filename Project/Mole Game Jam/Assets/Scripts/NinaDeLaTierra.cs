@@ -6,7 +6,12 @@ using UnityEngine.AI;
 public class NinaDeLaTierra : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    private Transform Player;
+    [SerializeField]private Transform Player;
+
+    private void Awake()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     private void Update()
     {

@@ -8,14 +8,27 @@ public class NinaDeLaTierra : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     [SerializeField]private Transform Player;
 
+    private Transform T;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        T = this.transform;
     }
 
     private void Update()
     {
-        navMeshAgent.destination = Player.position;
+        float targetRange = 4.5f;
+        if (Distance() < targetRange)
+        {
+            navMeshAgent.destination = Player.position;
+        }
+            
+    }
+
+    private float Distance()
+    {
+        return Vector3.Distance(T.position, Player.position);
     }
 
 }

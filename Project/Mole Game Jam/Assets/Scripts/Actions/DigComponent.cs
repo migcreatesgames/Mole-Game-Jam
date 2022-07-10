@@ -13,18 +13,18 @@ public class DigComponent : MonoBehaviour
         init_dig, digging, digging_complete
     }
 
-     private DigStates _digState = DigStates.digging_complete;
+    private DigStates _digState = DigStates.digging_complete;
 
-     public DigStates DigState { get => _digState; set => _digState = value; }
+    public DigStates DigState { get => _digState; set => _digState = value; }
 
-    private void Start () => Init();
+    private void Start() => Init();
 
     private void Init()
     {
         _detect = GetComponentInChildren<DigDetection>();
     }
 
-    public void Dig(Entity digger, float holdTime)
+    public void Dig(Entity digger)
     {
         if (_digState == DigStates.digging_complete)
         {
@@ -35,14 +35,28 @@ public class DigComponent : MonoBehaviour
             Debug.Log($"results: {_detect.Results}");
             // init dig action
             _canDig = IsValid(results);
-        }
-        if (_canDig)
-        {
-            StateManager(_digState, holdTime);
+            if (_canDig)
+            {
+                EnterState(DigStates.init_dig);
+            }
         }
     }
+    public void StopDig()
+    {
+        if (_digState == DigStates.digging || _digState == DigStates.init_dig)
+            EnterState(DigComponent.DigStates.digging_complete);
+    }
 
-    private void StateManager(DigStates state, float holdTime)
+    public void HoleCompleted()
+    {
+        if (_digState != DigStates.digging)
+            return;
+        SpawnDigPrefab();
+        EnterState(DigComponent.DigStates.digging_complete);
+    }
+
+
+    private void StateManager(DigStates state)
     {
         switch (state)
         {
@@ -55,7 +69,7 @@ public class DigComponent : MonoBehaviour
                 // start "setup dig" animation
                 // start and increment counter that tracks time that
                 // button is held down
-             
+
                 if (_digState != DigStates.digging)
                 {
                     // get dig target location
@@ -75,23 +89,10 @@ public class DigComponent : MonoBehaviour
                 }
                 break;
             case DigStates.digging:
-                if (holdTime > MAX_digHoldTime)
-                    EnterState(DigStates.digging_complete);
-                
-                if (holdTime < MAX_digHoldTime)
-                {
-                    // continue digging
-                    //if (!anim.isPlaying)
-                    //anim.Play()
-                    Debug.Log("continure digging");
-                    holdTime += .01f;
-                }
-             
+
                 break;
             case DigStates.digging_complete:
-
-                if (holdTime > MAX_digHoldTime)
-                    SpawnDigPrefab();
+                SpawnDigPrefab();
                 _canDig = false;
                 PlayerController.Instance.EnableMovement = true;
 
@@ -106,11 +107,18 @@ public class DigComponent : MonoBehaviour
         switch (state)
         {
             case DigStates.init_dig:
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                _digState = DigComponent.DigStates.init_dig;
                 break;
+
             case DigStates.digging:
+                _digState = DigComponent.DigStates.digging;
                 break;
+
             case DigStates.digging_complete:
-                //SpawnDigPrefab();
+                _canDig = false;
+                _digState = DigStates.digging_complete;
+                PlayerController.Instance.EnableMovement = true;
                 break;
             default:
                 break;
@@ -135,14 +143,14 @@ public class DigComponent : MonoBehaviour
     private bool IsValid(DetectionResults results)
     {
         bool valid = false;
-        switch (results)        
+        switch (results)
         {
             case DetectionResults.dig_wall:
                 valid = true;
                 break;
             case DetectionResults.dig_floor:
                 valid = true;
-                break;  
+                break;
             case DetectionResults.not_enough_space:
                 Debug.Log("warning: not enough space, too close to wall ");
                 break;
@@ -161,9 +169,9 @@ public class DigComponent : MonoBehaviour
 
     public void SpawnDigPrefab()
     {
-        var tmp = Instantiate(_holePrefab, _detect._targetPos2) ;
+        var tmp = Instantiate(_holePrefab, _detect._targetPos2);
         tmp.transform.parent = null;
-        tmp.transform.position = _detect._hitPoint2 -new Vector3(0,.1f,0); 
+        tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
         // give random rotation for visual variation
     }
 }

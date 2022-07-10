@@ -18,6 +18,8 @@ public class PlayerController : Entity
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
 
+    private Animator _animator;
+
     [SerializeField] TempUI _ui;
 
     void Awake()
@@ -28,6 +30,7 @@ public class PlayerController : Entity
             return;
         }
         _instance = this;
+        _animator = GetComponentInChildren<Animator>();
         _inputHandler = GetComponent<InputHandler>();
         _movementComponent = GetComponent<MovementComponent>();
         _digComponent = GetComponent<DigComponent>();
@@ -51,29 +54,44 @@ public class PlayerController : Entity
             {
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
+                if (_xInput != 0 || _yInput != 0)
+                {
+                    _animator.SetTrigger("Walk");
+                }
+                else
+                {
+                    _animator.SetTrigger("Idle");
+                }
+
             }
             if (Input.GetButton("Dig"))
             {
                 Debug.Log("holding Dig Button");
                 Debug.Log($"dig state: {_digComponent.DigState}");
                 Debug.Log($"curDigHoldTime : {curDigHoldTime}");
-                _digComponent.Dig(this, curDigHoldTime);
 
                 // stop digging
                 if (curDigHoldTime > MAXDigHoldTime)
                 {
-
+                    curDigHoldTime = 0f;
+                    _digComponent.HoleCompleted();
                 }
                 // start digging
                 if (curDigHoldTime == 0)
                 {
-
+                    // start digging
+                    curDigHoldTime += .01f;
+                    _digComponent.Dig(this);
+                    //    _digComponent.DigState = DigComponent.DigStates.init_dig;
                 }
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime)
                 {
-
+                    //    Debug.Log("continure digging");
+                    curDigHoldTime += .01f;
+                    //    _digComponent.Dig(this, curDigHoldTime);
                 }
+                #region older
                 //if (curDigHoldTime > MAXDigHoldTime && 
                 //    _digComponent.DigState == DigComponent.DigStates.digging)
                 //{
@@ -99,16 +117,15 @@ public class PlayerController : Entity
                 //    curDigHoldTime += .01f;
                 //    _digComponent.Dig(this, curDigHoldTime);
                 //}     
+                #endregion
             }
         }
 
-        if (Input.GetButtonUp("Dig") && 
-            _digComponent.DigState == DigComponent.DigStates.digging)
+        if (Input.GetButtonUp("Dig"))
         {
             // stop digging
+            _digComponent.StopDig();
             curDigHoldTime = 0f;
-            _digComponent.DigState = DigComponent.DigStates.digging_complete;
-            PlayerController.Instance.EnableMovement = true;
         }
     }
 

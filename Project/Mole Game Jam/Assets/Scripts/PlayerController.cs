@@ -80,6 +80,8 @@ public class PlayerController : Entity
                 // start digging
                 if (curDigHoldTime == 0)
                 {
+                   
+                    _animator.SetTrigger("DigInit");
                     // start digging
                     curDigHoldTime += .01f;
                     _digComponent.Dig(this);
@@ -125,6 +127,7 @@ public class PlayerController : Entity
         if (Input.GetButtonUp("Dig"))
         {
             // stop digging
+            _animator.SetTrigger("DigCompleted");
             _digComponent.StopDig();
             curDigHoldTime = 0f;
         }

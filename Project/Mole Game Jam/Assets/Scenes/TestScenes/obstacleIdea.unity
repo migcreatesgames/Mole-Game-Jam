@@ -24015,6 +24015,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7635563426439201108, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
+      propertyPath: MAX_digHoldTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7900659343599963447, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: m_IsActive
       value: 0

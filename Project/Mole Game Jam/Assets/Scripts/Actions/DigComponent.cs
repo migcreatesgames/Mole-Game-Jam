@@ -108,7 +108,9 @@ public class DigComponent : MonoBehaviour
         {
             case DigStates.init_dig:
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
+                PlayerController.Instance.EnableMovement = false;
                 _digState = DigComponent.DigStates.init_dig;
+               
                 break;
 
             case DigStates.digging:

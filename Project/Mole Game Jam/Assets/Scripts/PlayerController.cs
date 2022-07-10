@@ -54,13 +54,14 @@ public class PlayerController : Entity
             {
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
-                if (_xInput != 0 || _yInput != 0)
+                if (_xInput == 0 && _yInput == 0)
                 {
-                    _animator.SetTrigger("Walk");
+                    _animator.SetTrigger("Idle");
                 }
                 else
                 {
-                    _animator.SetTrigger("Idle");
+                    _animator.SetTrigger("Walk");
+                    
                 }
 
             }

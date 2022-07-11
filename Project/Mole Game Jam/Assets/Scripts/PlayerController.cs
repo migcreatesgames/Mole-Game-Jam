@@ -93,7 +93,6 @@ public class PlayerController : Entity
         if (Input.GetButtonUp("Dig"))
         {
             // stop digging
-            _animator.SetTrigger("DigCompleted");
             _digComponent.StopDig();
             curDigHoldTime = 0f;
         }
@@ -102,7 +101,8 @@ public class PlayerController : Entity
     void FixedUpdate()
     {
         Speed = _carryComponent.RunSpeedCarryingWorms;
-        _movementComponent.Move(_xInput, _yInput, Speed);
+        if (_enableMovement)
+            _movementComponent.Move(_xInput, _yInput, Speed);
     }
 }
 

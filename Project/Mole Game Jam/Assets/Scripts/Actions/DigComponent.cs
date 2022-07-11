@@ -63,6 +63,7 @@ public class DigComponent : MonoBehaviour
                 break;
 
             case DigStates.digging_complete:
+                _animator.SetTrigger("DigCompleted");
                 _canDig = false;
                 _digState = DigStates.digging_complete;
                 PlayerController.Instance.EnableMovement = true;

@@ -3,9 +3,19 @@ guid: 1373c3c46a89e9342ba2e1707da84c45
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mole_REF_mole_MAT
+    second: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mole_REF_worm_MAT
+    second: {fileID: -670872162404535559, guid: 9c7bda7063dc42f49887791fa68a7742, type: 3}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -24,7 +34,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -35,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -80,7 +90,1362 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: neutral(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:custom_org
+      parentName: neutral(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:out
+      parentName: mole_REF:custom_org
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:geom
+      parentName: mole_REF:out
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:bodyMerged
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:whiskers
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm0
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm1
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm2
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm3
+      parentName: mole_REF:geom
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:jnt_org
+      parentName: mole_REF:out
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:global_C0_jnt_org
+      parentName: mole_REF:jnt_org
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:global_C0_0_jnt
+      parentName: mole_REF:global_C0_jnt_org
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:local_C0_0_jnt
+      parentName: mole_REF:global_C0_0_jnt
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_0_jnt
+      parentName: mole_REF:local_C0_0_jnt
+      position: {x: 9.244464e-34, y: 0.3116559, z: -0.018640386}
+      rotation: {x: 0.22188967, y: 0, z: -0, w: 0.9750718}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_1_jnt
+      parentName: mole_REF:spine_C0_0_jnt
+      position: {x: -8.57718e-20, y: 0.047318213, z: 7.8978635e-10}
+      rotation: {x: -5.551115e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_2_jnt
+      parentName: mole_REF:spine_C0_1_jnt
+      position: {x: -8.5638325e-20, y: 0.04724459, z: 1.3322677e-16}
+      rotation: {x: -8.326673e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_3_jnt
+      parentName: mole_REF:spine_C0_2_jnt
+      position: {x: -8.572929e-20, y: 0.047294773, z: 1.7763569e-16}
+      rotation: {x: -5.551115e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_4_jnt
+      parentName: mole_REF:spine_C0_3_jnt
+      position: {x: -8.5699485e-20, y: 0.04727831, z: -2.2204459e-16}
+      rotation: {x: -8.326673e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_5_jnt
+      parentName: mole_REF:spine_C0_4_jnt
+      position: {x: -8.566901e-20, y: 0.047261465, z: 8.881784e-17}
+      rotation: {x: -5.551115e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:spine_C0_6_jnt
+      parentName: mole_REF:spine_C0_5_jnt
+      position: {x: -8.577194e-20, y: 0.04731821, z: 8.881784e-17}
+      rotation: {x: -8.326673e-17, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:upperSpine_C0_0_jnt
+      parentName: mole_REF:spine_C0_6_jnt
+      position: {x: -1.03397586e-26, y: -0.0000000044167043, z: 7.1967814e-11}
+      rotation: {x: 0.0482897, y: 0, z: -0, w: 0.99883336}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:upperSpine_C1_0_jnt
+      parentName: mole_REF:upperSpine_C0_0_jnt
+      position: {x: 1.7718555e-33, y: 0.09527533, z: -0.001646386}
+      rotation: {x: -0.08768469, y: 0, z: -0, w: 0.9961483}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:upperSpine_C2_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: 5.392604e-34, y: 0.07086297, z: 0.010639065}
+      rotation: {x: -0.12350255, y: 0.000048872418, z: 0.0001265572, w: 0.99234426}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_0_jnt
+      parentName: mole_REF:upperSpine_C2_0_jnt
+      position: {x: 5.8548273e-33, y: 0.0124174105, z: 0.003420712}
+      rotation: {x: 0.19253841, y: 0.000025537538, z: -0.0001649758, w: 0.98128945}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_1_jnt
+      parentName: mole_REF:neck_C0_0_jnt
+      position: {x: 0.0000073647, y: 0.027839873, z: 0.00006022833}
+      rotation: {x: 0.0021733902, y: -0.000013497443, z: -0.00031855924, w: 0.9999976}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_2_jnt
+      parentName: mole_REF:neck_C0_1_jnt
+      position: {x: 0.000006773288, y: 0.027707608, z: -0.00012586243}
+      rotation: {x: -0.11818724, y: 0.000004974491, z: -0.000046619065, w: 0.9929913}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_3_jnt
+      parentName: mole_REF:neck_C0_2_jnt
+      position: {x: -0.0000000729025, y: 0.027754072, z: -0.00040991203}
+      rotation: {x: -0.016256265, y: 0.00000062366615, z: 0.00004018508, w: 0.99986786}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_4_jnt
+      parentName: mole_REF:neck_C0_3_jnt
+      position: {x: -0.0000061256187, y: 0.027696183, z: -0.00065542076}
+      rotation: {x: -0.02425515, y: -0.0000061256783, z: 0.00024501616, w: 0.9997058}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_5_jnt
+      parentName: mole_REF:neck_C0_4_jnt
+      position: {x: -0.000009172521, y: 0.027831584, z: -0.00071239914}
+      rotation: {x: -0.32716212, y: -0.00015212904, z: 0.00037807753, w: 0.94496816}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:neck_C0_head_jnt
+      parentName: mole_REF:neck_C0_5_jnt
+      position: {x: -3.0357663e-19, y: -0.000000026420517, z: -0.00000001830276}
+      rotation: {x: -3.0531133e-16, y: -8.605855e-19, z: 7.995991e-19, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:teethTop_C0_0_jnt
+      parentName: mole_REF:neck_C0_head_jnt
+      position: {x: -0.00025497793, y: -0.102624215, z: 0.1014681}
+      rotation: {x: 0.30871955, y: -5.716967e-19, z: 1.0262207e-18, w: 0.9511531}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:jaw_C0_0_jnt
+      parentName: mole_REF:neck_C0_head_jnt
+      position: {x: 0.0002715595, y: -0.07245017, z: 0.06978284}
+      rotation: {x: 0.5325655, y: 0.4651602, z: -0.5325655, w: -0.4651602}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:eye_R0_eye_jnt
+      parentName: mole_REF:neck_C0_head_jnt
+      position: {x: 0.050226342, y: -0.09625032, z: 0.14817695}
+      rotation: {x: 0.30871955, y: -5.716967e-19, z: 1.0262207e-18, w: 0.9511531}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:eye_L0_eye_jnt
+      parentName: mole_REF:neck_C0_head_jnt
+      position: {x: -0.05049072, y: -0.09625032, z: 0.14817695}
+      rotation: {x: 0.30871955, y: -5.716967e-19, z: 1.0262207e-18, w: 0.9511531}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:shoulder_L0_shoulder_jnt
+      parentName: mole_REF:upperSpine_C2_0_jnt
+      position: {x: -0.015278114, y: -0.021387653, z: -0.022315394}
+      rotation: {x: -0.58000433, y: 0.22336297, z: -0.16937877, w: 0.7648626}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_0_jnt
+      parentName: mole_REF:shoulder_L0_shoulder_jnt
+      position: {x: -0.07918284, y: -0.013699151, z: -0.06670676}
+      rotation: {x: -0.30418405, y: -0.28168166, z: -0.08245857, w: 0.9062716}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_1_jnt
+      parentName: mole_REF:arm_L0_0_jnt
+      position: {x: -0.039641183, y: -2.220446e-17, z: -8.881784e-17}
+      rotation: {x: 0.021567166, y: -2.3877112e-16, z: -2.8288028e-16, w: 0.9997674}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_2_jnt
+      parentName: mole_REF:arm_L0_1_jnt
+      position: {x: -0.039641183, y: 4.440892e-17, z: -8.881784e-17}
+      rotation: {x: 0.02156655, y: -3.2341902e-16, z: -2.3290465e-16, w: 0.9997674}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: mole_REF:arm_L0_3_jnt
+      parentName: mole_REF:arm_L0_2_jnt
+      position: {x: -0.039641187, y: 0, z: 8.881784e-17}
+      rotation: {x: 0.021565016, y: -2.8498384e-16, z: -1.6042509e-16, w: 0.9997675}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_4_jnt
+      parentName: mole_REF:arm_L0_3_jnt
+      position: {x: -0.039641183, y: 6.6613384e-17, z: 1.7763569e-16}
+      rotation: {x: 0.021562573, y: -2.7583562e-16, z: -2.9943324e-16, w: 0.99976754}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: mole_REF:arm_L0_5_jnt
+      parentName: mole_REF:arm_L0_4_jnt
+      position: {x: -0.039641187, y: -1.4432899e-16, z: -8.881784e-17}
+      rotation: {x: -3.348766e-18, y: -2.7495277e-16, z: -2.7755576e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_6_jnt
+      parentName: mole_REF:arm_L0_5_jnt
+      position: {x: 1.7763569e-16, y: -1.110223e-17, z: -2.6645354e-16}
+      rotation: {x: 0.009286569, y: 0.023147129, z: 0.06894615, w: 0.99730855}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: mole_REF:arm_L0_7_jnt
+      parentName: mole_REF:arm_L0_6_jnt
+      position: {x: -0.0559446, y: 0, z: 0}
+      rotation: {x: -0.044544525, y: 2.3657027e-16, z: -4.523498e-17, w: 0.9990074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_8_jnt
+      parentName: mole_REF:arm_L0_7_jnt
+      position: {x: -0.0559446, y: 8.881784e-17, z: 0}
+      rotation: {x: -0.044544525, y: 2.3657993e-16, z: -4.5451606e-17, w: 0.9990074}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: mole_REF:arm_L0_9_jnt
+      parentName: mole_REF:arm_L0_8_jnt
+      position: {x: -0.055944603, y: 1.3322677e-16, z: -2.6645354e-16}
+      rotation: {x: -0.044544525, y: 1.6707054e-16, z: 6.2798725e-17, w: 0.9990074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_10_jnt
+      parentName: mole_REF:arm_L0_9_jnt
+      position: {x: -0.05594459, y: -1.7763569e-16, z: -8.881784e-17}
+      rotation: {x: -0.044544525, y: 7.4175264e-17, z: 1.6978925e-16, w: 0.9990074}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: mole_REF:arm_L0_11_jnt
+      parentName: mole_REF:arm_L0_10_jnt
+      position: {x: -0.055944588, y: -6.2172494e-16, z: 2.664535e-15}
+      rotation: {x: -1.9287767e-17, y: 9.554261e-17, z: 2.2161092e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_L0_end_jnt
+      parentName: mole_REF:arm_L0_11_jnt
+      position: {x: 1.7486012e-16, y: 0, z: -8.881784e-17}
+      rotation: {x: -0.004529013, y: -0.00008199714, z: -0.018140186, w: 0.9998252}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_L0_0_jnt
+      parentName: mole_REF:arm_L0_end_jnt
+      position: {x: -0.04064661, y: -0.021170715, z: -0.0058142487}
+      rotation: {x: -0.55312806, y: 0.46002352, z: 0.55944884, w: -0.41163665}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_L0_1_jnt
+      parentName: mole_REF:meta_L0_0_jnt
+      position: {x: -0.016685275, y: -3.5527137e-16, z: -1.3253288e-16}
+      rotation: {x: 0.0014150396, y: -0.017679665, z: 0.06251725, w: 0.9978863}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_L0_2_jnt
+      parentName: mole_REF:meta_L0_1_jnt
+      position: {x: -0.017804788, y: 2.6645354e-16, z: 1.6098233e-16}
+      rotation: {x: 0.03187475, y: -0.07892552, z: 0.15646571, w: 0.9840088}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_L0_3_jnt
+      parentName: mole_REF:meta_L0_2_jnt
+      position: {x: -0.015019916, y: -4.440892e-17, z: 2.220446e-17}
+      rotation: {x: -3.538836e-16, y: 2.359224e-16, z: 1.5265567e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L3_0_jnt
+      parentName: mole_REF:meta_L0_3_jnt
+      position: {x: -0.038575802, y: -0.00513862, z: 0.05252732}
+      rotation: {x: 0.91124964, y: 0.122327395, z: -0.3604979, w: -0.1571666}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L3_1_jnt
+      parentName: mole_REF:finger_L3_0_jnt
+      position: {x: -0.041617315, y: 2.6645354e-16, z: -3.5527137e-16}
+      rotation: {x: -0.0017061554, y: -0.0027709513, z: -0.25183237, w: 0.9677654}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L3_2_jnt
+      parentName: mole_REF:finger_L3_1_jnt
+      position: {x: -0.022734413, y: -6.0194906e-17, z: 2.6645354e-16}
+      rotation: {x: -0.008469469, y: -0.034568716, z: -0.12637253, w: 0.9913442}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L2_0_jnt
+      parentName: mole_REF:meta_L0_2_jnt
+      position: {x: -0.017224055, y: -0.004885103, z: 0.06975842}
+      rotation: {x: 0.844322, y: 0.043561958, z: -0.5105958, w: -0.15657182}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L2_1_jnt
+      parentName: mole_REF:finger_L2_0_jnt
+      position: {x: -0.06261896, y: -2.2204459e-16, z: -8.881784e-17}
+      rotation: {x: -0.019693118, y: -0.023472803, z: -0.29378557, w: 0.9553802}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L2_2_jnt
+      parentName: mole_REF:finger_L2_1_jnt
+      position: {x: -0.03739255, y: -3.7747584e-16, z: -2.2204459e-16}
+      rotation: {x: -0.0076517286, y: 0.010968155, z: -0.09432917, w: 0.9954513}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L1_0_jnt
+      parentName: mole_REF:meta_L0_1_jnt
+      position: {x: -0.006951911, y: -0.011558693, z: 0.08524984}
+      rotation: {x: 0.7291981, y: 0.13475364, z: -0.6624647, w: -0.10607606}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L1_1_jnt
+      parentName: mole_REF:finger_L1_0_jnt
+      position: {x: -0.097347684, y: -5.3290707e-16, z: 1.7763569e-16}
+      rotation: {x: 0.015962962, y: 0.029565504, z: -0.2337278, w: 0.9717214}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L1_2_jnt
+      parentName: mole_REF:finger_L1_1_jnt
+      position: {x: -0.05754457, y: -3.5527137e-16, z: 1.7763569e-16}
+      rotation: {x: 0.004961377, y: -0.04450698, z: -0.11271231, w: 0.992618}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L0_0_jnt
+      parentName: mole_REF:meta_L0_0_jnt
+      position: {x: 0.0039558094, y: -0.012963078, z: 0.086896375}
+      rotation: {x: -0.6595766, y: -0.079469465, z: 0.746031, w: 0.045620598}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L0_1_jnt
+      parentName: mole_REF:finger_L0_0_jnt
+      position: {x: -0.09959819, y: -1.7763569e-16, z: -2.6645354e-16}
+      rotation: {x: 0.0071577197, y: 0.0176774, z: -0.19856817, w: 0.97990155}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_L0_2_jnt
+      parentName: mole_REF:finger_L0_1_jnt
+      position: {x: -0.05027676, y: -8.881784e-17, z: -1.7763569e-16}
+      rotation: {x: 0.0018622138, y: -0.026842296, z: -0.08184038, w: 0.9962822}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_L0_0_jnt
+      parentName: mole_REF:meta_L0_0_jnt
+      position: {x: 0.013852125, y: -0.027036788, z: 0.0063533783}
+      rotation: {x: -0.293718, y: 0.37083375, z: 0.8065907, w: 0.3544341}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_L0_1_jnt
+      parentName: mole_REF:thumb_L0_0_jnt
+      position: {x: -0.05074263, y: -1.7763569e-16, z: -4.8849814e-16}
+      rotation: {x: 0.048321884, y: 0.09856251, z: -0.21279521, w: 0.97091126}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_L0_2_jnt
+      parentName: mole_REF:thumb_L0_1_jnt
+      position: {x: -0.03981435, y: 1.7763569e-16, z: -1.7763569e-16}
+      rotation: {x: 0.007706994, y: -0.020908372, z: -0.025240537, w: 0.99943304}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L1_0_jnt
+      parentName: mole_REF:arm_L0_end_jnt
+      position: {x: -0.04064661, y: -0.021170715, z: -0.0058142487}
+      rotation: {x: -0.6873976, y: 0.69994086, z: 0.049398154, w: 0.1874225}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L1_1_jnt
+      parentName: mole_REF:fingerHydraulic_L1_0_jnt
+      position: {x: -3.9968025e-16, y: 0.08794697, z: -6.2172494e-16}
+      rotation: {x: -9.315465e-16, y: 1.3877788e-17, z: -4.1633363e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L2_0_jnt
+      parentName: mole_REF:arm_L0_end_jnt
+      position: {x: -0.039825544, y: -0.004994623, z: -0.0018069695}
+      rotation: {x: -0.63521606, y: 0.76820654, z: -0.047847264, w: 0.06379585}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L2_1_jnt
+      parentName: mole_REF:fingerHydraulic_L2_0_jnt
+      position: {x: 2.6645354e-16, y: 0.08631031, z: 0}
+      rotation: {x: 8.456777e-16, y: 5.6812194e-17, z: -2.6367797e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L3_0_jnt
+      parentName: mole_REF:arm_L0_end_jnt
+      position: {x: -0.038219586, y: 0.012611842, z: 0.00030106402}
+      rotation: {x: -0.51948124, y: 0.8467475, z: -0.06462457, w: 0.09477106}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L3_1_jnt
+      parentName: mole_REF:fingerHydraulic_L3_0_jnt
+      position: {x: 2.2204459e-16, y: 0.072019234, z: -1.7763569e-16}
+      rotation: {x: -2.1061711e-15, y: -1.2576745e-16, z: -4.57967e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L4_0_jnt
+      parentName: mole_REF:arm_L0_end_jnt
+      position: {x: -0.03428461, y: 0.026840463, z: -0.0024666411}
+      rotation: {x: -0.33677056, y: 0.93193567, z: -0.12604578, w: 0.04684031}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_L4_1_jnt
+      parentName: mole_REF:fingerHydraulic_L4_0_jnt
+      position: {x: -8.881784e-17, y: 0.065372914, z: -1.7763569e-16}
+      rotation: {x: -5.7939764e-16, y: -3.1918912e-16, z: -3.6082248e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:wormPlacer_L0_0_jnt
+      parentName: mole_REF:arm_L0_0_jnt
+      position: {x: -0.20409422, y: -0.09759342, z: 0.0034274096}
+      rotation: {x: 0.6767452, y: 0.20497794, z: 0.20497794, w: 0.6767452}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L0_0_jnt
+      parentName: mole_REF:wormPlacer_L0_0_jnt
+      position: {x: 6.616929e-15, y: 0.07737005, z: 1.7763569e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -1.0147441e-15, w: 6.419441e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L0_1_jnt
+      parentName: mole_REF:worm_L0_0_jnt
+      position: {x: -0.07545072, y: -2.6645354e-16, z: -1.7763569e-16}
+      rotation: {x: 1.6653345e-16, y: 6.238144e-17, z: 3.1684016e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L0_2_jnt
+      parentName: mole_REF:worm_L0_1_jnt
+      position: {x: -0.096322455, y: 3.5527137e-16, z: 0}
+      rotation: {x: 3.8857806e-16, y: 2.995922e-16, z: -5.599078e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L0_3_jnt
+      parentName: mole_REF:worm_L0_2_jnt
+      position: {x: -0.095736764, y: -5.7731595e-16, z: 8.881784e-17}
+      rotation: {x: 3.8857806e-16, y: 2.926533e-16, z: -6.0327586e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L0_4_jnt
+      parentName: mole_REF:worm_L0_3_jnt
+      position: {x: -0.09186378, y: -4.440892e-17, z: -3.5527137e-16}
+      rotation: {x: 1.9428903e-16, y: 9.3606465e-17, z: 3.4633046e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_0_jnt
+      parentName: mole_REF:wormPlacer_L0_0_jnt
+      position: {x: -6.5281113e-15, y: -0.07737005, z: 3.5527137e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -5.5706466e-16, w: 1.5756798e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_1_jnt
+      parentName: mole_REF:worm_R0_0_jnt
+      position: {x: 0.07545072, y: -6.2172494e-16, z: 4.4408918e-16}
+      rotation: {x: 8.326673e-17, y: 2.9462988e-16, z: 1.1079591e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_2_jnt
+      parentName: mole_REF:worm_R0_1_jnt
+      position: {x: 0.110147655, y: -1.598721e-15, z: 1.7763569e-16}
+      rotation: {x: 5.551115e-17, y: 2.9376251e-16, z: 1.654397e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_3_jnt
+      parentName: mole_REF:worm_R0_2_jnt
+      position: {x: 0.08909294, y: -7.1054275e-16, z: 6.2172494e-16}
+      rotation: {x: 8.326673e-17, y: 2.9376251e-16, z: 1.654397e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_4_jnt
+      parentName: mole_REF:worm_R0_3_jnt
+      position: {x: 0.07701716, y: 8.4376954e-16, z: 2.6645354e-16}
+      rotation: {x: 8.326673e-17, y: 2.9376251e-16, z: 1.654397e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_5_jnt
+      parentName: mole_REF:worm_R0_4_jnt
+      position: {x: 0.06655278, y: -1.7763569e-16, z: -4.4408918e-16}
+      rotation: {x: 8.326673e-17, y: 2.9376251e-16, z: 1.654397e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R0_6_jnt
+      parentName: mole_REF:worm_R0_5_jnt
+      position: {x: 0.06262635, y: -1.7763569e-16, z: -6.2172494e-16}
+      rotation: {x: 8.326673e-17, y: 2.9376251e-16, z: 1.654397e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:wormPlacer_L1_0_jnt
+      parentName: mole_REF:arm_L0_0_jnt
+      position: {x: -0.26736358, y: -0.1397918, z: 0.0034274096}
+      rotation: {x: 0.6767452, y: 0.20497794, z: 0.20497794, w: 0.6767452}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L1_0_jnt
+      parentName: mole_REF:wormPlacer_L1_0_jnt
+      position: {x: 6.483702e-15, y: 0.07737005, z: 3.5527137e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -9.000717e-16, w: 4.42598e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L1_1_jnt
+      parentName: mole_REF:worm_L1_0_jnt
+      position: {x: -0.07545072, y: -1.9984013e-16, z: 8.881784e-17}
+      rotation: {x: -1.6653345e-16, y: 2.5496113e-16, z: 6.069922e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L1_2_jnt
+      parentName: mole_REF:worm_L1_1_jnt
+      position: {x: -0.096322455, y: 3.1086247e-16, z: 0}
+      rotation: {x: -2.7755576e-17, y: 2.575632e-16, z: 6.156658e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L1_3_jnt
+      parentName: mole_REF:worm_L1_2_jnt
+      position: {x: -0.095736764, y: -9.103829e-16, z: -2.6645354e-16}
+      rotation: {x: -1.3877788e-16, y: 2.5062432e-16, z: 1.1274093e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L1_4_jnt
+      parentName: mole_REF:worm_L1_3_jnt
+      position: {x: -0.09186378, y: 4.2188477e-16, z: -4.4408918e-16}
+      rotation: {x: -1.3877788e-16, y: 2.5929793e-16, z: 9.018952e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_0_jnt
+      parentName: mole_REF:wormPlacer_L1_0_jnt
+      position: {x: -6.3504758e-15, y: -0.07737005, z: 3.5527137e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -5.5163227e-16, w: 1.630004e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_1_jnt
+      parentName: mole_REF:worm_R1_0_jnt
+      position: {x: 0.07545072, y: -8.2156505e-16, z: 6.2172494e-16}
+      rotation: {x: 5.551115e-17, y: 2.314361e-16, z: 4.2214163e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_2_jnt
+      parentName: mole_REF:worm_R1_1_jnt
+      position: {x: 0.110147655, y: -1.6209256e-15, z: 8.881784e-17}
+      rotation: {x: 8.326673e-17, y: 2.3056875e-16, z: 6.7367654e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_3_jnt
+      parentName: mole_REF:worm_R1_2_jnt
+      position: {x: 0.08909294, y: -9.769963e-16, z: 7.993605e-16}
+      rotation: {x: 5.551115e-17, y: 2.3056875e-16, z: 6.8235015e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_4_jnt
+      parentName: mole_REF:worm_R1_3_jnt
+      position: {x: 0.07701716, y: 1.0436097e-15, z: 1.7763569e-16}
+      rotation: {x: 1.110223e-16, y: 2.3056875e-16, z: 6.8235015e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_5_jnt
+      parentName: mole_REF:worm_R1_4_jnt
+      position: {x: 0.06655278, y: 1.7763569e-16, z: -6.2172494e-16}
+      rotation: {x: 8.326673e-17, y: 2.3056875e-16, z: 6.8235015e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R1_6_jnt
+      parentName: mole_REF:worm_R1_5_jnt
+      position: {x: 0.06262635, y: 2.220446e-17, z: -3.5527137e-16}
+      rotation: {x: 2.7755576e-17, y: 2.3056875e-16, z: 6.8235015e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:wormPlacer_L2_0_jnt
+      parentName: mole_REF:arm_L0_0_jnt
+      position: {x: -0.32678196, y: -0.17942168, z: 0.0034274096}
+      rotation: {x: 0.6767452, y: 0.20497794, z: 0.20497794, w: 0.6767452}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_0_jnt
+      parentName: mole_REF:wormPlacer_L2_0_jnt
+      position: {x: -6.5170092e-15, y: -0.07737005, z: 3.5527137e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -5.562949e-16, w: 1.5833773e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_1_jnt
+      parentName: mole_REF:worm_R2_0_jnt
+      position: {x: 0.07545072, y: -1.0658141e-15, z: 4.4408918e-16}
+      rotation: {x: 1.3877788e-16, y: 2.7792874e-16, z: 6.208856e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_2_jnt
+      parentName: mole_REF:worm_R2_1_jnt
+      position: {x: 0.110147655, y: -1.5765167e-15, z: 0}
+      rotation: {x: 1.6653345e-16, y: 4.123698e-16, z: -1.6516021e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_3_jnt
+      parentName: mole_REF:worm_R2_2_jnt
+      position: {x: 0.08909294, y: -9.992007e-16, z: 1.2434499e-15}
+      rotation: {x: 8.326673e-17, y: 4.0456356e-16, z: -2.2153873e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_4_jnt
+      parentName: mole_REF:worm_R2_3_jnt
+      position: {x: 0.07701716, y: 7.327472e-16, z: 8.881784e-17}
+      rotation: {x: 8.326673e-17, y: 4.0716564e-16, z: -1.6602758e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_5_jnt
+      parentName: mole_REF:worm_R2_4_jnt
+      position: {x: 0.06655278, y: -1.110223e-17, z: -7.1054275e-16}
+      rotation: {x: 5.551115e-17, y: 4.0629828e-16, z: -1.6602758e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R2_6_jnt
+      parentName: mole_REF:worm_R2_5_jnt
+      position: {x: 0.06262635, y: 1.8873792e-16, z: -8.881784e-17}
+      rotation: {x: 8.326673e-17, y: 4.0629828e-16, z: -1.6602758e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L2_0_jnt
+      parentName: mole_REF:wormPlacer_L2_0_jnt
+      position: {x: 6.139533e-15, y: 0.07737005, z: 1.7763569e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: -9.000717e-16, w: 4.42598e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L2_1_jnt
+      parentName: mole_REF:worm_L2_0_jnt
+      position: {x: -0.07545072, y: -1.8873792e-16, z: 8.881784e-17}
+      rotation: {x: -1.6653345e-16, y: 2.5496113e-16, z: 6.069922e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L2_2_jnt
+      parentName: mole_REF:worm_L2_1_jnt
+      position: {x: -0.096322455, y: 2.3314682e-16, z: 2.6645354e-16}
+      rotation: {x: -2.7755576e-17, y: 2.575632e-16, z: 6.156658e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L2_3_jnt
+      parentName: mole_REF:worm_L2_2_jnt
+      position: {x: -0.095736764, y: -6.106227e-16, z: -8.881784e-17}
+      rotation: {x: -1.3877788e-16, y: 2.5062432e-16, z: 1.1274093e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L2_4_jnt
+      parentName: mole_REF:worm_L2_3_jnt
+      position: {x: -0.09186378, y: 3.8857806e-16, z: -1.7763569e-16}
+      rotation: {x: -1.6653345e-16, y: 2.5929793e-16, z: 9.018952e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:shoulder_R0_shoulder_jnt
+      parentName: mole_REF:upperSpine_C2_0_jnt
+      position: {x: 0.015278114, y: -0.021387653, z: -0.022315394}
+      rotation: {x: 0.7648626, y: 0.16937877, z: 0.22336297, w: 0.58000433}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_0_jnt
+      parentName: mole_REF:shoulder_R0_shoulder_jnt
+      position: {x: 0.07918284, y: 0.013699151, z: 0.06670676}
+      rotation: {x: 0.281682, y: -0.30418393, z: -0.90627146, w: -0.08245835}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_1_jnt
+      parentName: mole_REF:arm_R0_0_jnt
+      position: {x: -0.039641183, y: -8.881784e-17, z: 4.4408918e-16}
+      rotation: {x: -0.021567166, y: -3.8900273e-17, z: 3.2995814e-17, w: 0.9997674}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_2_jnt
+      parentName: mole_REF:arm_R0_1_jnt
+      position: {x: -0.039641183, y: -2.220446e-17, z: -1.7763569e-16}
+      rotation: {x: -0.02156655, y: -2.5232036e-18, z: 6.848309e-17, w: 0.9997674}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: mole_REF:arm_R0_3_jnt
+      parentName: mole_REF:arm_R0_2_jnt
+      position: {x: -0.039641187, y: -2.220446e-17, z: -8.881784e-17}
+      rotation: {x: -0.021565016, y: 1.05647455e-16, z: 8.1227105e-17, w: 0.9997675}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_4_jnt
+      parentName: mole_REF:arm_R0_3_jnt
+      position: {x: -0.039641183, y: 4.440892e-17, z: 8.881784e-17}
+      rotation: {x: -0.021562573, y: 1.06925475e-16, z: 1.1248669e-16, w: 0.99976754}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: mole_REF:arm_R0_5_jnt
+      parentName: mole_REF:arm_R0_4_jnt
+      position: {x: -0.039641187, y: -2.4424907e-16, z: 1.598721e-15}
+      rotation: {x: -2.6778176e-17, y: 9.761672e-17, z: 1.1015494e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_6_jnt
+      parentName: mole_REF:arm_R0_5_jnt
+      position: {x: -2.6645354e-16, y: 3.3306692e-17, z: 8.881784e-17}
+      rotation: {x: -0.00928654, y: -0.023147767, z: 0.06894632, w: 0.99730855}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: mole_REF:arm_R0_7_jnt
+      parentName: mole_REF:arm_R0_6_jnt
+      position: {x: -0.0559446, y: -1.3322677e-16, z: 0}
+      rotation: {x: 0.04454453, y: 6.6341357e-16, z: 1.0911791e-16, w: 0.9990074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_8_jnt
+      parentName: mole_REF:arm_R0_7_jnt
+      position: {x: -0.0559446, y: 1.7763569e-16, z: 0}
+      rotation: {x: 0.04454453, y: 6.322195e-16, z: 1.1050881e-16, w: 0.9990074}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: mole_REF:arm_R0_9_jnt
+      parentName: mole_REF:arm_R0_8_jnt
+      position: {x: -0.055944603, y: 0, z: 8.881784e-17}
+      rotation: {x: 0.04454453, y: 7.4774417e-16, z: 7.757455e-17, w: 0.9990074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_10_jnt
+      parentName: mole_REF:arm_R0_9_jnt
+      position: {x: -0.05594459, y: -8.881784e-17, z: 3.5527137e-16}
+      rotation: {x: 0.04454453, y: 5.626564e-16, z: 3.0261086e-17, w: 0.9990074}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: mole_REF:arm_R0_11_jnt
+      parentName: mole_REF:arm_R0_10_jnt
+      position: {x: -0.055944588, y: 5.3290707e-16, z: -2.6645354e-16}
+      rotation: {x: 3.7615132e-17, y: 6.232e-16, z: 5.507747e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:arm_R0_end_jnt
+      parentName: mole_REF:arm_R0_11_jnt
+      position: {x: -1.110223e-17, y: 2.6645354e-16, z: 8.881784e-17}
+      rotation: {x: 0.0045290054, y: 0.000081997, z: -0.018140186, w: 0.9998252}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_R0_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.04064661, y: -0.021170715, z: 0.0058142487}
+      rotation: {x: 0.46002352, y: 0.55312806, z: 0.41163665, w: 0.55944884}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_R0_1_jnt
+      parentName: mole_REF:meta_R0_0_jnt
+      position: {x: 0.016685275, y: 5.3290707e-16, z: -6.938894e-19}
+      rotation: {x: 0.0014150396, y: -0.017679665, z: 0.06251725, w: 0.9978863}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_R0_2_jnt
+      parentName: mole_REF:meta_R0_1_jnt
+      position: {x: 0.017804788, y: -1.7763569e-16, z: -1.3322677e-16}
+      rotation: {x: 0.03187475, y: -0.07892552, z: 0.15646571, w: 0.9840088}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:meta_R0_3_jnt
+      parentName: mole_REF:meta_R0_2_jnt
+      position: {x: 0.015019916, y: 0, z: 8.881784e-17}
+      rotation: {x: -2.4286129e-17, y: 8.326673e-17, z: -4.1633363e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R3_0_jnt
+      parentName: mole_REF:meta_R0_3_jnt
+      position: {x: 0.038575802, y: 0.00513862, z: -0.05252732}
+      rotation: {x: 0.91124964, y: 0.122327395, z: -0.3604979, w: -0.1571666}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R3_1_jnt
+      parentName: mole_REF:finger_R3_0_jnt
+      position: {x: 0.041617315, y: -1.7763569e-16, z: -4.440892e-17}
+      rotation: {x: -0.0017061554, y: -0.0027709513, z: -0.25183237, w: 0.9677654}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R3_2_jnt
+      parentName: mole_REF:finger_R3_1_jnt
+      position: {x: 0.022734413, y: 2.3279989e-16, z: 4.8849814e-16}
+      rotation: {x: -0.008469469, y: -0.034568716, z: -0.12637253, w: 0.9913442}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R2_0_jnt
+      parentName: mole_REF:meta_R0_2_jnt
+      position: {x: 0.017224055, y: 0.004885103, z: -0.06975842}
+      rotation: {x: 0.844322, y: 0.043561958, z: -0.5105958, w: -0.15657182}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R2_1_jnt
+      parentName: mole_REF:finger_R2_0_jnt
+      position: {x: 0.06261896, y: -8.881784e-17, z: 8.881784e-17}
+      rotation: {x: -0.019693118, y: -0.023472803, z: -0.29378557, w: 0.9553802}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R2_2_jnt
+      parentName: mole_REF:finger_R2_1_jnt
+      position: {x: 0.03739255, y: 1.5543123e-16, z: 1.3322677e-16}
+      rotation: {x: -0.0076517286, y: 0.010968155, z: -0.09432917, w: 0.9954513}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R1_0_jnt
+      parentName: mole_REF:meta_R0_1_jnt
+      position: {x: 0.006951911, y: 0.011558693, z: -0.08524984}
+      rotation: {x: 0.7291981, y: 0.13475364, z: -0.6624647, w: -0.10607606}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R1_1_jnt
+      parentName: mole_REF:finger_R1_0_jnt
+      position: {x: 0.097347684, y: -8.881784e-17, z: 8.881784e-17}
+      rotation: {x: 0.015962962, y: 0.029565504, z: -0.2337278, w: 0.9717214}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R1_2_jnt
+      parentName: mole_REF:finger_R1_1_jnt
+      position: {x: 0.05754457, y: 0, z: 1.7763569e-16}
+      rotation: {x: 0.004961377, y: -0.04450698, z: -0.11271231, w: 0.992618}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R0_0_jnt
+      parentName: mole_REF:meta_R0_0_jnt
+      position: {x: -0.0039558094, y: 0.012963078, z: -0.086896375}
+      rotation: {x: -0.6595766, y: -0.079469465, z: 0.746031, w: 0.045620598}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R0_1_jnt
+      parentName: mole_REF:finger_R0_0_jnt
+      position: {x: 0.09959819, y: -5.3290707e-16, z: 2.2204459e-16}
+      rotation: {x: 0.0071577197, y: 0.0176774, z: -0.19856817, w: 0.97990155}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:finger_R0_2_jnt
+      parentName: mole_REF:finger_R0_1_jnt
+      position: {x: 0.05027676, y: 2.6645354e-16, z: -8.881784e-17}
+      rotation: {x: 0.0018622138, y: -0.026842296, z: -0.08184038, w: 0.9962822}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_R0_0_jnt
+      parentName: mole_REF:meta_R0_0_jnt
+      position: {x: -0.013852125, y: 0.027036788, z: -0.0063533783}
+      rotation: {x: -0.293718, y: 0.37083375, z: 0.8065907, w: 0.3544341}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_R0_1_jnt
+      parentName: mole_REF:thumb_R0_0_jnt
+      position: {x: 0.05074263, y: -8.881784e-17, z: 3.1086247e-16}
+      rotation: {x: 0.048321884, y: 0.09856251, z: -0.21279521, w: 0.97091126}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:thumb_R0_2_jnt
+      parentName: mole_REF:thumb_R0_1_jnt
+      position: {x: 0.03981435, y: 0, z: -1.7763569e-16}
+      rotation: {x: 0.007706994, y: -0.020908372, z: -0.025240537, w: 0.99943304}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R1_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.04064661, y: -0.021170715, z: 0.0058142487}
+      rotation: {x: -0.049398154, y: 0.1874225, z: 0.6873976, w: 0.69994086}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R1_1_jnt
+      parentName: mole_REF:fingerHydraulic_R1_0_jnt
+      position: {x: -0, y: 0.08794697, z: 7.1054275e-16}
+      rotation: {x: 2.6558616e-15, y: 1.5265567e-16, z: 5.89806e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R2_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.039825544, y: -0.004994623, z: 0.0018069695}
+      rotation: {x: 0.047847264, y: 0.06379585, z: 0.63521606, w: 0.76820654}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R2_1_jnt
+      parentName: mole_REF:fingerHydraulic_R2_0_jnt
+      position: {x: -0, y: 0.08631031, z: 7.993605e-16}
+      rotation: {x: 3.0769658e-16, y: -2.2030988e-16, z: 2.7755576e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R3_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.038219586, y: 0.012611842, z: -0.00030106402}
+      rotation: {x: 0.06462457, y: 0.09477106, z: 0.51948124, w: 0.8467475}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R3_1_jnt
+      parentName: mole_REF:fingerHydraulic_R3_0_jnt
+      position: {x: -1.7763569e-16, y: 0.072019234, z: 2.6645354e-16}
+      rotation: {x: 1.0158974e-15, y: 4.510281e-17, z: 1.4571677e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R4_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.03428461, y: 0.026840463, z: 0.0024666411}
+      rotation: {x: 0.12604578, y: 0.04684031, z: 0.33677056, w: 0.93193567}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:fingerHydraulic_R4_1_jnt
+      parentName: mole_REF:fingerHydraulic_R4_0_jnt
+      position: {x: 3.1086247e-16, y: 0.065372914, z: -1.1990408e-15}
+      rotation: {x: 3.9725168e-15, y: 9.7144515e-17, z: 3.0531133e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:wormPlacer_R0_0_jnt
+      parentName: mole_REF:arm_R0_end_jnt
+      position: {x: -0.045339093, y: -0.0000000010041453, z: -1.2434499e-15}
+      rotation: {x: 1, y: 3.3393427e-17, z: -2.6538348e-17, w: -5.201967e-14}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L3_0_jnt
+      parentName: mole_REF:wormPlacer_R0_0_jnt
+      position: {x: -5.107026e-16, y: 0.03570651, z: 5.3290707e-16}
+      rotation: {x: -0.7071068, y: 0.7071068, z: 3.772449e-16, w: -3.3738775e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L3_1_jnt
+      parentName: mole_REF:worm_L3_0_jnt
+      position: {x: -0.07545072, y: -2.220446e-17, z: 2.6645354e-16}
+      rotation: {x: 1.3878266e-17, y: -2.1244369e-17, z: 1.7724198e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L3_2_jnt
+      parentName: mole_REF:worm_L3_1_jnt
+      position: {x: -0.096322455, y: 6.439293e-16, z: 3.5527137e-16}
+      rotation: {x: 6.9389415e-17, y: -7.675552e-17, z: 2.605087e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L3_3_jnt
+      parentName: mole_REF:worm_L3_2_jnt
+      position: {x: -0.095736764, y: -1.4432899e-16, z: 1.7763569e-16}
+      rotation: {x: 4.8572734e-17, y: -5.593884e-17, z: 2.327531e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_L3_4_jnt
+      parentName: mole_REF:worm_L3_3_jnt
+      position: {x: -0.09186378, y: 6.106227e-16, z: -8.881784e-17}
+      rotation: {x: 4.8572734e-17, y: -5.593884e-17, z: 2.327531e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_0_jnt
+      parentName: mole_REF:wormPlacer_R0_0_jnt
+      position: {x: 4.440892e-17, y: -0.055963848, z: 1.0658141e-15}
+      rotation: {x: -0.7071068, y: 0.7071068, z: 3.4289913e-16, w: -3.717335e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_1_jnt
+      parentName: mole_REF:worm_R3_0_jnt
+      position: {x: 0.07545072, y: -3.5416114e-15, z: 3.5527137e-16}
+      rotation: {x: 9.714499e-17, y: 2.7327888e-17, z: 6.621967e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_2_jnt
+      parentName: mole_REF:worm_R3_1_jnt
+      position: {x: 0.110147655, y: -5.717649e-15, z: 0}
+      rotation: {x: 1.3183946e-16, y: 2.7327888e-17, z: 1.2173082e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_3_jnt
+      parentName: mole_REF:worm_R3_2_jnt
+      position: {x: 0.08909294, y: -4.67959e-15, z: 5.3290707e-16}
+      rotation: {x: 8.32672e-17, y: 3.4266784e-17, z: 3.8464094e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_4_jnt
+      parentName: mole_REF:worm_R3_3_jnt
+      position: {x: 0.07701716, y: -2.359224e-15, z: -6.2172494e-16}
+      rotation: {x: 1.04083885e-16, y: 2.7327888e-17, z: 6.621967e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_5_jnt
+      parentName: mole_REF:worm_R3_4_jnt
+      position: {x: 0.06655278, y: -7.4940054e-16, z: -6.2172494e-16}
+      rotation: {x: 1.1102278e-16, y: 2.0388995e-17, z: 9.397525e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:worm_R3_6_jnt
+      parentName: mole_REF:worm_R3_5_jnt
+      position: {x: 0.06262635, y: -8.2711613e-16, z: -2.6645354e-16}
+      rotation: {x: 1.3183946e-16, y: 2.7327888e-17, z: 1.2173082e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:trap_L1_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: -0.09567481, y: 0.082653455, z: -0.015159534}
+      rotation: {x: 0.11458244, y: 0.059740722, z: -0.45843792, w: 0.8792819}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:deltoidAim_L0_0_jnt
+      parentName: mole_REF:trap_L1_0_jnt
+      position: {x: -8.881784e-17, y: 0, z: -4.4408918e-16}
+      rotation: {x: 0.67388934, y: 0.21418038, z: 0.69554234, w: 0.12736131}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:deltoidAim_L0_1_jnt
+      parentName: mole_REF:deltoidAim_L0_0_jnt
+      position: {x: -0, y: 0.23732427, z: -2.6645354e-16}
+      rotation: {x: 1.0123789e-16, y: -0.090298876, z: -1.7148185e-16, w: 0.9959147}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:trap_R1_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: 0.09567481, y: 0.082653455, z: -0.015159534}
+      rotation: {x: -0.45843792, y: 0.8792819, z: 0.11458244, w: 0.059740722}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:deltoidAim_R0_0_jnt
+      parentName: mole_REF:trap_R1_0_jnt
+      position: {x: -3.5527137e-16, y: 0, z: 3.9968025e-16}
+      rotation: {x: 0.69554234, y: -0.12736133, z: 0.67388934, w: -0.2141804}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:deltoidAim_R0_1_jnt
+      parentName: mole_REF:deltoidAim_R0_0_jnt
+      position: {x: -1.5543123e-16, y: 0.23732427, z: 3.5527137e-16}
+      rotation: {x: -2.149225e-15, y: 0.090298876, z: -4.3511516e-16, w: 0.9959147}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:pectoralis_L0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: -0.07356034, y: 0.035649315, z: 0.06609202}
+      rotation: {x: -0.18322214, y: 0, z: -0, w: 0.98307157}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:pectoralis_R0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: 0.07356034, y: 0.035661824, z: 0.066098824}
+      rotation: {x: -0.18322214, y: 0, z: -0, w: 0.98307157}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:lat_L0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: -0.07356034, y: 0.0756036, z: -0.0803992}
+      rotation: {x: -0.18322214, y: 0, z: -0, w: 0.98307157}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:lat_R0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: 0.07356034, y: 0.07561611, z: -0.08039239}
+      rotation: {x: -0.18322214, y: 0, z: -0, w: 0.98307157}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:trap_L0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: -0.060777087, y: 0.1321771, z: -0.024027515}
+      rotation: {x: 0.11458244, y: 0.059740722, z: -0.45843792, w: 0.8792819}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:trap_R0_0_jnt
+      parentName: mole_REF:upperSpine_C1_0_jnt
+      position: {x: 0.060777087, y: 0.1321771, z: -0.024027515}
+      rotation: {x: -0.45843792, y: 0.8792819, z: 0.11458244, w: 0.059740722}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:hip_C0_0_jnt
+      parentName: mole_REF:spine_C0_0_jnt
+      position: {x: -9.244464e-34, y: -2.6645354e-16, z: 8.881784e-17}
+      rotation: {x: -0.22188967, y: 0, z: -0, w: 0.9750718}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_0_jnt
+      parentName: mole_REF:hip_C0_0_jnt
+      position: {x: -0.10470494, y: -0.000000006015269, z: -0.0000000015020112}
+      rotation: {x: 0.4499758, y: 0.5362628, z: 0.43060678, w: 0.5696682}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_1_jnt
+      parentName: mole_REF:leg_L0_0_jnt
+      position: {x: -0.06499144, y: 0, z: -2.220446e-17}
+      rotation: {x: 0.002842806, y: 1.01402007e-16, z: -2.8043954e-17, w: 0.99999595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_2_jnt
+      parentName: mole_REF:leg_L0_1_jnt
+      position: {x: -0.06499144, y: -8.881784e-17, z: -1.398881e-15}
+      rotation: {x: 0.002842148, y: 0.00006383911, z: 0.021785345, w: 0.9997586}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_3_jnt
+      parentName: mole_REF:leg_L0_2_jnt
+      position: {x: -0.064991444, y: 8.881784e-17, z: -4.707346e-15}
+      rotation: {x: 0.002842806, y: 1.5517822e-16, z: -2.819683e-17, w: 0.99999595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_4_jnt
+      parentName: mole_REF:leg_L0_3_jnt
+      position: {x: -0.06499144, y: 4.440892e-17, z: -1.1057821e-14}
+      rotation: {x: 0.0026853662, y: -0.0062543685, z: -0.26935908, w: 0.96301585}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_5_jnt
+      parentName: mole_REF:leg_L0_4_jnt
+      position: {x: -0.06499142, y: 1.3322677e-16, z: 1.6942002e-14}
+      rotation: {x: -9.7578196e-18, y: -7.2207865e-17, z: -5.551115e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_6_jnt
+      parentName: mole_REF:leg_L0_5_jnt
+      position: {x: -2.7755574e-17, y: -1.7763569e-16, z: 0}
+      rotation: {x: 0.00012326142, y: 0.0018239641, z: 0.7216135, w: 0.6922937}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_7_jnt
+      parentName: mole_REF:leg_L0_6_jnt
+      position: {x: -0.04770825, y: -9.992006e-17, z: 6.6613384e-17}
+      rotation: {x: -0.0373246, y: 7.503086e-16, z: 1.3999218e-16, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_8_jnt
+      parentName: mole_REF:leg_L0_7_jnt
+      position: {x: -0.04770825, y: -2.7755574e-17, z: -9.769963e-16}
+      rotation: {x: -0.0373246, y: 6.236403e-16, z: 1.908109e-16, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_9_jnt
+      parentName: mole_REF:leg_L0_8_jnt
+      position: {x: -0.047708258, y: 3.885781e-17, z: -3.3750782e-15}
+      rotation: {x: -0.0373246, y: 6.0442773e-16, z: 2.4043536e-16, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_10_jnt
+      parentName: mole_REF:leg_L0_9_jnt
+      position: {x: -0.047708247, y: 0.0000000010025749, z: 7.499026e-11}
+      rotation: {x: -0.0373246, y: 7.843662e-10, z: 5.8675044e-11, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_11_jnt
+      parentName: mole_REF:leg_L0_10_jnt
+      position: {x: -0.047708258, y: -0.0000000029993386, z: -2.9956257e-10}
+      rotation: {x: -1.4240584e-17, y: 7.816296e-10, z: 8.791032e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_L0_end_jnt
+      parentName: mole_REF:leg_L0_11_jnt
+      position: {x: 1.110223e-17, y: 1.8041123e-17, z: -2.220446e-17}
+      rotation: {x: -0.00028429047, y: 0.15978573, z: -0.39798605, w: 0.903369}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:foot_L0_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: -0.06019585, y: 0.11003428, z: -0.007154163}
+      rotation: {x: 0.055956822, y: -0.055959072, z: -0.7048827, w: 0.7048956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:foot_L0_1_jnt
+      parentName: mole_REF:foot_L0_0_jnt
+      position: {x: -0.0048273327, y: 2.3245294e-17, z: -2.220446e-17}
+      rotation: {x: 0.0000001925942, y: 0.020975268, z: -0.0000060831703, w: 0.99978}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_L1_0_jnt
+      parentName: mole_REF:foot_L0_1_jnt
+      position: {x: 0.0951111, y: 0.04044564, z: 0.011278924}
+      rotation: {x: -0.05653899, y: -0.7067304, z: -0.020247256, w: 0.7049294}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_L1_1_jnt
+      parentName: mole_REF:toeMeta_L1_0_jnt
+      position: {x: -0.012818527, y: 6.106227e-17, z: 1.110223e-17}
+      rotation: {x: 0.011717704, y: -0.07220129, z: 0.10244089, w: 0.9920462}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_L1_2_jnt
+      parentName: mole_REF:toeMeta_L1_1_jnt
+      position: {x: -0.013694388, y: -2.220446e-17, z: 0}
+      rotation: {x: -0.0114951115, y: -0.020931317, z: -0.049832013, w: 0.9984721}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_L1_3_jnt
+      parentName: mole_REF:toeMeta_L1_2_jnt
+      position: {x: -0.009688553, y: -2.7755574e-17, z: 1.110223e-17}
+      rotation: {x: -4.2327253e-16, y: 2.7755576e-16, z: -2.4633073e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L4_0_jnt
+      parentName: mole_REF:toeMeta_L1_3_jnt
+      position: {x: -0.0017697209, y: -0.057229392, z: 0.0865118}
+      rotation: {x: -0.63807184, y: -0.14008085, z: 0.7515698, w: 0.09156702}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L4_1_jnt
+      parentName: mole_REF:toe_L4_0_jnt
+      position: {x: -0.010022987, y: -1.2212454e-16, z: 6.6613384e-17}
+      rotation: {x: 9.532707e-16, y: -2.9965594e-17, z: -0.044142183, w: 0.9990253}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L4_2_jnt
+      parentName: mole_REF:toe_L4_1_jnt
+      position: {x: -0.007420429, y: 5.5511148e-17, z: 7.1054275e-16}
+      rotation: {x: 3.6862874e-17, y: -7.112366e-17, z: 5.551115e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L3_0_jnt
+      parentName: mole_REF:toeMeta_L1_2_jnt
+      position: {x: 0.0056179217, y: -0.056385446, z: 0.09400135}
+      rotation: {x: -0.6862297, y: -0.10661914, z: 0.71649563, w: 0.065993994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L3_1_jnt
+      parentName: mole_REF:toe_L3_0_jnt
+      position: {x: -0.015231003, y: 6.106227e-17, z: 4.440892e-17}
+      rotation: {x: 1.0807327e-15, y: 8.4993696e-32, z: 4.0939474e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L3_2_jnt
+      parentName: mole_REF:toe_L3_1_jnt
+      position: {x: -0.0072277645, y: -1.110223e-17, z: -3.1086247e-16}
+      rotation: {x: 1.0859369e-15, y: -2.0816682e-17, z: 3.8857806e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L2_0_jnt
+      parentName: mole_REF:toeMeta_L1_1_jnt
+      position: {x: -0.005868998, y: -0.052190565, z: 0.10419855}
+      rotation: {x: 0.7041835, y: 0.065674946, z: -0.70105606, w: -0.091284126}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L2_1_jnt
+      parentName: mole_REF:toe_L2_0_jnt
+      position: {x: -0.018407945, y: -6.6613384e-17, z: 1.9984013e-16}
+      rotation: {x: 1.8214596e-17, y: -8.326673e-17, z: 5.0653925e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L2_2_jnt
+      parentName: mole_REF:toe_L2_1_jnt
+      position: {x: -0.0094201695, y: -9.992006e-17, z: 2.8865798e-16}
+      rotation: {x: 9.540979e-18, y: -6.938894e-17, z: 4.9960036e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L0_0_jnt
+      parentName: mole_REF:toeMeta_L1_0_jnt
+      position: {x: 0.036684237, y: -0.048440423, z: 0.0974608}
+      rotation: {x: 0.7338982, y: 0.119142696, z: -0.66872895, w: -0.00027945658}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L0_1_jnt
+      parentName: mole_REF:toe_L0_0_jnt
+      position: {x: -0.0026536286, y: -2.220446e-17, z: 6.6613384e-17}
+      rotation: {x: -0.0000000023608706, y: -0.22285952, z: -0.000000010327116, w: 0.9748506}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L0_2_jnt
+      parentName: mole_REF:toe_L0_1_jnt
+      position: {x: -0.044751868, y: -6.106227e-17, z: -4.440892e-17}
+      rotation: {x: 1.769418e-16, y: -1.8041124e-16, z: 5.3429483e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L1_0_jnt
+      parentName: mole_REF:toeMeta_L1_0_jnt
+      position: {x: 0.003613661, y: -0.052691877, z: 0.10302872}
+      rotation: {x: -0.6851908, y: -0.11886892, z: 0.71855307, w: -0.008077117}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L1_1_jnt
+      parentName: mole_REF:toe_L1_0_jnt
+      position: {x: -0.032060638, y: -2.2759571e-16, z: 2.4424907e-16}
+      rotation: {x: 3.7790464e-15, y: 5.1423826e-16, z: -0.09590589, w: 0.9953904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_L1_2_jnt
+      parentName: mole_REF:toe_L1_1_jnt
+      position: {x: -0.011668503, y: -4.440892e-17, z: 8.881784e-17}
+      rotation: {x: 3.5330462e-15, y: 5.2862686e-16, z: 0.09590589, w: 0.9953904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L4_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: 6.1581407e-10, y: -5.850434e-10, z: 1.08470184e-10}
+      rotation: {x: -0.14945957, y: 0.81442285, z: -0.28193235, w: -0.48465598}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L4_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_L4_0_jnt
+      position: {x: 1.9439594e-10, y: 0.13589382, z: 6.358491e-10}
+      rotation: {x: -7.0576495e-16, y: 0.28676978, z: 5.187665e-16, w: 0.9579995}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L0_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: 6.1581407e-10, y: -5.850434e-10, z: 1.0847022e-10}
+      rotation: {x: 0.28021148, y: -0.7588144, z: 0.017323758, w: 0.5876923}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L0_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_L0_0_jnt
+      position: {x: 1.0521373e-10, y: 0.14219958, z: 6.700483e-10}
+      rotation: {x: -6.990729e-16, y: -0.022362888, z: -2.2397123e-16, w: 0.99974996}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L1_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: 6.1581407e-10, y: -5.850434e-10, z: 1.0847014e-10}
+      rotation: {x: 0.20243569, y: -0.7640372, z: 0.11310191, w: 0.6020589}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L1_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_L1_0_jnt
+      position: {x: 6.0423826e-11, y: 0.14248312, z: 6.752679e-10}
+      rotation: {x: -1.36632e-15, y: 0.13768919, z: -4.5194443e-16, w: 0.9904755}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L2_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: 6.1581407e-10, y: -5.850434e-10, z: 1.0847012e-10}
+      rotation: {x: 0.15544342, y: -0.7887465, z: 0.18306133, w: 0.56586653}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L2_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_L2_0_jnt
+      position: {x: 9.788168e-11, y: 0.14393829, z: 6.694484e-10}
+      rotation: {x: -7.551214e-16, y: 0.22077091, z: 1.9295977e-16, w: 0.9753257}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L3_0_jnt
+      parentName: mole_REF:leg_L0_end_jnt
+      position: {x: 6.1581407e-10, y: -5.850434e-10, z: 1.0847016e-10}
+      rotation: {x: 0.14119355, y: -0.76039237, z: 0.23619303, w: 0.5882862}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_L3_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_L3_0_jnt
+      position: {x: 4.2641224e-11, y: 0.13882063, z: 6.7068406e-10}
+      rotation: {x: -1.1457756e-15, y: 0.270885, z: 1.7802846e-16, w: 0.96261173}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_0_jnt
+      parentName: mole_REF:hip_C0_0_jnt
+      position: {x: 0.10470494, y: -0.000000006015269, z: -0.0000000015020112}
+      rotation: {x: 0.43060678, y: 0.5696682, z: 0.4499758, w: 0.5362628}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_1_jnt
+      parentName: mole_REF:leg_R0_0_jnt
+      position: {x: -0.06499144, y: -4.440892e-17, z: -2.220446e-17}
+      rotation: {x: -0.002842806, y: 7.4122885e-18, z: -1.6651306e-16, w: 0.99999595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_2_jnt
+      parentName: mole_REF:leg_R0_1_jnt
+      position: {x: -0.06499144, y: 0, z: -1.4654944e-15}
+      rotation: {x: -0.0028421476, y: -0.00006383915, z: 0.021785358, w: 0.99975866}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_3_jnt
+      parentName: mole_REF:leg_R0_2_jnt
+      position: {x: -0.064991444, y: 4.440892e-17, z: -4.707346e-15}
+      rotation: {x: -0.002842806, y: 6.0989006e-17, z: -9.610416e-17, w: 0.99999595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_4_jnt
+      parentName: mole_REF:leg_R0_3_jnt
+      position: {x: -0.06499144, y: 4.440892e-17, z: -1.0991208e-14}
+      rotation: {x: -0.0026853662, y: 0.006254368, z: -0.26935905, w: 0.9630158}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_5_jnt
+      parentName: mole_REF:leg_R0_4_jnt
+      position: {x: -0.06499142, y: -0.0000000044163806, z: -4.0666824e-11}
+      rotation: {x: -4.98733e-18, y: -1.7564024e-16, z: -9.0598e-34, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_6_jnt
+      parentName: mole_REF:leg_R0_5_jnt
+      position: {x: 8.881784e-17, y: 4.440892e-17, z: 2.220446e-17}
+      rotation: {x: -0.00012326153, y: -0.0018239642, z: 0.7216135, w: 0.6922937}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_7_jnt
+      parentName: mole_REF:leg_R0_6_jnt
+      position: {x: -0.04770825, y: -2.220446e-17, z: -1.1546319e-15}
+      rotation: {x: 0.037324592, y: -2.2747754e-14, z: 9.22118e-16, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_8_jnt
+      parentName: mole_REF:leg_R0_7_jnt
+      position: {x: -0.04770825, y: -7.771562e-17, z: -2.1316283e-15}
+      rotation: {x: 0.037324592, y: -2.2608555e-14, z: 1.8022447e-15, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_9_jnt
+      parentName: mole_REF:leg_R0_8_jnt
+      position: {x: -0.047708258, y: -1.5543123e-16, z: -4.52971e-15}
+      rotation: {x: 0.037324592, y: -2.2378961e-14, z: 2.5579137e-15, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_10_jnt
+      parentName: mole_REF:leg_R0_9_jnt
+      position: {x: -0.047708247, y: -2.7200465e-16, z: -9.126034e-15}
+      rotation: {x: 0.037324592, y: -2.2282384e-14, z: 3.4704452e-15, w: 0.9993032}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_11_jnt
+      parentName: mole_REF:leg_R0_10_jnt
+      position: {x: -0.047708258, y: -0.000000008308972, z: 0.0000000022698143}
+      rotation: {x: -2.1110763e-17, y: -2.2188225e-14, z: 3.4135021e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:leg_R0_end_jnt
+      parentName: mole_REF:leg_R0_11_jnt
+      position: {x: -4.440892e-17, y: 7.494005e-17, z: 0}
+      rotation: {x: 0.00028430505, y: -0.15978572, z: -0.39798605, w: 0.903369}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:foot_R0_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: -0.06019585, y: 0.11003428, z: 0.007154163}
+      rotation: {x: 0.055959072, y: 0.055956822, z: 0.7048956, w: 0.7048827}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:foot_R0_1_jnt
+      parentName: mole_REF:foot_R0_0_jnt
+      position: {x: 0.0048273327, y: 6.21031e-17, z: 1.11022296e-16}
+      rotation: {x: 0.00000019259417, y: 0.020975268, z: -0.0000060831703, w: 0.99978}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_R1_0_jnt
+      parentName: mole_REF:foot_R0_1_jnt
+      position: {x: -0.0951111, y: -0.04044564, z: -0.011278924}
+      rotation: {x: -0.05653899, y: -0.7067304, z: -0.020247256, w: 0.7049294}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_R1_1_jnt
+      parentName: mole_REF:toeMeta_R1_0_jnt
+      position: {x: 0.012818527, y: 4.1078252e-16, z: 1.9984013e-16}
+      rotation: {x: 0.011717704, y: -0.07220129, z: 0.10244089, w: 0.9920462}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_R1_2_jnt
+      parentName: mole_REF:toeMeta_R1_1_jnt
+      position: {x: 0.013694388, y: 4.1078252e-16, z: 2.7755576e-16}
+      rotation: {x: -0.0114951115, y: -0.020931317, z: -0.049832013, w: 0.9984721}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMeta_R1_3_jnt
+      parentName: mole_REF:toeMeta_R1_2_jnt
+      position: {x: 0.009688553, y: 3.1086247e-16, z: 1.7763569e-16}
+      rotation: {x: 8.000545e-15, y: -9.4507735e-15, z: 1.4009627e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R4_0_jnt
+      parentName: mole_REF:toeMeta_R1_3_jnt
+      position: {x: 0.0017697209, y: 0.057229392, z: -0.0865118}
+      rotation: {x: -0.63807184, y: -0.14008085, z: 0.7515698, w: 0.09156702}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R4_1_jnt
+      parentName: mole_REF:toe_R4_0_jnt
+      position: {x: 0.010022987, y: -8.881784e-17, z: -1.3322677e-16}
+      rotation: {x: -1.784406e-14, y: 3.93483e-15, z: -0.044142183, w: 0.9990253}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R4_2_jnt
+      parentName: mole_REF:toe_R4_1_jnt
+      position: {x: 0.007420429, y: -7.771562e-17, z: -5.551115e-16}
+      rotation: {x: -1.7590096e-14, y: 3.2075037e-15, z: -4.9960036e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R3_0_jnt
+      parentName: mole_REF:toeMeta_R1_2_jnt
+      position: {x: -0.0056179217, y: 0.056385446, z: -0.09400135}
+      rotation: {x: -0.6862297, y: -0.10661914, z: 0.71649563, w: 0.065993994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R3_1_jnt
+      parentName: mole_REF:toe_R3_0_jnt
+      position: {x: 0.015231003, y: -2.2204459e-16, z: -2.8865798e-16}
+      rotation: {x: -1.6402678e-14, y: 6.1964323e-15, z: -6.8972605e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R3_2_jnt
+      parentName: mole_REF:toe_R3_1_jnt
+      position: {x: 0.0072277645, y: -4.996003e-17, z: 1.7763569e-16}
+      rotation: {x: -1.6494618e-14, y: 6.3282712e-15, z: -6.807055e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R2_0_jnt
+      parentName: mole_REF:toeMeta_R1_1_jnt
+      position: {x: 0.005868998, y: 0.052190565, z: -0.10419855}
+      rotation: {x: 0.7041835, y: 0.065674946, z: -0.70105606, w: -0.091284126}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R2_1_jnt
+      parentName: mole_REF:toe_R2_0_jnt
+      position: {x: 0.018407945, y: -1.5543123e-16, z: -2.8865798e-16}
+      rotation: {x: -1.6811205e-14, y: 6.2450045e-15, z: -6.682155e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R2_2_jnt
+      parentName: mole_REF:toe_R2_1_jnt
+      position: {x: 0.0094201695, y: -3.3306692e-17, z: -1.3322677e-16}
+      rotation: {x: -1.6851971e-14, y: 6.265821e-15, z: -6.730727e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R0_0_jnt
+      parentName: mole_REF:toeMeta_R1_0_jnt
+      position: {x: -0.036684237, y: 0.048440423, z: -0.0974608}
+      rotation: {x: 0.7338982, y: 0.119142696, z: -0.66872895, w: -0.00027945658}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R0_1_jnt
+      parentName: mole_REF:toe_R0_0_jnt
+      position: {x: 0.0026536286, y: -4.440892e-17, z: -9.992006e-17}
+      rotation: {x: -0.0000000023608866, y: -0.22285952, z: -0.000000010327117, w: 0.9748506}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R0_2_jnt
+      parentName: mole_REF:toe_R0_1_jnt
+      position: {x: 0.044751868, y: 9.992006e-17, z: -6.2172494e-16}
+      rotation: {x: -1.6532348e-14, y: 7.306655e-15, z: 1.1275703e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R1_0_jnt
+      parentName: mole_REF:toeMeta_R1_0_jnt
+      position: {x: -0.003613661, y: 0.052691877, z: -0.10302872}
+      rotation: {x: -0.6851908, y: -0.11886892, z: 0.71855307, w: -0.008077117}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R1_1_jnt
+      parentName: mole_REF:toe_R1_0_jnt
+      position: {x: 0.032060638, y: -1.2767565e-16, z: -4.6629365e-16}
+      rotation: {x: -1.6067304e-14, y: 5.779499e-15, z: -0.09590589, w: 0.9953904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toe_R1_2_jnt
+      parentName: mole_REF:toe_R1_1_jnt
+      position: {x: 0.011668503, y: -1.4432899e-16, z: 4.440892e-17}
+      rotation: {x: -1.601628e-14, y: 5.9228012e-15, z: 0.09590589, w: 0.9953904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R2_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: 6.158055e-10, y: -5.8503513e-10, z: -1.0846857e-10}
+      rotation: {x: 0.18306133, y: -0.56586653, z: 0.15544342, w: 0.7887465}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R2_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_R2_0_jnt
+      position: {x: -9.78812e-11, y: 0.14393829, z: 6.694409e-10}
+      rotation: {x: 0.000000004379568, y: -0.22077091, z: 9.913409e-10, w: 0.9753257}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R4_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: 6.158055e-10, y: -5.8503513e-10, z: -1.08468595e-10}
+      rotation: {x: 0.28193238, y: -0.48465598, z: 0.14945957, w: 0.81442285}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R4_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_R4_0_jnt
+      position: {x: -1.9439501e-10, y: 0.13589382, z: 6.3584277e-10}
+      rotation: {x: 0.0000000044981654, y: -0.28676978, z: 0.0000000013464901, w: 0.9579995}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R0_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: 6.158055e-10, y: -5.8503513e-10, z: -1.08468595e-10}
+      rotation: {x: 0.017323766, y: -0.5876923, z: 0.28021154, w: 0.75881433}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R0_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_R0_0_jnt
+      position: {x: -1.05212665e-10, y: 0.14219958, z: 6.700389e-10}
+      rotation: {x: 0.000000004672996, y: 0.022362899, z: -1.0452745e-10, w: 0.99974996}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R1_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: 6.158055e-10, y: -5.8503513e-10, z: -1.0846857e-10}
+      rotation: {x: 0.113101915, y: -0.6020589, z: 0.20243569, w: 0.7640372}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R1_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_R1_0_jnt
+      position: {x: -6.0423645e-11, y: 0.14248312, z: 6.7525996e-10}
+      rotation: {x: 0.000000004630669, y: -0.13768919, z: 6.437245e-10, w: 0.9904755}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R3_0_jnt
+      parentName: mole_REF:leg_R0_end_jnt
+      position: {x: 6.158055e-10, y: -5.8503513e-10, z: -1.0846857e-10}
+      rotation: {x: 0.23619303, y: -0.5882862, z: 0.14119355, w: 0.76039237}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:toeMetaHydraulic_R3_1_jnt
+      parentName: mole_REF:toeMetaHydraulic_R3_0_jnt
+      position: {x: -4.264147e-11, y: 0.13882063, z: 6.706773e-10}
+      rotation: {x: 0.000000004122301, y: -0.27088496, z: 0.0000000011600385, w: 0.96261173}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mole_REF:lowerPelvis_C0_0_jnt
+      parentName: mole_REF:hip_C0_0_jnt
+      position: {x: -0, y: 8.881784e-17, z: 3.6082247e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -88,7 +1453,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 10
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -97,7 +1462,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

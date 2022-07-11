@@ -52,6 +52,7 @@ public class PlayerController : Entity
             //_inputHandler.HandleInput(_instance);
             if (_enableMovement)
             {
+
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
                 if (_xInput == 0 && _yInput == 0)
@@ -62,58 +63,30 @@ public class PlayerController : Entity
             }
             if (Input.GetButton("Dig"))
             {
-                Debug.Log("holding Dig Button");
-                Debug.Log($"dig state: {_digComponent.DigState}");
-                Debug.Log($"curDigHoldTime : {curDigHoldTime}");
+                //Debug.Log("holding Dig Button");
+                //Debug.Log($"dig state: {_digComponent.DigState}");
+                //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
 
-                // stop digging
-                if (curDigHoldTime > MAXDigHoldTime)
-                {
-                    
-                    _digComponent.HoleCompleted();
-                    curDigHoldTime = 0f;
-                }
                 // start digging
-                if (curDigHoldTime == 0)
+                if (curDigHoldTime == 0 && !_digComponent.CanDig)
                 {
                     // start digging
-                    curDigHoldTime += .01f;
-                    _animator.SetTrigger("DigInit");
                     _digComponent.Dig(this);
+                    if (_digComponent.CanDig)
+                        curDigHoldTime += .01f;
                 }
                 // continue digging
-                if (curDigHoldTime < MAXDigHoldTime)
+                if (curDigHoldTime < MAXDigHoldTime && _digComponent.CanDig)
                 {
                     //    Debug.Log("continure digging");
                     curDigHoldTime += .01f;
                 }
-                #region older
-                //if (curDigHoldTime > MAXDigHoldTime && 
-                //    _digComponent.DigState == DigComponent.DigStates.digging)
-                //{
-                //    // stop digging
-                //    curDigHoldTime = 0f;
-                //    _digComponent.DigState = DigComponent.DigStates.digging_complete;
-                //    _digComponent.Dig(this, curDigHoldTime);
-                //}
-                //if (curDigHoldTime == 0 && 
-                //    _digComponent.DigState == DigComponent.DigStates.digging_complete)
-                //{
-                //    // start digging
-                //    curDigHoldTime += .01f;
-                //    GetComponent<Rigidbody>().velocity = Vector3.zero;
-                //    _digComponent.DigState = DigComponent.DigStates.init_dig;
-                //    _digComponent.Dig(this, curDigHoldTime);
-                //}
-                //if (curDigHoldTime < MAXDigHoldTime && 
-                //    _digComponent.DigState == DigComponent.DigStates.digging)
-                //{
-                //    // continue digging
-                //    Debug.Log("continure digging");
-                //    curDigHoldTime += .01f;
-                //    _digComponent.Dig(this, curDigHoldTime);
-                //}     
-                #endregion
+                // stop digging
+                if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
+                {
+                    _digComponent.HoleCompleted();
+                    curDigHoldTime = 0f;
+                }
             }
         }
 

@@ -1,12 +1,13 @@
+using System.Collections;
 using UnityEngine;
+
 
 public class DigComponent : MonoBehaviour
 {
     private bool _canDig = false;
     [SerializeField]
-    private float MAX_digHoldTime;
-    [SerializeField]
     private GameObject _holePrefab;
+    private Animator _animator;
     private DigDetection _detect;
     public enum DigStates
     {
@@ -16,89 +17,32 @@ public class DigComponent : MonoBehaviour
     private DigStates _digState = DigStates.digging_complete;
 
     public DigStates DigState { get => _digState; set => _digState = value; }
+    public bool CanDig { get => _canDig; set => _canDig = value; }
 
     private void Start() => Init();
 
     private void Init()
     {
         _detect = GetComponentInChildren<DigDetection>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     public void Dig(Entity digger)
     {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
         if (_digState == DigStates.digging_complete)
         {
             // check if section in front of player can be dug
             // or far enough from obstables/wall to dig
-
+           
             DetectionResults results = _detect.Results;
             Debug.Log($"results: {_detect.Results}");
-            // init dig action
             _canDig = IsValid(results);
+
+            // init dig action
             if (_canDig)
-            {
                 EnterState(DigStates.init_dig);
-            }
-        }
-    }
-    public void StopDig()
-    {
-        if (_digState == DigStates.digging || _digState == DigStates.init_dig)
-            EnterState(DigComponent.DigStates.digging_complete);
-    }
-
-    public void HoleCompleted()
-    {
-        //if (_digState != DigStates.digging)
-            //return;
-        SpawnDigPrefab();
-        EnterState(DigComponent.DigStates.digging_complete);
-    }
-
-
-    private void StateManager(DigStates state)
-    {
-        switch (state)
-        {
-            case DigStates.init_dig:
-                // get dig target location
-                // stop player from moving
-                //curDigHoldTime += .01f;   
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-                PlayerController.Instance.EnableMovement = true;
-                // start "setup dig" animation
-                // start and increment counter that tracks time that
-                // button is held down
-
-                if (_digState != DigStates.digging)
-                {
-                    // get dig target location
-                    // stop player from moving
-                    Transform targetPos = _detect.DigTargetPos;
-
-                    //PlayerController.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    PlayerController.Instance.EnableMovement = false;
-                    //SpawnDigPrefab(targetPos);
-                    // start "setup dig" animation
-                    // Play didding particles
-                    // play digging sound
-                    _digState = DigStates.digging;
-
-                    // start and increment counter that tracks time that
-                    // button is held down
-                }
-                break;
-            case DigStates.digging:
-
-                break;
-            case DigStates.digging_complete:
-                SpawnDigPrefab();
-                _canDig = false;
-                PlayerController.Instance.EnableMovement = true;
-
-                break;
-            default:
-                break;
         }
     }
 
@@ -110,7 +54,8 @@ public class DigComponent : MonoBehaviour
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 PlayerController.Instance.EnableMovement = false;
                 _digState = DigComponent.DigStates.init_dig;
-               
+                _animator.SetTrigger("DigInit");
+                StartCoroutine(InitDig());
                 break;
 
             case DigStates.digging:
@@ -140,6 +85,28 @@ public class DigComponent : MonoBehaviour
             default:
                 break;
         }
+    }
+
+
+    private IEnumerator InitDig()
+    {
+        yield return new WaitForSeconds(1f);
+        EnterState(DigStates.digging);
+        StopCoroutine("InitDig");
+    }
+
+    public void StopDig()
+    {
+        if (_digState == DigStates.digging || _digState == DigStates.init_dig)
+            EnterState(DigComponent.DigStates.digging_complete);
+    }
+
+    public void HoleCompleted()
+    {
+        if (_digState != DigStates.digging)
+            return;
+        SpawnDigPrefab();
+        EnterState(DigComponent.DigStates.digging_complete);
     }
 
     private bool IsValid(DetectionResults results)

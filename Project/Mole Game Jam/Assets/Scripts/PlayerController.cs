@@ -15,6 +15,11 @@ public class PlayerController : Entity
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
     private CarryComponent _carryComponent;
+    private State _state = State.idle;
+
+    [SerializeField]
+    private GameObject _moleMesh, _moundMesh;
+
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
 
@@ -106,3 +111,4 @@ public class PlayerController : Entity
     }
 }
 
+public enum State { idle, walking, digging, hiding}

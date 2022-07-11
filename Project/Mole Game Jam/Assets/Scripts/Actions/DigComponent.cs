@@ -106,7 +106,12 @@ public class DigComponent : MonoBehaviour
     {
         if (_digState != DigStates.digging)
             return;
-        SpawnDigPrefab();
+
+        if (_detect.Results == DetectionResults.dig_floor)
+            SpawnDigPrefab();
+        else
+            DestroyDiigableWall();
+
         EnterState(DigComponent.DigStates.digging_complete);
     }
 
@@ -143,6 +148,14 @@ public class DigComponent : MonoBehaviour
         tmp.transform.parent = null;
         tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
         // give random rotation for visual variation
+    }
+
+    public void DestroyDiigableWall()
+    {
+        //var tmp = Instantiate(_holePrefab, _detect._targetPos2);
+        //tmp.transform.parent = null;
+        //tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
+        Destroy(_detect.TargetWall);
     }
 }
 

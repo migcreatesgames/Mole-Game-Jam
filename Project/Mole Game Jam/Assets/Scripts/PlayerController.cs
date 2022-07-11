@@ -68,7 +68,7 @@ public class PlayerController : Entity
                 //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
 
                 // start digging
-                if (curDigHoldTime == 0 && !_digComponent.CanDig)
+                if (curDigHoldTime == 0)
                 {
                     // start digging
                     _digComponent.Dig(this);

@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mole_REF_mole_MAT
-    second: {fileID: 5561349426305759274, guid: 7735026e2e5dd2a41a63f889f707e1f7, type: 3}
+    second: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

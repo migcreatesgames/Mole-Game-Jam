@@ -55,14 +55,9 @@ public class PlayerController : Entity
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
                 if (_xInput == 0 && _yInput == 0)
-                {
                     _animator.SetTrigger("Idle");
-                }
                 else
-                {
                     _animator.SetTrigger("Walk");
-                    
-                }
 
             }
             if (Input.GetButton("Dig"))
@@ -74,25 +69,23 @@ public class PlayerController : Entity
                 // stop digging
                 if (curDigHoldTime > MAXDigHoldTime)
                 {
-                    curDigHoldTime = 0f;
+                    
                     _digComponent.HoleCompleted();
+                    curDigHoldTime = 0f;
                 }
                 // start digging
                 if (curDigHoldTime == 0)
                 {
-                   
-                    _animator.SetTrigger("DigInit");
                     // start digging
                     curDigHoldTime += .01f;
+                    _animator.SetTrigger("DigInit");
                     _digComponent.Dig(this);
-                    //    _digComponent.DigState = DigComponent.DigStates.init_dig;
                 }
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime)
                 {
                     //    Debug.Log("continure digging");
                     curDigHoldTime += .01f;
-                    //    _digComponent.Dig(this, curDigHoldTime);
                 }
                 #region older
                 //if (curDigHoldTime > MAXDigHoldTime && 

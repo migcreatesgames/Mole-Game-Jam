@@ -23939,30 +23939,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 892177957635753183, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812492886787815974, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344615603600340170, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 51fe33f8678e5af498bd1ebc565665fe, type: 2}
-    - target: {fileID: 3344615603600340170, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524462758073807412, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3697642850386123479, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1424056220}
+    - target: {fileID: 4149989984922851460, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4770208113249358771, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -24009,18 +23993,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5294262483762694409, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5576976531053196295, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7635563426439201108, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: MAX_digHoldTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900659343599963447, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

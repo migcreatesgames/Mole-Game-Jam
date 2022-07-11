@@ -49,8 +49,8 @@ public class DigComponent : MonoBehaviour
 
     public void HoleCompleted()
     {
-        if (_digState != DigStates.digging)
-            return;
+        //if (_digState != DigStates.digging)
+            //return;
         SpawnDigPrefab();
         EnterState(DigComponent.DigStates.digging_complete);
     }

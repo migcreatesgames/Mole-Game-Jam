@@ -155,7 +155,13 @@ public class DigComponent : MonoBehaviour
         //var tmp = Instantiate(_holePrefab, _detect._targetPos2);
         //tmp.transform.parent = null;
         //tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
+        var diggableWall = _detect.TargetWall.GetComponent<DiggableWall>();
+        if (diggableWall != null)
+        {
+            diggableWall.DestroyLinkedWalls();
+        }
         Destroy(_detect.TargetWall);
+        
     }
 }
 

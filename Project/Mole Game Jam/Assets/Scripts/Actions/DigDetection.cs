@@ -24,6 +24,8 @@ public class DigDetection : MonoBehaviour
 
     public Vector3 _hitPoint1, _hitPoint2;
 
+    [SerializeField] bool _debugging = false;
+
     private DetectionResults _results;
     public DetectionResults Results { get => _results; set => _results = value; }
     public Transform DigTargetPos { get => _digTargetPos; set => _digTargetPos = value; }
@@ -31,7 +33,10 @@ public class DigDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"_checkFloor: {_checkFloor}");
+        if (_debugging)
+        {
+            Debug.Log($"_checkFloor: {_checkFloor}");
+        }
         if (_detectionEnabled)
             Detect();
     }

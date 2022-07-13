@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class DigComponent : MonoBehaviour
 {
     private bool _canDig = false;

@@ -15,6 +15,7 @@ public class PlayerController : Entity
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
     private CarryComponent _carryComponent;
+    private HideComponent _hideComponent;
     private State _state = State.idle;
 
     [SerializeField]
@@ -40,6 +41,7 @@ public class PlayerController : Entity
         _movementComponent = GetComponent<MovementComponent>();
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
+        _hideComponent = GetComponent<HideComponent>();
     }
 
     protected override void Start()
@@ -55,22 +57,76 @@ public class PlayerController : Entity
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
+
+            // movement
             if (_enableMovement)
             {
-
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
                 if (_xInput == 0 && _yInput == 0)
-                    _animator.SetTrigger("Idle");
+                    EnterState(State.idle);
                 else
-                    _animator.SetTrigger("Walk");
+                    EnterState(State.walking);
 
             }
+
+            // digging
             if (Input.GetButton("Dig"))
             {
                 //Debug.Log("holding Dig Button");
                 //Debug.Log($"dig state: {_digComponent.DigState}");
                 //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
+                if (_state != State.hiding)
+                    EnterState(State.digging);
+            }
+
+            if (Input.GetButtonUp("Dig"))
+            {
+                // stop digging
+                //if (_state == State.digging)
+                ExitState(State.digging);
+            }
+
+
+            // hiding 
+            if (Input.GetButton("Hide"))
+            {
+                if (_state != State.hiding && _state != State.digging)
+                    EnterState(State.hiding);
+            }
+
+            if (Input.GetButtonUp("Hide"))
+            {
+                if (_state == State.hiding)
+                    ExitState(State.hiding);
+            }
+        }
+    }
+    
+    void FixedUpdate()
+    {
+        Speed = _carryComponent.RunSpeedCarryingWorms;
+        if (_enableMovement)
+            _movementComponent.Move(_xInput, _yInput, Speed);
+    }
+
+    private void EnterState(State state)
+    {
+        switch (state)
+        {
+            case State.idle:
+                state = State.idle;
+                _animator.SetTrigger("Idle");
+
+                break;
+            case State.walking:
+                state = State.walking;
+                _animator.SetTrigger("Walk");
+                break;
+
+            case State.digging:
+                if(state != State.digging)
+                    state = State.digging;
 
                 // start digging
                 if (curDigHoldTime == 0)
@@ -83,7 +139,7 @@ public class PlayerController : Entity
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime && _digComponent.CanDig)
                 {
-                    //    Debug.Log("continure digging");
+                    //Debug.Log("continure digging");
                     curDigHoldTime += .01f;
                 }
                 // stop digging
@@ -92,22 +148,39 @@ public class PlayerController : Entity
                     _digComponent.HoleCompleted();
                     curDigHoldTime = 0f;
                 }
-            }
-        }
+                break;
 
-        if (Input.GetButtonUp("Dig"))
-        {
-            // stop digging
-            _digComponent.StopDig();
-            curDigHoldTime = 0f;
+            case State.hiding:
+                state = State.hiding;
+                _hideComponent.Hide();
+                break;
+
+            default:
+                state = State.idle;
+                _animator.SetTrigger("Idle");
+                break;
         }
     }
 
-    void FixedUpdate()
+
+    private void ExitState(State state)
     {
-        Speed = _carryComponent.RunSpeedCarryingWorms;
-        if (_enableMovement)
-            _movementComponent.Move(_xInput, _yInput, Speed);
+        switch (state)
+        {
+            case State.idle:
+                break;
+            case State.walking:
+                break;
+            case State.digging:
+                _digComponent.StopDig();
+                curDigHoldTime = 0f;
+                break;
+            case State.hiding:
+                _hideComponent.UnHide();
+                break;
+            default:
+                break;
+        }
     }
 }
 

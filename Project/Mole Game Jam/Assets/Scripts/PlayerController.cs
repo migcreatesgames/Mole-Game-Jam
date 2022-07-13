@@ -18,9 +18,6 @@ public class PlayerController : Entity
     private HideComponent _hideComponent;
     private State _state = State.idle;
 
-    [SerializeField]
-    private GameObject _moleMesh, _moundMesh;
-
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
 
@@ -67,7 +64,6 @@ public class PlayerController : Entity
                     EnterState(State.idle);
                 else
                     EnterState(State.walking);
-
             }
 
             // digging
@@ -90,15 +86,28 @@ public class PlayerController : Entity
 
             // hiding 
             if (Input.GetButton("Hide"))
-            {
+            { 
                 if (_state != State.hiding && _state != State.digging)
-                    EnterState(State.hiding);
+                {
+                    if (Stamina > 1)
+                        EnterState(State.hiding);
+
+                }
+
+                Debug.Log($"stamina: {Stamina}");
+                // deduct stamina
+                // check stamina
+                if (Stamina <= 0)
+                    ExitState(_state);
+                Stamina--;
             }
 
             if (Input.GetButtonUp("Hide"))
             {
-                if (_state == State.hiding)
-                    ExitState(State.hiding);
+                ExitState(State.hiding);
+                Stamina = 100; // for testing will remove later
+                //if (_state == State.hiding)
+                    
             }
         }
     }

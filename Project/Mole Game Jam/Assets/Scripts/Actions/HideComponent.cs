@@ -4,7 +4,7 @@ using UnityEngine;
 public class HideComponent : MonoBehaviour
 {
     private bool _isVisible = true;
-
+    private float _staminaCost = .25f;
     public GameObject _meshRenderer;
     [SerializeField]
     private GameObject _mound;
@@ -18,27 +18,22 @@ public class HideComponent : MonoBehaviour
     }
     public void Hide()
     {
-        StartCoroutine("InitHide");
+
+        _animator.SetTrigger("DigInit");
+        _meshRenderer.SetActive(false);
+        _mound.SetActive(true);
+        _isVisible = false;
+        //  change speed
+      
     }
     public void UnHide()
     {
-        StopCoroutine("InitDig");
+  
         _meshRenderer.SetActive(true);
         _mound.SetActive(false);
         _isVisible = true;
 
         //  change speed
-    }
-    private IEnumerator InitHide()
-    {
-
-        _animator.SetTrigger("DigInit");
-        yield return new WaitForSeconds(.1f);
-        _meshRenderer.SetActive(false);
-        _mound.SetActive(true);
-        _isVisible = false;
-        //  change speed
-        StopCoroutine("InitHide");
     }
 
 }

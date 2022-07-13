@@ -59,7 +59,7 @@ public class DigDetection : MonoBehaviour
         {
             if (hit.transform != null)
             {
-                Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+                //Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
 
                 if (hit.transform.gameObject.tag == "DiggableWall")
                 {
@@ -98,7 +98,7 @@ public class DigDetection : MonoBehaviour
             if (hit.transform.gameObject.tag == "Player")
                 continue;
 
-            Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+            //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")
                 _results = DetectionResults.dig_floor;
             if (hit.transform.gameObject.tag == "Hole")

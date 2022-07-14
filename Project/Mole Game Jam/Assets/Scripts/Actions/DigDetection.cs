@@ -19,17 +19,24 @@ public class DigDetection : MonoBehaviour
     private Transform _targetPos1;
     [SerializeField]
     public Transform _targetPos2;
-    private Transform _digTargetPos; 
+    private Transform _digTargetPos;
+    private GameObject _targetWall;
 
     public Vector3 _hitPoint1, _hitPoint2;
+
+    [SerializeField] bool _debugging = false;
 
     private DetectionResults _results;
     public DetectionResults Results { get => _results; set => _results = value; }
     public Transform DigTargetPos { get => _digTargetPos; set => _digTargetPos = value; }
+    public GameObject TargetWall { get => _targetWall; set => _targetWall = value; }
 
     private void FixedUpdate()
     {
-        Debug.Log($"_checkFloor: {_checkFloor}");
+        if (_debugging)
+        {
+            Debug.Log($"_checkFloor: {_checkFloor}");
+        }
         if (_detectionEnabled)
             Detect();
     }
@@ -44,19 +51,20 @@ public class DigDetection : MonoBehaviour
         _hitPoint1 = _targetPos1.position;
         _hitPoint2 = _targetPos2.position;
 
-        RaycastHit[] hits = Physics.RaycastAll(_origin, _dir1, 1f);
-        if (hits.Length == 0)
+        RaycastHit[] wallHits = Physics.RaycastAll(_origin, _dir1, 1f);
+        if (wallHits.Length == 0)
             _checkFloor = true;
 
-        foreach (RaycastHit hit in hits)
+        foreach (RaycastHit hit in wallHits)
         {
             if (hit.transform != null)
             {
-                //Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+                Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
 
                 if (hit.transform.gameObject.tag == "DiggableWall")
                 {
                     _results = DetectionResults.dig_wall;
+                    _targetWall = hit.transform.gameObject;
                     _checkFloor = false;
                 }
 
@@ -81,14 +89,16 @@ public class DigDetection : MonoBehaviour
         if (!_checkFloor)
             return;
         
-        RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
+        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, -_dir2);
+        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
+        //RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, -transform.up);
 
-        foreach (RaycastHit hit in floorDetect)
+        foreach (RaycastHit hit in floorHits)
         {
             if (hit.transform.gameObject.tag == "Player")
                 continue;
 
-            //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+            Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")
                 _results = DetectionResults.dig_floor;
             if (hit.transform.gameObject.tag == "Hole")

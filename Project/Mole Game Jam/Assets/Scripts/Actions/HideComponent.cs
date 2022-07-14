@@ -20,6 +20,7 @@ public class HideComponent : MonoBehaviour
     {
 
         _animator.SetTrigger("DigInit");
+        gameObject.layer = LayerMask.NameToLayer("Stealth");
         _meshRenderer.SetActive(false);
         _mound.SetActive(true);
         _isVisible = false;
@@ -32,7 +33,7 @@ public class HideComponent : MonoBehaviour
         _meshRenderer.SetActive(true);
         _mound.SetActive(false);
         _isVisible = true;
-
+        gameObject.layer = LayerMask.NameToLayer("Default");
         //  change speed
     }
 

@@ -51,21 +51,12 @@ public class DustTrail : MonoBehaviour
         {
             GameObject tmp;
 
-            //set eulerangle to y = -90
-            var tmpRot = Meshes_DustTrails[dustTrailIndex].transform.rotation;
-
             tmp = Instantiate(Meshes_DustTrails[dustTrailIndex], transform.position, Meshes_DustTrails[dustTrailIndex].transform.rotation);
             if (transform.rotation.y == 0)
-            {
                 tmp.transform.Rotate(0, 90, 0);
-            }
             if (transform.eulerAngles.y == 180)
-            {
-                Debug.Log("player is facing 180");
                 tmp.transform.Rotate(0, -90, 0);
-            }
 
-            //tmp.transform.eulerAngles = new Vector3(0, -90f, 0);
             tmp.GetComponent<DustTrailBehavior>().actor = gameObject;
             tmp.GetComponent<DustTrailBehavior>().EnableTrail();
 

@@ -99,8 +99,6 @@ public class PlayerController : Entity
                 {
                     if (Stamina > 1)
                         EnterState(State.hiding);
-
-                 
                 }
 
                 //Debug.Log($"stamina: {Stamina}");

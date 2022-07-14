@@ -112,7 +112,7 @@ public class PlayerController : Entity
             if (Input.GetButtonUp("Hide"))
             {
                 ExitState(State.hiding);
-                Stamina = 100; // for testing will remove later
+                Stamina = 1000000000; // for testing will remove later
                 //if (_state == State.hiding)
                     
             }

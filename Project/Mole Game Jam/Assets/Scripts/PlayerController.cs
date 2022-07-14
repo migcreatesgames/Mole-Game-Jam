@@ -20,6 +20,7 @@ public class PlayerController : Entity
 
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
+    public State State { get => _state; set => _state = value; }
 
     private Animator _animator;
 
@@ -51,19 +52,26 @@ public class PlayerController : Entity
 
     void Update()
     {
+        Debug.Log($"state: {_state}");
+
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
-
+            Debug.Log($"state: {_state}");
             // movement
             if (_enableMovement)
             {
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
-                if (_xInput == 0 && _yInput == 0)
-                    EnterState(State.idle);
-                else
-                    EnterState(State.walking);
+                if (_state != State.hiding || _state != State.digging)
+                {
+                    if (_xInput == 0 && _yInput == 0)
+                        EnterState(State.idle);
+                    else
+                        EnterState(State.walking);
+
+                }
+            
             }
 
             // digging
@@ -92,14 +100,15 @@ public class PlayerController : Entity
                     if (Stamina > 1)
                         EnterState(State.hiding);
 
+                 
                 }
 
-                Debug.Log($"stamina: {Stamina}");
+                //Debug.Log($"stamina: {Stamina}");
                 // deduct stamina
                 // check stamina
                 if (Stamina <= 0)
-                    ExitState(_state);
-                Stamina--;
+                    ExitState(State.hiding);
+                Stamina *= .25f;
             }
 
             if (Input.GetButtonUp("Hide"))
@@ -110,6 +119,7 @@ public class PlayerController : Entity
                     
             }
         }
+        Debug.Log($"state: {_state}");
     }
     
     void FixedUpdate()
@@ -161,12 +171,13 @@ public class PlayerController : Entity
 
             case State.hiding:
                 state = State.hiding;
+                if (!GetComponent<DustTrail>().EnableDustTrails)
+                    GetComponent<DustTrail>().EnableDustTrails = true;
                 _hideComponent.Hide();
                 break;
 
             default:
-                state = State.idle;
-                _animator.SetTrigger("Idle");
+               
                 break;
         }
     }
@@ -186,6 +197,8 @@ public class PlayerController : Entity
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
+                if (GetComponent<DustTrail>().EnableDustTrails)
+                    GetComponent<DustTrail>().EnableDustTrails = false;
                 break;
             default:
                 break;

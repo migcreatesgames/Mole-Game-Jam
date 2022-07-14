@@ -5,7 +5,7 @@ public class Entity: MonoBehaviour
 {
     private float _health;
     [SerializeField] protected float _defaultHealth = 100f;
-    private float _stamina = 100;
+    private float _stamina = 10000;
     private float _speed = 5.0f;
     private bool _isAlive = true; 
     

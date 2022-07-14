@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 1625774087025512982}
   - component: {fileID: 7842952907510312127}
   - component: {fileID: 1843245585}
+  - component: {fileID: 9151564592078568248}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -246,8 +247,6 @@ MonoBehaviour:
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  _moleMesh: {fileID: 0}
-  _moundMesh: {fileID: 0}
   _ui: {fileID: 0}
 --- !u!114 &7635563426439201111
 MonoBehaviour:
@@ -318,6 +317,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meshRenderer: {fileID: 8341100077663532042}
   _mound: {fileID: 7796012382160573273}
+--- !u!114 &9151564592078568248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770208113249358771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a841c1e3ceeef3b4cbacbd6cf5ef8096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableDustTrails: 0
+  Meshes_DustTrails:
+  - {fileID: 1894609629603250, guid: ec32c597cf6f65b489471082efb833ba, type: 3}
+  - {fileID: 1784990966845504, guid: bf7e228c4f7559445b61d3f1f4207327, type: 3}
+  - {fileID: 1769399329111782, guid: 5387a77a1b6992f409e6f9f5030db072, type: 3}
+  AmmountToGround: 0.75
+  stepRate: 0.08
+  MaxStepRate: 0.08
 --- !u!1001 &3777142611386262588
 PrefabInstance:
   m_ObjectHideFlags: 0

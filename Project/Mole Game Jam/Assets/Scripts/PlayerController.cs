@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : Entity
 {
@@ -13,12 +14,17 @@ public class PlayerController : Entity
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
     private DigComponent _digComponent;
-
     private CarryComponent _carryComponent;
+    private HideComponent _hideComponent;
+    private State _state = State.idle;
 
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
-    
+    public State State { get => _state; set => _state = value; }
+
+    private Animator _animator;
+
+    [SerializeField] TempUI _ui;
 
     void Awake()
     {
@@ -28,68 +34,174 @@ public class PlayerController : Entity
             return;
         }
         _instance = this;
+        _animator = GetComponentInChildren<Animator>();
         _inputHandler = GetComponent<InputHandler>();
         _movementComponent = GetComponent<MovementComponent>();
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
+        _hideComponent = GetComponent<HideComponent>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        _ui.SetMoleHealthText(Health);
+        OnDamageTakenEvent.AddListener(_ui.SetMoleHealthText);
+        OnRegainHealthEvent.AddListener(_ui.SetMoleHealthText);
     }
 
     void Update()
     {
+        Debug.Log($"state: {_state}");
+
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
+            Debug.Log($"state: {_state}");
+            // movement
             if (_enableMovement)
             {
                 _xInput = Input.GetAxisRaw("Horizontal");
                 _yInput = Input.GetAxisRaw("Vertical");
+                if (_state != State.hiding || _state != State.digging)
+                {
+                    if (_xInput == 0 && _yInput == 0)
+                        EnterState(State.idle);
+                    else
+                        EnterState(State.walking);
+
+                }
+            
             }
+
+            // digging
             if (Input.GetButton("Dig"))
             {
-        
-                Debug.Log("holding Dig Button");
-                Debug.Log($"dig state: {_digComponent.DigState}");
-                Debug.Log($"curDigHoldTime : {curDigHoldTime}");
-                
-                if (curDigHoldTime > MAXDigHoldTime && _digComponent.DigState == DigComponent.DigStates.digging)
+                //Debug.Log("holding Dig Button");
+                //Debug.Log($"dig state: {_digComponent.DigState}");
+                //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
+                if (_state != State.hiding)
+                    EnterState(State.digging);
+            }
+
+            if (Input.GetButtonUp("Dig"))
+            {
+                // stop digging
+                //if (_state == State.digging)
+                ExitState(State.digging);
+            }
+
+
+            // hiding 
+            if (Input.GetButton("Hide"))
+            { 
+                if (_state != State.hiding && _state != State.digging)
                 {
-                    // stop digging
-                    curDigHoldTime = 0f;
-                    _digComponent.DigState = DigComponent.DigStates.digging_complete;
-                    _digComponent.Dig(this);
+                    if (Stamina > 1)
+                        EnterState(State.hiding);
                 }
-                if (curDigHoldTime == 0 && _digComponent.DigState == DigComponent.DigStates.digging_complete)
-                {
-                    // start digging
-                    curDigHoldTime += .01f;
-                    GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    _digComponent.DigState = DigComponent.DigStates.init_dig;
-                    _digComponent.Dig(this);
-                }
-                if (curDigHoldTime < MAXDigHoldTime && _digComponent.DigState == DigComponent.DigStates.digging)
-                {
-                    // continue digging
-                    Debug.Log("continure digging");
-                    curDigHoldTime += .01f;
-                    _digComponent.Dig(this);
-                }     
+
+                //Debug.Log($"stamina: {Stamina}");
+                // deduct stamina
+                // check stamina
+                if (Stamina <= 0)
+                    ExitState(State.hiding);
+                Stamina *= .25f;
+            }
+
+            if (Input.GetButtonUp("Hide"))
+            {
+                ExitState(State.hiding);
+                Stamina = 1000000000; // for testing will remove later
+                //if (_state == State.hiding)
+                    
             }
         }
-
-        if (Input.GetButtonUp("Dig"))
-        {
-            curDigHoldTime = 0f;
-            _digComponent.DigState = DigComponent.DigStates.digging_complete;
-            PlayerController.Instance.EnableMovement = true;
-        }
+        Debug.Log($"state: {_state}");
     }
-
+    
     void FixedUpdate()
     {
         Speed = _carryComponent.RunSpeedCarryingWorms;
-        _movementComponent.Move(_xInput, _yInput, Speed);
+        if (_enableMovement)
+            _movementComponent.Move(_xInput, _yInput, Speed);
     }
 
-    
+    private void EnterState(State state)
+    {
+        switch (state)
+        {
+            case State.idle:
+                state = State.idle;
+                _animator.SetTrigger("Idle");
+
+                break;
+            case State.walking:
+                state = State.walking;
+                _animator.SetTrigger("Walk");
+                break;
+
+            case State.digging:
+                if(state != State.digging)
+                    state = State.digging;
+
+                // start digging
+                if (curDigHoldTime == 0)
+                {
+                    // start digging
+                    _digComponent.Dig(this);
+                    if (_digComponent.CanDig)
+                        curDigHoldTime += .01f;
+                }
+                // continue digging
+                if (curDigHoldTime < MAXDigHoldTime && _digComponent.CanDig)
+                {
+                    //Debug.Log("continure digging");
+                    curDigHoldTime += .01f;
+                }
+                // stop digging
+                if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
+                {
+                    _digComponent.HoleCompleted();
+                    curDigHoldTime = 0f;
+                }
+                break;
+
+            case State.hiding:
+                state = State.hiding;
+                if (!GetComponent<DustTrail>().EnableDustTrails)
+                    GetComponent<DustTrail>().EnableDustTrails = true;
+                _hideComponent.Hide();
+                break;
+
+            default:
+               
+                break;
+        }
+    }
+
+
+    private void ExitState(State state)
+    {
+        switch (state)
+        {
+            case State.idle:
+                break;
+            case State.walking:
+                break;
+            case State.digging:
+                _digComponent.StopDig();
+                curDigHoldTime = 0f;
+                break;
+            case State.hiding:
+                _hideComponent.UnHide();
+                if (GetComponent<DustTrail>().EnableDustTrails)
+                    GetComponent<DustTrail>().EnableDustTrails = false;
+                break;
+            default:
+                break;
+        }
+    }
 }
 
+public enum State { idle, walking, digging, hiding}

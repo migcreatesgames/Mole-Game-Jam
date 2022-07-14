@@ -1,37 +1,56 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity: MonoBehaviour
 {
-    private int _health;
-    private float _stamina;
+    private float _health;
+    [SerializeField] protected float _defaultHealth = 100f;
+    private float _stamina = 10000;
     private float _speed = 5.0f;
+    private bool _isAlive = true; 
+    
 
-    protected int MAX_health = 3;
+    protected float MAX_health = 100f;
     protected float MAX_stamina = 100f;
 
-    public int Health { get => _health; set => _health = value; }
-    public float Stamina { get => _stamina; set => _stamina = value; }
-    public float Speed { get => _speed; set => _speed = value; }
+    public float Health { get => _health; protected set => _health = value; }
+    public float Stamina { get => _stamina; protected set => _stamina = value; }
+    public float Speed { get => _speed; protected set => _speed = value; }
+    public bool IsAlive { get => _isAlive; }
 
-    public virtual void DamageTaken(int damageValue)
+    //public OnDamageTaken OnDamageTakenEvent;
+    public UnityEvent<float> OnDamageTakenEvent;
+    public UnityEvent<float> OnRegainHealthEvent;
+    public UnityEvent OnDeathEvent;
+
+
+    protected virtual void Start() {
+        _health = _defaultHealth;
+        OnDamageTakenEvent = new UnityEvent<float>();
+        OnRegainHealthEvent = new UnityEvent<float>();
+        OnDeathEvent = new UnityEvent();
+    }
+
+    public virtual void DamageTaken(float damageValue)
     {
         _health -= damageValue;
-        if (_health <= 0)
+        if (_health <= 0 && _isAlive)
         {
             Death();
             return;
         }
-
-        //OnDamaged.Invoke();
+        OnDamageTakenEvent.Invoke(Health);
     }
 
-    public virtual void RegainHealth(int healthValue)
+    public virtual void RegainHealth(float healthValue)
     {
-        if (_health < MAX_health)
+        if (MAX_health - _health < healthValue)
         {
+            _health = MAX_health;
+        } else {
             _health += healthValue;
-            //OnRegainHealth.Invoke();
         }
+        OnRegainHealthEvent.Invoke(Health);
     }
 
     public virtual void RegainStamina(float staminaValue)
@@ -39,18 +58,21 @@ public class Entity: MonoBehaviour
 
     }
 
-    public void StaminaUsed()
+    public void StaminaUsed(float staminaValue)
     {
 
     }
 
     public virtual void Death()
     {
+        _isAlive = false;
         //GameState = fail
         //Play death animation
         //Play scene loading animation
         // Load Main Menu scene
-        // OnDeath.Invoked();
+        OnDeathEvent.Invoke();
     }
+
+    
 }
 

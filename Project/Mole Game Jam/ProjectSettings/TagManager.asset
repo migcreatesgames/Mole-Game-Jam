@@ -10,14 +10,15 @@ TagManager:
   - DiggableWall
   - DiggableFloor
   - Hole
+  - OneWayDiggableWall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Stealth
   - Water
   - UI
-  - 
+  - Hole
   - 
   - 
   - 

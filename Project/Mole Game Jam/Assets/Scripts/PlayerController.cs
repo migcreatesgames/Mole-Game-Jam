@@ -46,8 +46,8 @@ public class PlayerController : Entity
     {
         base.Start();
         _ui.SetMoleHealthText(Health);
-        OnDamageTakenEvent.AddListener(_ui.SetMoleHealthText);
-        OnRegainHealthEvent.AddListener(_ui.SetMoleHealthText);
+        //OnDamageTakenEvent.AddListener(_ui.SetMoleHealthText);
+        //OnRegainHealthEvent.AddListener(_ui.SetMoleHealthText);
     }
 
     void Update()

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class HideComponent : MonoBehaviour
@@ -36,5 +35,4 @@ public class HideComponent : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Default");
         //  change speed
     }
-
 }

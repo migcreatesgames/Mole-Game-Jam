@@ -35,14 +35,16 @@ public class UIManager : MonoBehaviour
         if (_instance != null)
             return;
         _instance = this;
+
+
     }
 
     private void OnEnable()
     {
+        hud_CanvasGroup = GameObject.Find("Panel_HUD_V1").GetComponent<CanvasGroup>();
         GameEvents.OnDamageEvent += HandleHealthBar;
         GameEvents.OnStaminaUpdateEvent += UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent += UpdateMoleBabiesBar;
-
     }
 
     private void OnDisable()
@@ -55,15 +57,20 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         pc = PlayerController.Instance;
-        hud_CanvasGroup = GetComponent<CanvasGroup>();
         SetUIObjects();
         SetUIObjectValues();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.I))
             ToggleHUD();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            PlayerController.Instance.DamageTaken(1);
+            //GameEvents.OnDamageEvent?.Invoke(1);
+        }
     }
 
     private void SetUIObjects()
@@ -79,10 +86,10 @@ public class UIManager : MonoBehaviour
         _healthBar.fillAmount = _healthValue;
 
         _staminaValue = pc.Stamina;
-        _staminaBar.fillAmount = _staminaValue / 100; // change 100 to maxMana
+        _staminaBar.fillAmount = _staminaValue / 100; // change 100 to maxStealth
 
-        _moleBabiesValue = pc.Stamina;
-        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxMana
+        _moleBabiesValue = GameManager.Instance.MoleBabiesHungerValue;
+        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxBabiesHunger
     }
 
     void ToggleHUD()

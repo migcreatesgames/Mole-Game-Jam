@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DustTrail : MonoBehaviour
-{//foot dust trail variables
-
+{
     public bool EnableDustTrails = false; //field for user to toggle dust trails from inspector 
     public GameObject[] Meshes_DustTrails;
     protected bool canSpawnDustTrail;
@@ -22,9 +19,7 @@ public class DustTrail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // spawn dust trails
-    
         if (EnableDustTrails)
         {
             if (!canSpawnDustTrail)
@@ -76,6 +71,4 @@ public class DustTrail : MonoBehaviour
         stepRate = MaxStepRate;
         canSpawnDustTrail = false;
     }
-
-
 }

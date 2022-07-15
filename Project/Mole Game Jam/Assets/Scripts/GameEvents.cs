@@ -9,6 +9,7 @@ public static class GameEvents
     public static Action<float> OnDamageEvent;
     public static Action OnKilledEvent;
 
+    public static Action<float> OnHelathUpdateEvent;
     public static Action<float> OnStaminaUpdateEvent;
     public static Action<float> OnMoleBabiesHungerUpdateEvent;
 

@@ -4,7 +4,6 @@ using UnityEngine.Events;
 public class Entity: MonoBehaviour
 {
     private float _health;
-    [SerializeField] protected float _defaultHealth = 100f;
     private float _stamina = 10000;
     private float _speed = 5.0f;
     private bool _isAlive = true; 
@@ -18,28 +17,23 @@ public class Entity: MonoBehaviour
     public float Speed { get => _speed; protected set => _speed = value; }
     public bool IsAlive { get => _isAlive; }
 
-    //public OnDamageTaken OnDamageTakenEvent;
-    public UnityEvent<float> OnDamageTakenEvent;
-    public UnityEvent<float> OnRegainHealthEvent;
-    public UnityEvent OnDeathEvent;
-
-
-    protected virtual void Start() {
-        _health = _defaultHealth;
-        OnDamageTakenEvent = new UnityEvent<float>();
-        OnRegainHealthEvent = new UnityEvent<float>();
-        OnDeathEvent = new UnityEvent();
+    protected virtual void Start() 
+    {
+        _health = MAX_health;
     }
 
     public virtual void DamageTaken(float damageValue)
     {
+        Debug.Log($"damageValue: {damageValue}");
+
         _health -= damageValue;
+        Debug.Log($"healtg: {_health}");
         if (_health <= 0 && _isAlive)
         {
             Death();
             return;
         }
-        OnDamageTakenEvent.Invoke(Health);
+        GameEvents.OnDamageEvent?.Invoke(_health);
     }
 
     public virtual void RegainHealth(float healthValue)
@@ -50,7 +44,7 @@ public class Entity: MonoBehaviour
         } else {
             _health += healthValue;
         }
-        OnRegainHealthEvent.Invoke(Health);
+        GameEvents.OnHelathUpdateEvent.Invoke(_health) ;
     }
 
     public virtual void RegainStamina(float staminaValue)
@@ -70,9 +64,7 @@ public class Entity: MonoBehaviour
         //Play death animation
         //Play scene loading animation
         // Load Main Menu scene
-        OnDeathEvent.Invoke();
+        //OnDeathEvent.Invoke();
     }
-
-    
 }
 

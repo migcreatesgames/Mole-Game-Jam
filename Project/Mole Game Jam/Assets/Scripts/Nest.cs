@@ -16,8 +16,8 @@ public class Nest : Entity
     {
         base.Start();
         _ui.SetBabiesHealthText(Health);
-        OnDamageTakenEvent.AddListener(_ui.SetBabiesHealthText);
-        OnRegainHealthEvent.AddListener(_ui.SetBabiesHealthText);
+        //OnDamageTakenEvent.AddListener(_ui.SetBabiesHealthText);
+        //OnRegainHealthEvent.AddListener(_ui.SetBabiesHealthText);
         
     }
 

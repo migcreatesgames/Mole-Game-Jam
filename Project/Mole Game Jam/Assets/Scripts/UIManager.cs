@@ -1,0 +1,124 @@
+using UnityEngine.UI;
+using UnityEngine;
+
+/// <summary>
+/// singletone manager class that handles UI elements.
+/// </summary>
+
+public class UIManager : MonoBehaviour
+{
+    [HideInInspector]
+    public static UIManager _instance;
+
+    private PlayerController pc;
+
+    // reference to canvas group alpha value for HUD gameobject.
+    public CanvasGroup hud_CanvasGroup;
+
+    // reference to health bar UI.
+    [SerializeField] Image _healthBar;
+    // reference to health value from playercontroller.
+    private float _healthValue;
+
+    // reference to mana bar UI
+    [SerializeField] Image _staminaBar;
+    // reference to mana value from playercontroller.
+    private float _staminaValue;
+
+    // reference to baby mole bar UI
+    [SerializeField] Image _moleBabiesBar;
+    // reference to mana value from playercontroller.
+    private float _moleBabiesValue;
+
+    private void Awake()
+    {
+        if (_instance != null)
+            return;
+        _instance = this;
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnDamageEvent += HandleHealthBar;
+        GameEvents.OnStaminaUpdateEvent += UpdateStaminaBar;
+        GameEvents.OnMoleBabiesHungerUpdateEvent += UpdateMoleBabiesBar;
+
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnDamageEvent -= HandleHealthBar;
+        GameEvents.OnStaminaUpdateEvent -= UpdateStaminaBar;
+        GameEvents.OnMoleBabiesHungerUpdateEvent -= UpdateMoleBabiesBar;
+    }
+
+    void Start()
+    {
+        pc = PlayerController.Instance;
+        hud_CanvasGroup = GetComponent<CanvasGroup>();
+        SetUIObjects();
+        SetUIObjectValues();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+            ToggleHUD();
+    }
+
+    private void SetUIObjects()
+    {
+        _healthBar = GameObject.Find("HealthBar_Fill").GetComponent<Image>();
+        _staminaBar = GameObject.Find("StaminaBar_Fill").GetComponent<Image>();
+        _moleBabiesBar = GameObject.Find("MoleBabiesBar_Fill").GetComponent<Image>();
+    }
+
+    public void SetUIObjectValues()
+    {
+        _healthValue = pc.Health / 100; // change 100 to maxHealth
+        _healthBar.fillAmount = _healthValue;
+
+        _staminaValue = pc.Stamina;
+        _staminaBar.fillAmount = _staminaValue / 100; // change 100 to maxMana
+
+        _moleBabiesValue = pc.Stamina;
+        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxMana
+    }
+
+    void ToggleHUD()
+    {
+        if (hud_CanvasGroup.alpha == 0)
+            DisplayHUD();
+        else
+            HideHUD();
+    }
+
+    private void DisplayHUD()
+    {
+        if (UIEvents.OnHUDDisplay != null)
+            UIEvents.OnHUDDisplay(hud_CanvasGroup);
+        else
+            hud_CanvasGroup.alpha = 1;
+    }
+
+    public void HideHUD()
+    {
+        if (UIEvents.OnHUDHide != null)
+            UIEvents.OnHUDHide(hud_CanvasGroup);
+        else
+            hud_CanvasGroup.alpha = 0;
+    }
+
+    public void HandleHealthBar(float value) => _healthBar.fillAmount = value / 100;
+
+    void UpdateStaminaBar(float value)
+    {
+        _staminaValue = value;
+        _staminaBar.fillAmount = _staminaValue / 100; // change 100 to maxStamina
+    }
+    void UpdateMoleBabiesBar(float value)
+    {
+        _moleBabiesValue = value;
+        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxMoleBabies value
+    }
+}

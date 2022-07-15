@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     // reference to mana value from playercontroller.
     private float _moleBabiesValue;
 
+    public Image StaminaBar { get => _staminaBar; set => _staminaBar = value; }
+
     private void Awake()
     {
         if (_instance != null)
@@ -79,6 +81,8 @@ public class UIManager : MonoBehaviour
         {
             PlayerController.Instance.RegainHealth(1);
         }
+
+
     }
 
     private void SetUIObjects()

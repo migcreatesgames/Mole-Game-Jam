@@ -1,8 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
 public class PlayerController : Entity
 {
+    private bool _inCooldown = false;
+    private float _cooldownScale = 1;
     private float _xInput;
     private float _yInput;
     private float curDigHoldTime = 0f;
@@ -21,6 +24,8 @@ public class PlayerController : Entity
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
+    public int CooldownDelay { get; private set; }
+    public float _testStaminaCost { get; private set; }
 
     private Animator _animator;
 
@@ -52,6 +57,33 @@ public class PlayerController : Entity
 
     void Update()
     {
+        #region testing 
+
+        if (_inCooldown)
+        {
+            if (UIManager._instance.StaminaBar.fillAmount >= 0)
+            {
+                UIManager._instance.StaminaBar.fillAmount = 
+                    Mathf.Lerp(UIManager._instance.StaminaBar.fillAmount, 200, Time.deltaTime * _cooldownScale);
+                if (Stamina < 200)
+                    Stamina = UIManager._instance.StaminaBar.fillAmount * 200;
+            }
+            if (UIManager._instance.StaminaBar.fillAmount == 1 && Stamina == 200)
+            {
+                _inCooldown = false;
+                StopAllCoroutines();
+            }
+        }
+
+        if (!_inCooldown && Stamina < _testStaminaCost)
+        {
+     
+            _inCooldown = true;
+            StartCoroutine(CoolDown());
+        }
+        #endregion
+
+
         Debug.Log($"state: {_state}");
 
         if (_inputHandler)
@@ -69,9 +101,7 @@ public class PlayerController : Entity
                         EnterState(State.idle);
                     else
                         EnterState(State.walking);
-
                 }
-            
             }
 
             // digging
@@ -201,6 +231,30 @@ public class PlayerController : Entity
             default:
                 break;
         }
+    }
+
+    private IEnumerator CoolDown()
+    {
+        print("cooldown Called");
+        StopCoroutine(AutoCoolDown());
+        yield return new WaitForSeconds(CooldownDelay * 2);
+        _inCooldown = false;
+        StopCoroutine(CoolDown());
+    }
+
+
+    private IEnumerator AutoCoolDown()
+    {
+        yield return new WaitForSeconds(CooldownDelay * 2f);
+
+        if (!_inCooldown && Stamina < 200 && 
+            (_state != State.digging || _state != State.hiding))
+        {
+            print("auto rechage stamina - recharge = true");
+            _inCooldown = true;
+            StartCoroutine(CoolDown());
+        }
+        StopCoroutine(AutoCoolDown());
     }
 }
 

@@ -27,7 +27,6 @@ public class Entity: MonoBehaviour
         Debug.Log($"damageValue: {damageValue}");
 
         _health -= damageValue;
-        Debug.Log($"healtg: {_health}");
         if (_health <= 0 && _isAlive)
         {
             Death();

@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
         GameEvents.OnDamageEvent += HandleHealthBar;
         GameEvents.OnStaminaUpdateEvent += UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent += UpdateMoleBabiesBar;
+        GameEvents.OnHelathUpdateEvent += HandleHealthBar;
     }
 
     private void OnDisable()
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
         GameEvents.OnDamageEvent -= HandleHealthBar;
         GameEvents.OnStaminaUpdateEvent -= UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent -= UpdateMoleBabiesBar;
+        GameEvents.OnHelathUpdateEvent -= HandleHealthBar;
     }
 
     void Start()
@@ -69,7 +71,13 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             PlayerController.Instance.DamageTaken(1);
-            //GameEvents.OnDamageEvent?.Invoke(1);
+
+           
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            PlayerController.Instance.RegainHealth(1);
         }
     }
 

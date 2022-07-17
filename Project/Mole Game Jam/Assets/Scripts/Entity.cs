@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Entity: MonoBehaviour
 {
@@ -7,7 +6,6 @@ public class Entity: MonoBehaviour
     private float _stamina = 100;
     private float _speed = 5.0f;
     private bool _isAlive = true; 
-    
 
     protected float MAX_health = 100f;
     protected float MAX_stamina = 100f;

@@ -109,7 +109,7 @@ public class DigComponent : MonoBehaviour
         if (_detect.Results == DetectionResults.dig_floor)
             SpawnDigPrefab();
         else
-            DestroyDiigableWall();
+            DestroyDigableWall();
         EnterState(DigComponent.DigStates.digging_complete);
     }
 
@@ -148,7 +148,7 @@ public class DigComponent : MonoBehaviour
         // give random rotation for visual variation
     }
 
-    public void DestroyDiigableWall()
+    public void DestroyDigableWall()
     {
         //var tmp = Instantiate(_holePrefab, _detect._targetPos2);
         //tmp.transform.parent = null;

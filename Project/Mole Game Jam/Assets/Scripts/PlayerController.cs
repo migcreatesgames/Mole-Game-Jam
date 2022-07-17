@@ -50,7 +50,7 @@ public class PlayerController : Entity
     protected override void Start()
     {
         base.Start();
-        _ui.SetMoleHealthText(Health);
+        //_ui.SetMoleHealthText(Health);
     }
 
     void Update()
@@ -62,6 +62,7 @@ public class PlayerController : Entity
         {
             //_inputHandler.HandleInput(_instance);
             //Debug.Log($"state: {_state}");
+
             // movement
             if (_enableMovement)
             {
@@ -89,11 +90,8 @@ public class PlayerController : Entity
 
             if (Input.GetButtonUp("Dig"))
             {
-                // stop digging
-                //if (_state == State.digging)
                 ExitState(State.digging);
             }
-
 
             // hiding 
             if (Input.GetButton("Hide"))
@@ -105,8 +103,6 @@ public class PlayerController : Entity
                 }
      
                 //Debug.Log($"stamina: {Stamina}");
-                // deduct stamina
-                // check stamina
                 if (Stamina <= 1f)
                     ExitState(State.hiding);
                 Stamina -= .5f;
@@ -163,22 +159,16 @@ public class PlayerController : Entity
 
 
                 // continue digging
-                if (curDigHoldTime < MAXDigHoldTime && _digComponent.CanDig)
+                if (curDigHoldTime < MAXDigHoldTime && _digComponent)
                 {
-                    Debug.Log("continure digging");
                     curDigHoldTime += .01f;
                     Stamina -= .1f;
-
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 }                
                 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
-                {
-                    Debug.Log("hole completed");
                     _digComponent.HoleCompleted();
-                }
-
 
                 break;
 

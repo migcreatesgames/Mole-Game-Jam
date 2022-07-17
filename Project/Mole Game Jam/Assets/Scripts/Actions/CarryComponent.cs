@@ -7,6 +7,7 @@ public class CarryComponent : MonoBehaviour
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
     [SerializeField] private GameObject[] _worms;
+    private Animator _animator;
     public float RunSpeedCarryingWorms {
         get {
             return _runSpeedsCarryingWorms[_numOfWormsCarried];
@@ -19,6 +20,7 @@ public class CarryComponent : MonoBehaviour
     void Awake() {
         Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried, 
                             "Run speed list shorter than max number of worms carried");
+        _animator = GetComponentInChildren<Animator>();
     }
    
     void OnTriggerEnter(Collider other) {
@@ -26,6 +28,7 @@ public class CarryComponent : MonoBehaviour
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried) {
             _isCarrying = true;
+            _animator.SetBool("Encumbered", true);
             _numOfWormsCarried++;
             DisplayWorm(_numOfWormsCarried) ;
             GameObject.Destroy(worm.gameObject);
@@ -44,7 +47,10 @@ public class CarryComponent : MonoBehaviour
         _numOfWormsCarried--;
         DisplayWorm(_numOfWormsCarried);
         if (_numOfWormsCarried == 0)
+        {
             _isCarrying = false;
+            _animator.SetBool("Encumbered", false);
+        }
     }
     private void DisplayWorm(int nums)
     {

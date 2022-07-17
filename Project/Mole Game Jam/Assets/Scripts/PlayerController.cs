@@ -9,8 +9,8 @@ public class PlayerController : Entity
     private float curDigHoldTime = 0f;
     private float MAXDigHoldTime = 3f;
 
-    private bool _enableMovement = true; 
-
+    private bool _enableMovement = true;
+    private bool _isRecharging = false;
     private static PlayerController _instance;
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
@@ -47,27 +47,17 @@ public class PlayerController : Entity
         _hideComponent = GetComponent<HideComponent>();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        //_ui.SetMoleHealthText(Health);
-    }
-
     void Update()
     {
-
-        //Debug.Log($"state: {_state}");
-
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
-            //Debug.Log($"state: {_state}");
 
             // movement
             if (_enableMovement)
             {
-                _xInput = Input.GetAxisRaw("Horizontal");
-                _yInput = Input.GetAxisRaw("Vertical");
+                _xInput = Input.GetAxis("Horizontal");
+                _yInput = Input.GetAxis("Vertical");
                 if (_state != State.hiding || _state != State.digging)
                 {
                     if (_xInput == 0 && _yInput == 0)
@@ -80,18 +70,14 @@ public class PlayerController : Entity
             // digging
             if (Input.GetButton("Dig"))
             {
-                //Debug.Log("holding Dig Button");
                 //Debug.Log($"dig state: {_digComponent.DigState}");
                 //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
                 if (_state != State.hiding)
                     EnterState(State.digging);
-             
             }
 
             if (Input.GetButtonUp("Dig"))
-            {
                 ExitState(State.digging);
-            }
 
             // hiding 
             if (Input.GetButton("Hide"))
@@ -101,12 +87,13 @@ public class PlayerController : Entity
                     if (Stamina > 1)
                         EnterState(State.hiding);
                 }
-     
-                //Debug.Log($"stamina: {Stamina}");
-                if (Stamina <= 1f)
-                    ExitState(State.hiding);
-                Stamina -= .5f;
-                GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                if (_state == State.hiding)
+                {
+                    if (Stamina == 0)
+                        ExitState(State.hiding);
+                    Stamina -= .5f;
+                    GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                }
             }
 
             if (Input.GetButtonUp("Hide"))
@@ -115,7 +102,6 @@ public class PlayerController : Entity
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
             }
         }
-        //Debug.Log($"state: {_state}");
     }
     
     void FixedUpdate()
@@ -130,18 +116,19 @@ public class PlayerController : Entity
         switch (state)
         {
             case State.idle:
-                state = State.idle;
+                if (_state != State.idle)
+                    _state = State.idle;
                 _animator.SetTrigger("Idle");
-
                 break;
+
             case State.walking:
-                state = State.walking;
+                _state = State.walking;
                 _animator.SetTrigger("Walk");
                 break;
 
             case State.digging:
-                if(state != State.digging)
-                    state = State.digging;
+                if(_state != State.digging)
+                    _state = State.digging;
 
                 // start digging
                 if (curDigHoldTime == 0)
@@ -150,9 +137,12 @@ public class PlayerController : Entity
                     _digComponent.Dig(this);
                     if (_digComponent.CanDig)
                     {
+                        // stop stamina recharge
+                        if (_isRecharging)
+                            CancelRechargeStamina();
+
                         curDigHoldTime += .01f;
                         Stamina -= .1f;
-
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     }
                 }
@@ -168,16 +158,24 @@ public class PlayerController : Entity
                 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
+                {
                     _digComponent.HoleCompleted();
-
+                    //ExitState(State.digging);
+                }
                 break;
 
             case State.hiding:
-                state = State.hiding;
+                _state = State.hiding;
+
+                // stop stamina recharge
+                if (_isRecharging)
+                    CancelRechargeStamina();
+
+
                 if (!GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = true;
                 _hideComponent.Hide();
-                break;
+                break;  
 
             default:
                
@@ -195,7 +193,7 @@ public class PlayerController : Entity
                 break;
             case State.digging:
                 _digComponent.StopDig();
-                StartCoroutine(RechargeStamina());
+                //StartCoroutine(RechargeStamina());
                 curDigHoldTime = 0f;
                 break;
             case State.hiding:
@@ -211,10 +209,21 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
+        _isRecharging = true;
         Debug.Log("RechargeStamina called");
         yield return new WaitForSeconds(RechargeDelay);
         while (Stamina < MAX_stamina)
+        {
             RegainStamina(Stamina += MAX_stamina / 100);
+            yield return new WaitForSeconds(.1f);
+        }
+        _isRecharging = false;
+        StopCoroutine(RechargeStamina());
+    }
+    private void CancelRechargeStamina()
+    {
+        Debug.Log("CancelRechargeStamina called");
+        _isRecharging = false;
         StopCoroutine(RechargeStamina());
     }
 }

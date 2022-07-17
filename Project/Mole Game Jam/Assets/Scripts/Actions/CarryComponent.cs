@@ -11,7 +11,6 @@ public class CarryComponent : MonoBehaviour
     }
     int _numOfWormsCarried = 0;
     public int NumOfWormsCarried {get => _numOfWormsCarried; }
-    // Start is called before the first frame update
     
     void Awake() {
         Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried, 

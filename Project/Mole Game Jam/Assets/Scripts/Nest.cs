@@ -33,6 +33,5 @@ public class Nest : Entity
         base.Death();
         _ui.SetBabiesHealthText(0f);
         GameManager.Instance.GameOver();
-
     }
 }

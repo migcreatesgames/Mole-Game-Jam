@@ -13,7 +13,6 @@ public static class GameEvents
     public static Action<float> OnStaminaUpdateEvent;
     public static Action<float> OnMoleBabiesHungerUpdateEvent;
 
-
     //public static Action OnAddCameraTarget;
     //public static Action OnRemoveCameraTarget;
 }

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Entity: MonoBehaviour
 {
     private float _health;
-    private float _stamina = 10000;
+    private float _stamina = 100;
     private float _speed = 5.0f;
     private bool _isAlive = true; 
     
@@ -48,7 +48,7 @@ public class Entity: MonoBehaviour
 
     public virtual void RegainStamina(float staminaValue)
     {
-
+        GameEvents.OnStaminaUpdateEvent(staminaValue);
     }
 
     public void StaminaUsed(float staminaValue)

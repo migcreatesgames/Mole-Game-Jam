@@ -35,8 +35,4 @@ public class Nest : Entity
         GameManager.Instance.GameOver();
 
     }
-
-    
-
-    
 }

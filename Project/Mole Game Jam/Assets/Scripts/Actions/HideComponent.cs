@@ -17,18 +17,15 @@ public class HideComponent : MonoBehaviour
     }
     public void Hide()
     {
-
         _animator.SetTrigger("DigInit");
         gameObject.layer = LayerMask.NameToLayer("Stealth");
         _meshRenderer.SetActive(false);
         _mound.SetActive(true);
         _isVisible = false;
-        //  change speed
-      
+        //  change speed 
     }
     public void UnHide()
     {
-  
         _meshRenderer.SetActive(true);
         _mound.SetActive(false);
         _isVisible = true;

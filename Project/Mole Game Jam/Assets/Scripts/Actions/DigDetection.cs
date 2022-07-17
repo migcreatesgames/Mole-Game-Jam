@@ -88,8 +88,6 @@ public class DigDetection : MonoBehaviour
 
         if (!_checkFloor)
             return;
-        
-        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, -_dir2);
         RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
         //RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, -transform.up);
 

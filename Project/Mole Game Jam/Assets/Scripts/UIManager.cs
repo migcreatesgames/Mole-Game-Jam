@@ -37,8 +37,6 @@ public class UIManager : MonoBehaviour
         if (_instance != null)
             return;
         _instance = this;
-
-
     }
 
     private void OnEnable()
@@ -71,18 +69,10 @@ public class UIManager : MonoBehaviour
             ToggleHUD();
 
         if (Input.GetKeyDown(KeyCode.C))
-        {
             PlayerController.Instance.DamageTaken(1);
 
-           
-        }
-
         if (Input.GetKeyDown(KeyCode.V))
-        {
             PlayerController.Instance.RegainHealth(1);
-        }
-
-
     }
 
     private void SetUIObjects()

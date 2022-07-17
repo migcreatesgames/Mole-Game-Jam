@@ -110,7 +110,6 @@ public class DigComponent : MonoBehaviour
             SpawnDigPrefab();
         else
             DestroyDiigableWall();
-
         EnterState(DigComponent.DigStates.digging_complete);
     }
 

@@ -4,8 +4,6 @@ using TMPro;
 
 public class PlayerController : Entity
 {
-    private bool _inCooldown = false;
-    private float _cooldownScale = 1;
     private float _xInput;
     private float _yInput;
     private float curDigHoldTime = 0f;
@@ -21,10 +19,12 @@ public class PlayerController : Entity
     private HideComponent _hideComponent;
     private State _state = State.idle;
 
+
+    private int _rechargeDelay = 2;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
-    public int CooldownDelay { get; private set; }
+    public int RechargeDelay { get => _rechargeDelay; set => _rechargeDelay = value; }
     public float _testStaminaCost { get; private set; }
 
     private Animator _animator;
@@ -51,45 +51,17 @@ public class PlayerController : Entity
     {
         base.Start();
         _ui.SetMoleHealthText(Health);
-        //OnDamageTakenEvent.AddListener(_ui.SetMoleHealthText);
-        //OnRegainHealthEvent.AddListener(_ui.SetMoleHealthText);
     }
 
     void Update()
     {
-        #region testing 
 
-        if (_inCooldown)
-        {
-            if (UIManager._instance.StaminaBar.fillAmount >= 0)
-            {
-                UIManager._instance.StaminaBar.fillAmount = 
-                    Mathf.Lerp(UIManager._instance.StaminaBar.fillAmount, 200, Time.deltaTime * _cooldownScale);
-                if (Stamina < 200)
-                    Stamina = UIManager._instance.StaminaBar.fillAmount * 200;
-            }
-            if (UIManager._instance.StaminaBar.fillAmount == 1 && Stamina == 200)
-            {
-                _inCooldown = false;
-                StopAllCoroutines();
-            }
-        }
-
-        if (!_inCooldown && Stamina < _testStaminaCost)
-        {
-     
-            _inCooldown = true;
-            StartCoroutine(CoolDown());
-        }
-        #endregion
-
-
-        Debug.Log($"state: {_state}");
+        //Debug.Log($"state: {_state}");
 
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
-            Debug.Log($"state: {_state}");
+            //Debug.Log($"state: {_state}");
             // movement
             if (_enableMovement)
             {
@@ -112,6 +84,7 @@ public class PlayerController : Entity
                 //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
                 if (_state != State.hiding)
                     EnterState(State.digging);
+             
             }
 
             if (Input.GetButtonUp("Dig"))
@@ -124,30 +97,29 @@ public class PlayerController : Entity
 
             // hiding 
             if (Input.GetButton("Hide"))
-            { 
+            {
                 if (_state != State.hiding && _state != State.digging)
                 {
                     if (Stamina > 1)
                         EnterState(State.hiding);
                 }
-
+     
                 //Debug.Log($"stamina: {Stamina}");
                 // deduct stamina
                 // check stamina
-                if (Stamina <= 0)
+                if (Stamina <= 1f)
                     ExitState(State.hiding);
-                Stamina *= .25f;
+                Stamina -= .5f;
+                GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
             }
 
             if (Input.GetButtonUp("Hide"))
             {
                 ExitState(State.hiding);
-                Stamina = 1000000000; // for testing will remove later
-                //if (_state == State.hiding)
-                    
+                GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
             }
         }
-        Debug.Log($"state: {_state}");
+        //Debug.Log($"state: {_state}");
     }
     
     void FixedUpdate()
@@ -181,20 +153,33 @@ public class PlayerController : Entity
                     // start digging
                     _digComponent.Dig(this);
                     if (_digComponent.CanDig)
+                    {
                         curDigHoldTime += .01f;
+                        Stamina -= .1f;
+
+                        GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                    }
                 }
+
+
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime && _digComponent.CanDig)
                 {
-                    //Debug.Log("continure digging");
+                    Debug.Log("continure digging");
                     curDigHoldTime += .01f;
-                }
+                    Stamina -= .1f;
+
+                    GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                }                
+                
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
                 {
+                    Debug.Log("hole completed");
                     _digComponent.HoleCompleted();
-                    curDigHoldTime = 0f;
                 }
+
+
                 break;
 
             case State.hiding:
@@ -210,7 +195,6 @@ public class PlayerController : Entity
         }
     }
 
-
     private void ExitState(State state)
     {
         switch (state)
@@ -221,10 +205,12 @@ public class PlayerController : Entity
                 break;
             case State.digging:
                 _digComponent.StopDig();
+                StartCoroutine(RechargeStamina());
                 curDigHoldTime = 0f;
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
+                StartCoroutine(RechargeStamina());
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 break;
@@ -233,28 +219,13 @@ public class PlayerController : Entity
         }
     }
 
-    private IEnumerator CoolDown()
+    private IEnumerator RechargeStamina()
     {
-        print("cooldown Called");
-        StopCoroutine(AutoCoolDown());
-        yield return new WaitForSeconds(CooldownDelay * 2);
-        _inCooldown = false;
-        StopCoroutine(CoolDown());
-    }
-
-
-    private IEnumerator AutoCoolDown()
-    {
-        yield return new WaitForSeconds(CooldownDelay * 2f);
-
-        if (!_inCooldown && Stamina < 200 && 
-            (_state != State.digging || _state != State.hiding))
-        {
-            print("auto rechage stamina - recharge = true");
-            _inCooldown = true;
-            StartCoroutine(CoolDown());
-        }
-        StopCoroutine(AutoCoolDown());
+        Debug.Log("RechargeStamina called");
+        yield return new WaitForSeconds(RechargeDelay);
+        while (Stamina < MAX_stamina)
+            RegainStamina(Stamina += MAX_stamina / 100);
+        StopCoroutine(RechargeStamina());
     }
 }
 

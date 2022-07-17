@@ -4,6 +4,8 @@ public class CarryComponent : MonoBehaviour
 {
     [SerializeField] float[] _runSpeedsCarryingWorms;
     [SerializeField] private int MAX_num_of_worms_carried = 3;
+
+    [SerializeField] private GameObject[] _worms;
     public float RunSpeedCarryingWorms {
         get {
             return _runSpeedsCarryingWorms[_numOfWormsCarried];
@@ -22,6 +24,7 @@ public class CarryComponent : MonoBehaviour
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried) {
             _numOfWormsCarried++;
+            DisplayWorm(_numOfWormsCarried) ;
             GameObject.Destroy(worm.gameObject);
         }
 
@@ -31,5 +34,17 @@ public class CarryComponent : MonoBehaviour
             nest.RegainHealth(_numOfWormsCarried * GameManager.Instance.WORM_HP);
             _numOfWormsCarried = 0;
         }
+    }
+    private void DisplayWorm(int nums)
+    {
+        if (nums > 0)
+            HideWorm();
+        for (int i = 0; i < nums; i++)
+            _worms[i].SetActive(true);
+    }
+    private void HideWorm()
+    {
+        for (int i = 0; i < _worms.Length; i++)
+            _worms[i].SetActive(false);
     }
 }

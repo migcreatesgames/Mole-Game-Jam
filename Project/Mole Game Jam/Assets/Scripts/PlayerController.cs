@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class PlayerController : Entity
 {
@@ -18,7 +17,6 @@ public class PlayerController : Entity
     private CarryComponent _carryComponent;
     private HideComponent _hideComponent;
     private State _state = State.idle;
-
 
     private int _rechargeDelay = 2;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
@@ -49,19 +47,23 @@ public class PlayerController : Entity
 
     void Update()
     {
-        if (_inputHandler)
+        if (_inputHandler)  
         {
             //_inputHandler.HandleInput(_instance);
 
             // movement
             if (_enableMovement)
             {
-                _xInput = Input.GetAxis("Horizontal");
-                _yInput = Input.GetAxis("Vertical");
+                _xInput = Input.GetAxisRaw("Horizontal");
+                _yInput = Input.GetAxisRaw("Vertical");
                 if (_state != State.hiding || _state != State.digging)
                 {
+                    //if (!_isRecharging && Stamina < MAX_stamina)
+                    //    StartCoroutine(RechargeStamina());
+                    
                     if (_xInput == 0 && _yInput == 0)
                         EnterState(State.idle);
+
                     else
                         EnterState(State.walking);
                 }
@@ -147,10 +149,12 @@ public class PlayerController : Entity
                     }
                 }
 
-
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime && _digComponent)
                 {
+                    if (_isRecharging)
+                        CancelRechargeStamina();
+
                     curDigHoldTime += .01f;
                     Stamina -= .1f;
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
@@ -158,10 +162,8 @@ public class PlayerController : Entity
                 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
-                {
                     _digComponent.HoleCompleted();
-                    //ExitState(State.digging);
-                }
+
                 break;
 
             case State.hiding:
@@ -171,14 +173,12 @@ public class PlayerController : Entity
                 if (_isRecharging)
                     CancelRechargeStamina();
 
-
                 if (!GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = true;
                 _hideComponent.Hide();
                 break;  
 
             default:
-               
                 break;
         }
     }
@@ -193,12 +193,10 @@ public class PlayerController : Entity
                 break;
             case State.digging:
                 _digComponent.StopDig();
-                //StartCoroutine(RechargeStamina());
                 curDigHoldTime = 0f;
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
-                StartCoroutine(RechargeStamina());
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 break;
@@ -209,9 +207,9 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-        _isRecharging = true;
         Debug.Log("RechargeStamina called");
         yield return new WaitForSeconds(RechargeDelay);
+        _isRecharging = true;
         while (Stamina < MAX_stamina)
         {
             RegainStamina(Stamina += MAX_stamina / 100);

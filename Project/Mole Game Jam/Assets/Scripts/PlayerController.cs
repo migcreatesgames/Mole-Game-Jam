@@ -120,12 +120,20 @@ public class PlayerController : Entity
             case State.idle:
                 if (_state != State.idle)
                     _state = State.idle;
-                _animator.SetTrigger("Idle");
+
+                if(!_carryComponent.IsCarrying)
+                    _animator.SetTrigger("Idle");
+                else
+                    _animator.SetTrigger("Idle_Encumbered");
                 break;
 
             case State.walking:
                 _state = State.walking;
-                _animator.SetTrigger("Walk");
+                if (!_carryComponent.IsCarrying)
+                    _animator.SetTrigger("Walk");
+                else
+                    _animator.SetTrigger("Walk_Encumbered");
+
                 break;
 
             case State.digging:
@@ -226,4 +234,4 @@ public class PlayerController : Entity
     }
 }
 
-public enum State { idle, walking, digging, hiding}
+public enum State { idle, walking, digging, hiding }

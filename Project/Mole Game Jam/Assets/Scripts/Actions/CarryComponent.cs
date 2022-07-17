@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CarryComponent : MonoBehaviour
 {
+    private bool _isCarrying = false;
     [SerializeField] float[] _runSpeedsCarryingWorms;
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
@@ -13,7 +14,8 @@ public class CarryComponent : MonoBehaviour
     }
     int _numOfWormsCarried = 0;
     public int NumOfWormsCarried {get => _numOfWormsCarried; }
-    
+    public bool IsCarrying { get => _isCarrying; set => _isCarrying = value; }
+
     void Awake() {
         Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried, 
                             "Run speed list shorter than max number of worms carried");
@@ -23,6 +25,7 @@ public class CarryComponent : MonoBehaviour
         // picking up worm
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried) {
+            _isCarrying = true;
             _numOfWormsCarried++;
             DisplayWorm(_numOfWormsCarried) ;
             GameObject.Destroy(worm.gameObject);
@@ -34,6 +37,14 @@ public class CarryComponent : MonoBehaviour
             nest.RegainHealth(_numOfWormsCarried * GameManager.Instance.WORM_HP);
             _numOfWormsCarried = 0;
         }
+    }
+
+    private void RemoveWorm()
+    {
+        _numOfWormsCarried--;
+        DisplayWorm(_numOfWormsCarried);
+        if (_numOfWormsCarried == 0)
+            _isCarrying = false;
     }
     private void DisplayWorm(int nums)
     {

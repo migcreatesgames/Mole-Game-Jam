@@ -119,8 +119,7 @@ public class PlayerController : Entity
         switch (state)
         {
             case State.idle:
-                if (_state != State.idle)
-                    _state = State.idle;
+                 _state = State.idle;
 
                 if(!_carryComponent.IsCarrying)
                     _animator.SetTrigger("Idle");
@@ -129,6 +128,8 @@ public class PlayerController : Entity
                 break;
 
             case State.walking:
+               //if (_state == State.walking)
+               //    break;
                 _state = State.walking;
                 if (!_carryComponent.IsCarrying)
                     _animator.SetTrigger("Walk");
@@ -171,7 +172,10 @@ public class PlayerController : Entity
                 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
+                {
                     _digComponent.HoleCompleted();
+                    //ExitState(State.digging);
+                }
 
                 break;
 

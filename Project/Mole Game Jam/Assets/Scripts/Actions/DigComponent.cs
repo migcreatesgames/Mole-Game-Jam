@@ -4,6 +4,7 @@ using UnityEngine;
 public class DigComponent : MonoBehaviour
 {
     private bool _canDig = false;
+    private bool _digDown = false;  
     [SerializeField]
     private GameObject _holePrefab;
     private Animator _animator;
@@ -39,6 +40,7 @@ public class DigComponent : MonoBehaviour
             Debug.Log($"results: {_detect.Results}");
             _canDig = IsValid(results);
 
+            //_animator.SetBool("Encumbered", true);
             // init dig action
             if (_canDig)
                 EnterState(DigStates.init_dig);
@@ -53,7 +55,12 @@ public class DigComponent : MonoBehaviour
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 PlayerController.Instance.EnableMovement = false;
                 _digState = DigComponent.DigStates.init_dig;
+
                 _animator.SetTrigger("DigInit");
+                if (_digDown)
+                    _animator.SetTrigger("DigDown");
+                else
+                    _animator.SetTrigger("DigForward");
                 StartCoroutine(InitDig());
                 break;
 
@@ -119,9 +126,11 @@ public class DigComponent : MonoBehaviour
         switch (results)
         {
             case DetectionResults.dig_wall:
+                _digDown = false;
                 valid = true;
                 break;
             case DetectionResults.dig_floor:
+                _digDown = true;
                 valid = true;
                 break;
             case DetectionResults.not_enough_space:

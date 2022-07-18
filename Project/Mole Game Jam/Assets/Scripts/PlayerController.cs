@@ -47,6 +47,7 @@ public class PlayerController : Entity
 
     void Update()
     {
+        Debug.Log($"state: {_state}");
         if (_inputHandler)  
         {
             //_inputHandler.HandleInput(_instance);

@@ -74,8 +74,6 @@ public class PlayerController : Entity
             // digging
             if (Input.GetButton("Dig"))
             {
-                //Debug.Log($"dig state: {_digComponent.DigState}");
-                //Debug.Log($"curDigHoldTime : {curDigHoldTime}");
                 if (_state != State.hiding)
                     EnterState(State.digging);
             }
@@ -100,10 +98,17 @@ public class PlayerController : Entity
                 }
             }
 
+
             if (Input.GetButtonUp("Hide"))
             {
                 ExitState(State.hiding);
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+            }
+
+
+            if (Input.GetButtonUp("PickUp"))
+            {
+                
             }
         }
     }
@@ -129,14 +134,11 @@ public class PlayerController : Entity
                 break;
 
             case State.walking:
-               //if (_state == State.walking)
-               //    break;
                 _state = State.walking;
                 if (!_carryComponent.IsCarrying)
                     _animator.SetTrigger("Walk");
                 else
                     _animator.SetTrigger("Walk_Encumbered");
-
                 break;
 
             case State.digging:
@@ -173,10 +175,7 @@ public class PlayerController : Entity
                 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
-                {
                     _digComponent.HoleCompleted();
-                    //ExitState(State.digging);
-                }
 
                 break;
 
@@ -187,15 +186,11 @@ public class PlayerController : Entity
                 if (_isRecharging)
                     CancelRechargeStamina();
                 if (_animator.GetBool("Encumbered"))
-                {
                     _encumbered = true;
-
-                }
                 if (!GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = true;
                 _hideComponent.Hide();
                 break;  
-
             default:
                 break;
         }
@@ -217,7 +212,6 @@ public class PlayerController : Entity
                 _hideComponent.UnHide();
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
-
                 if (_encumbered)
                     _animator.SetBool("Encumbered", true);
                 EnterState(State.idle);

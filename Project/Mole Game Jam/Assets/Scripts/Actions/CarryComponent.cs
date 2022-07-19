@@ -14,25 +14,21 @@ public class CarryComponent : MonoBehaviour
         }
     }
     int _numOfWormsCarried = 0;
-    public int NumOfWormsCarried {get => _numOfWormsCarried; }
+    public int NumOfWormsCarried { get => _numOfWormsCarried; }
     public bool IsCarrying { get => _isCarrying; set => _isCarrying = value; }
 
     void Awake() {
-        Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried, 
+        Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried,
                             "Run speed list shorter than max number of worms carried");
         _animator = GetComponentInChildren<Animator>();
     }
-   
+
     void OnTriggerEnter(Collider other) {
         // picking up worm
         var worm = other.GetComponent<Worm>();
-        if (worm && _numOfWormsCarried < MAX_num_of_worms_carried) {
-            _isCarrying = true;
-            _animator.SetBool("Encumbered", true);
-            _numOfWormsCarried++;
-            DisplayWorm(_numOfWormsCarried) ;
-            GameObject.Destroy(worm.gameObject);
-        }
+        if (worm && _numOfWormsCarried < MAX_num_of_worms_carried)
+            PickUpWorm(worm);
+
 
         // feeding the nest
         var nest = other.GetComponent<Nest>();
@@ -40,6 +36,15 @@ public class CarryComponent : MonoBehaviour
             nest.RegainHealth(_numOfWormsCarried * GameManager.Instance.WORM_HP);
             _numOfWormsCarried = 0;
         }
+    }
+
+    private void PickUpWorm(Worm worm)
+    {
+        _isCarrying = true;
+        _animator.SetBool("Encumbered", true);
+        _numOfWormsCarried++;
+        DisplayWorm(_numOfWormsCarried);
+        GameObject.Destroy(worm.gameObject);
     }
 
     private void RemoveWorm()

@@ -179,7 +179,7 @@ public class PlayerController : Entity
 
                 break;
 
-            case State.hiding:
+            case State.hiding:  
                 _state = State.hiding;
 
                 // stop stamina recharge
@@ -212,6 +212,7 @@ public class PlayerController : Entity
                 _hideComponent.UnHide();
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
+                EnterState(State.idle);
                 break;
             default:
                 break;

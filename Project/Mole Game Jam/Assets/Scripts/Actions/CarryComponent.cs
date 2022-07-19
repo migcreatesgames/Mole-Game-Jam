@@ -3,9 +3,11 @@ using UnityEngine;
 public class CarryComponent : MonoBehaviour
 {
     private bool _isCarrying = false;
+    private bool _canPickUp = false;
     [SerializeField] float[] _runSpeedsCarryingWorms;
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
+    private Worm _worm;
     [SerializeField] private GameObject[] _worms;
     private Animator _animator;
     public float RunSpeedCarryingWorms {
@@ -16,18 +18,25 @@ public class CarryComponent : MonoBehaviour
     int _numOfWormsCarried = 0;
     public int NumOfWormsCarried { get => _numOfWormsCarried; }
     public bool IsCarrying { get => _isCarrying; set => _isCarrying = value; }
+    public bool CanPickUp { get => _canPickUp; set => _canPickUp = value; }
 
     void Awake() {
         Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried,
                             "Run speed list shorter than max number of worms carried");
         _animator = GetComponentInChildren<Animator>();
+
+        GameEvents.OnCarry += PickUpWorm;
     }
 
     void OnTriggerEnter(Collider other) {
         // picking up worm
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried)
-            PickUpWorm(worm);
+        {
+            //PickUpWorm(worm);
+            _canPickUp = true;
+            _worm = worm;
+        }
 
 
         // feeding the nest
@@ -37,7 +46,16 @@ public class CarryComponent : MonoBehaviour
             _numOfWormsCarried = 0;
         }
     }
-
+    void OnTriggerExit(Collider other)
+    {
+        var worm = other.GetComponent<Worm>();
+        if (worm)
+            _canPickUp = false;
+    }
+    private void PickUpWorm()
+    {
+        PickUpWorm(_worm);
+    }
     private void PickUpWorm(Worm worm)
     {
         _isCarrying = true;

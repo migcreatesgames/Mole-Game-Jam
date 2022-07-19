@@ -44,6 +44,8 @@ public class PlayerController : Entity
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
         _hideComponent = GetComponent<HideComponent>();
+
+        GameEvents.OnCarry += PickUp;
     }
 
     void Update()
@@ -106,10 +108,8 @@ public class PlayerController : Entity
             }
 
 
-            if (Input.GetButtonUp("PickUp"))
-            {
-                
-            }
+            if (Input.GetButtonDown("PickUp"))
+                GameEvents.OnCarry?.Invoke();
         }
     }
     
@@ -224,9 +224,12 @@ public class PlayerController : Entity
 
     public void PickUp()
     {
-        _animator.SetTrigger("Grab");
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        StartCoroutine("DisableMovement");
+        if (_carryComponent.CanPickUp)
+        {
+            _animator.SetTrigger("Grab");
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine("DisableMovement");
+        }
     }
 
     private IEnumerator DisableMovement()

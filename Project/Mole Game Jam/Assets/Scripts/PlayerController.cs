@@ -221,6 +221,24 @@ public class PlayerController : Entity
         }
     }
 
+
+    public void PickUp()
+    {
+        _animator.SetTrigger("Grab");
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        StartCoroutine("DisableMovement");
+    }
+
+    private IEnumerator DisableMovement()
+    {
+        _enableMovement = false;
+        yield return new WaitForSeconds(1f);
+        _enableMovement = true;
+        _animator.SetTrigger("Idle_Encumbered");
+        StopCoroutine("DisableMovement");
+     
+    }
+
     private IEnumerator RechargeStamina()
     {
         Debug.Log("RechargeStamina called");

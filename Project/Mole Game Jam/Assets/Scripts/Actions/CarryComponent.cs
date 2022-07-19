@@ -42,6 +42,7 @@ public class CarryComponent : MonoBehaviour
     {
         _isCarrying = true;
         _animator.SetBool("Encumbered", true);
+        PlayerController.Instance.PickUp();
         _numOfWormsCarried++;
         DisplayWorm(_numOfWormsCarried);
         GameObject.Destroy(worm.gameObject);

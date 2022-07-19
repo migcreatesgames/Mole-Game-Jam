@@ -22,6 +22,7 @@ public class HideComponent : MonoBehaviour
         _meshRenderer.SetActive(false);
         _mound.SetActive(true);
         _isVisible = false;
+       
         //  change speed 
     }
     public void UnHide()
@@ -30,6 +31,7 @@ public class HideComponent : MonoBehaviour
         _mound.SetActive(false);
         _isVisible = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
+     
         //  change speed
     }
 }

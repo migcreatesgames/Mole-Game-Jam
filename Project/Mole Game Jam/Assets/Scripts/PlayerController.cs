@@ -28,6 +28,7 @@ public class PlayerController : Entity
     private Animator _animator;
 
     [SerializeField] TempUI _ui;
+    private bool _encumbered;
 
     void Awake()
     {
@@ -185,7 +186,11 @@ public class PlayerController : Entity
                 // stop stamina recharge
                 if (_isRecharging)
                     CancelRechargeStamina();
+                if (_animator.GetBool("Encumbered"))
+                {
+                    _encumbered = true;
 
+                }
                 if (!GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = true;
                 _hideComponent.Hide();
@@ -212,6 +217,9 @@ public class PlayerController : Entity
                 _hideComponent.UnHide();
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
+
+                if (_encumbered)
+                    _animator.SetBool("Encumbered", true);
                 EnterState(State.idle);
                 break;
             default:

@@ -6,6 +6,7 @@ public class DigDetection : MonoBehaviour
     private float _minHitDistance = 1f;
     private bool _detectionEnabled = true;
     private bool _checkFloor = false;
+    private bool _foundWorm = false;
 
     public float MAXHitDistance = 10;
 
@@ -30,6 +31,7 @@ public class DigDetection : MonoBehaviour
     public DetectionResults Results { get => _results; set => _results = value; }
     public Transform DigTargetPos { get => _digTargetPos; set => _digTargetPos = value; }
     public GameObject TargetWall { get => _targetWall; set => _targetWall = value; }
+    public bool FoundWorm { get => _foundWorm; set => _foundWorm = value; }
 
     private void FixedUpdate()
     {
@@ -50,7 +52,7 @@ public class DigDetection : MonoBehaviour
         _dir2 = (_targetPos1.position - _targetPos2.position);
         _hitPoint1 = _targetPos1.position;
         _hitPoint2 = _targetPos2.position;
-
+        _foundWorm = false;
         RaycastHit[] wallHits = Physics.RaycastAll(_origin, _dir1, 1f);
         if (wallHits.Length == 0)
             _checkFloor = true;
@@ -95,6 +97,9 @@ public class DigDetection : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "Player")
                 continue;
+
+            if (hit.transform.gameObject.tag == "Worm")
+                _foundWorm = true;
 
             //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")

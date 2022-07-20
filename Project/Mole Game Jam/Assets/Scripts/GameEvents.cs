@@ -10,6 +10,8 @@ public static class GameEvents
     public static Action OnKilledEvent;
     public static Action OnCarry;
     public static Action OnDrop;
+    public static Action OnFoundWorm;
+
 
     public static Action<float> OnHelathUpdateEvent;
     public static Action<float> OnStaminaUpdateEvent;

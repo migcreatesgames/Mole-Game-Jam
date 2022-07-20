@@ -231,6 +231,7 @@ public class PlayerController : Entity
             _animator.SetTrigger("Grab");
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             StartCoroutine("DisableMovement");
+   
         }
     }
 
@@ -242,8 +243,10 @@ public class PlayerController : Entity
     private IEnumerator DisableMovement()
     {
         _enableMovement = false;
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         _enableMovement = true;
+        _animator.SetBool("FoundWorm", false);
         _animator.SetTrigger("Idle_Encumbered");
         StopCoroutine("DisableMovement");
      

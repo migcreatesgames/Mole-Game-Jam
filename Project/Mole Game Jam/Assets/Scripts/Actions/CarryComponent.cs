@@ -28,6 +28,7 @@ public class CarryComponent : MonoBehaviour
 
         GameEvents.OnCarry += PickUpWorm;
         GameEvents.OnDrop += RemoveWorm;
+        GameEvents.OnFoundWorm += DugWorm;
     }
 
     void OnTriggerEnter(Collider other) {
@@ -39,7 +40,6 @@ public class CarryComponent : MonoBehaviour
             _worm = worm;
         }
      
-
         // feeding the nest
         var nest = other.GetComponent<Nest>();
         if (nest && _numOfWormsCarried > 0) {
@@ -68,8 +68,17 @@ public class CarryComponent : MonoBehaviour
         _canPickUp = false;
         if (worm != null)
             Destroy(worm.gameObject);
-    }   
+    }
 
+    private void DugWorm()
+    {
+        _isCarrying = true;
+        _animator.SetBool("Encumbered", true);
+        PlayerController.Instance.PickUp();
+        _numOfWormsCarried++;
+        DisplayWorm(_numOfWormsCarried);
+       
+    }
     private void RemoveWorm()
     {
         if (_numOfWormsCarried == 0)

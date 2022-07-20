@@ -29,18 +29,16 @@ public class DigComponent : MonoBehaviour
 
     public void Dig(Entity digger)
     {
+
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         if (_digState == DigStates.digging_complete)
         {
             // check if section in front of player can be dug
-            // or far enough from obstables/wall to dig
-           
             DetectionResults results = _detect.Results;
             Debug.Log($"results: {_detect.Results}");
             _canDig = IsValid(results);
 
-            //_animator.SetBool("Encumbered", true);
             // init dig action
             if (_canDig)
                 EnterState(DigStates.init_dig);
@@ -49,6 +47,7 @@ public class DigComponent : MonoBehaviour
 
     private void EnterState(DigStates state)
     {
+        Debug.Log(_detect.FoundWorm);
         switch (state)
         {
             case DigStates.init_dig:
@@ -151,10 +150,23 @@ public class DigComponent : MonoBehaviour
 
     public void SpawnDigPrefab()
     {
-        var tmp = Instantiate(_holePrefab, _detect._targetPos2);
-        tmp.transform.parent = null;
-        tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
-        // give random rotation for visual variation
+        if (_detect.FoundWorm)
+        {
+            //var tm3 = Instantiate(_holePrefab, _detect._targetPos2);
+            //tm3.transform.parent = null;
+            //tm3.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
+            _animator.SetBool("FoundWorm", true);
+            GameEvents.OnFoundWorm?.Invoke();
+
+        }
+        else
+        {
+            var tmp = Instantiate(_holePrefab, _detect._targetPos2);
+            tmp.transform.parent = null;
+            tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
+            // give random rotation for visual variation
+        }
+
     }
 
     public void DestroyDigableWall()

@@ -157,7 +157,6 @@ public class DigComponent : MonoBehaviour
             //tm3.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
 
             GameEvents.OnFoundWorm?.Invoke();
-
         }
         else
         {

@@ -9,6 +9,7 @@ public class CarryComponent : MonoBehaviour
 
     private Worm _worm;
     [SerializeField] private GameObject[] _worms;
+    [SerializeField] private GameObject _consumableWorm;
     private Animator _animator;
     public float RunSpeedCarryingWorms {
         get {
@@ -26,6 +27,7 @@ public class CarryComponent : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
 
         GameEvents.OnCarry += PickUpWorm;
+        GameEvents.OnDrop += RemoveWorm;
     }
 
     void OnTriggerEnter(Collider other) {
@@ -33,11 +35,10 @@ public class CarryComponent : MonoBehaviour
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried)
         {
-            //PickUpWorm(worm);
             _canPickUp = true;
             _worm = worm;
         }
-
+     
 
         // feeding the nest
         var nest = other.GetComponent<Nest>();
@@ -54,7 +55,8 @@ public class CarryComponent : MonoBehaviour
     }
     private void PickUpWorm()
     {
-        PickUpWorm(_worm);
+        if (_canPickUp ==true && _numOfWormsCarried < MAX_num_of_worms_carried)
+            PickUpWorm(_worm);
     }
     private void PickUpWorm(Worm worm)
     {
@@ -63,18 +65,25 @@ public class CarryComponent : MonoBehaviour
         PlayerController.Instance.PickUp();
         _numOfWormsCarried++;
         DisplayWorm(_numOfWormsCarried);
-        GameObject.Destroy(worm.gameObject);
-    }
+        _canPickUp = false;
+        if (worm != null)
+            Destroy(worm.gameObject);
+    }   
 
     private void RemoveWorm()
     {
+        if (_numOfWormsCarried == 0)
+            return;
         _numOfWormsCarried--;
         DisplayWorm(_numOfWormsCarried);
         if (_numOfWormsCarried == 0)
         {
             _isCarrying = false;
             _animator.SetBool("Encumbered", false);
+            HideWorm();
         }
+        var tmp = GameObject.Instantiate(_consumableWorm, transform.position, transform.rotation);
+        tmp.transform.parent = null;
     }
     private void DisplayWorm(int nums)
     {

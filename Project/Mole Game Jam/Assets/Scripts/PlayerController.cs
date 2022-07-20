@@ -46,6 +46,7 @@ public class PlayerController : Entity
         _hideComponent = GetComponent<HideComponent>();
         GameEvents.OnDrop += Drop;
         GameEvents.OnCarry += PickUp;
+        GameEvents.OnFoundWorm += DigForWorm;
     }
 
     void Update()
@@ -234,6 +235,13 @@ public class PlayerController : Entity
    
         }
     }
+    private void DigForWorm()
+    {
+        _animator.SetTrigger("Grab");
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        StartCoroutine("DisableMovement");
+
+    }
 
     public void Drop()
     {
@@ -243,7 +251,6 @@ public class PlayerController : Entity
     private IEnumerator DisableMovement()
     {
         _enableMovement = false;
-        //yield return new WaitForSeconds(3f);
         yield return new WaitForSeconds(2f);
         _enableMovement = true;
         _animator.SetBool("FoundWorm", false);

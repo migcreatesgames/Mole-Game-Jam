@@ -130,6 +130,7 @@ public class DigComponent : MonoBehaviour
                 break;
             case DetectionResults.dig_floor:
                 _digDown = true;
+                _animator.SetBool("FoundWorm", true);
                 valid = true;
                 break;
             case DetectionResults.not_enough_space:
@@ -155,7 +156,7 @@ public class DigComponent : MonoBehaviour
             //var tm3 = Instantiate(_holePrefab, _detect._targetPos2);
             //tm3.transform.parent = null;
             //tm3.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
-            _animator.SetBool("FoundWorm", true);
+
             GameEvents.OnFoundWorm?.Invoke();
 
         }

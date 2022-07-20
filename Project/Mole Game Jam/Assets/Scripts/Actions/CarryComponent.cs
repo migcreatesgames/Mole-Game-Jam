@@ -8,6 +8,7 @@ public class CarryComponent : MonoBehaviour
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
     private Worm _worm;
+    private GameObject _targetWorm;
     [SerializeField] private GameObject[] _worms;
     [SerializeField] private GameObject _consumableWorm;
     private Animator _animator;
@@ -39,7 +40,14 @@ public class CarryComponent : MonoBehaviour
             _canPickUp = true;
             _worm = worm;
         }
-     
+
+
+        if (other.gameObject.tag == "Worm")
+        {
+            _targetWorm = other.transform.parent.gameObject;
+            Debug.Log($"target: {_targetWorm}");
+        }
+
         // feeding the nest
         var nest = other.GetComponent<Nest>();
         if (nest && _numOfWormsCarried > 0) {
@@ -52,6 +60,8 @@ public class CarryComponent : MonoBehaviour
         var worm = other.GetComponent<Worm>();
         if (worm)
             _canPickUp = false;
+
+
     }
     private void PickUpWorm()
     {
@@ -73,10 +83,9 @@ public class CarryComponent : MonoBehaviour
     private void DugWorm()
     {
         _isCarrying = true;
-        _animator.SetBool("Encumbered", true);
-        PlayerController.Instance.PickUp();
         _numOfWormsCarried++;
         DisplayWorm(_numOfWormsCarried);
+        Destroy(_targetWorm);
        
     }
     private void RemoveWorm()

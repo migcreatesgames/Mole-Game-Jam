@@ -453,6 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holePrefab: {fileID: 6335922027319603890, guid: 72d1661c58e5fdb4fb3b3a5c6bd437d6, type: 3}
+  _wormDugHolePrefab: {fileID: 783587010281109905, guid: 28a1ccefebd1365418e38dd08ceb2b66, type: 3}
 --- !u!114 &1625774087025512982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +476,7 @@ MonoBehaviour:
   - {fileID: 5576976531053196295}
   - {fileID: 7900659343599963447}
   - {fileID: 3524462758073807412}
+  _consumableWorm: {fileID: 7243677963706397035, guid: f8311a71ada7ace4da812db4f2a4c7ab, type: 3}
 --- !u!114 &7842952907510312127
 MonoBehaviour:
   m_ObjectHideFlags: 0

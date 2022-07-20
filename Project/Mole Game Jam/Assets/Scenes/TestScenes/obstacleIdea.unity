@@ -46058,10 +46058,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1625774087025512982, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
-      propertyPath: _consumableWorm
-      value: 
-      objectReference: {fileID: 7243677963706397035, guid: f8311a71ada7ace4da812db4f2a4c7ab, type: 3}
     - target: {fileID: 3697642850386123479, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: _ui
       value: 

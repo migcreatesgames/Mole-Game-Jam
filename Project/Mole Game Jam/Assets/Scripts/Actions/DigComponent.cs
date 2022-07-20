@@ -7,6 +7,8 @@ public class DigComponent : MonoBehaviour
     private bool _digDown = false;  
     [SerializeField]
     private GameObject _holePrefab;
+    [SerializeField]
+    private GameObject _wormDugHolePrefab;
     private Animator _animator;
     private DigDetection _detect;
     public enum DigStates
@@ -152,9 +154,9 @@ public class DigComponent : MonoBehaviour
     {
         if (_detect.FoundWorm)
         {
-            //var tm3 = Instantiate(_holePrefab, _detect._targetPos2);
-            //tm3.transform.parent = null;
-            //tm3.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);
+            var ass = Instantiate(_wormDugHolePrefab, _detect._targetPos2);
+            ass.transform.parent = null;
+            ass.transform.position = _detect._hitPoint2 + new Vector3(0, .5f, 0);
 
             GameEvents.OnFoundWorm?.Invoke();
         }

@@ -7,6 +7,7 @@ public class PlayerController : Entity
     private float _yInput;
     private float curDigHoldTime = 0f;
     private float MAXDigHoldTime = 3f;
+    private float _pickUpAnimTime = 2f;
 
     private bool _enableMovement = true;
     private bool _isRecharging = false;
@@ -209,10 +210,12 @@ public class PlayerController : Entity
                 break;
             case State.digging:
                 _digComponent.StopDig();
+                StartCoroutine("RechargeStamina");
                 curDigHoldTime = 0f;
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
+                StartCoroutine("RechargeStamina");
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
@@ -231,14 +234,15 @@ public class PlayerController : Entity
         {
             _animator.SetTrigger("Grab");
             GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _pickUpAnimTime = 2f;
             StartCoroutine("DisableMovement");
-   
         }
     }
     private void DigForWorm()
     {
         _animator.SetTrigger("Grab");
         GetComponent<Rigidbody>().velocity = Vector3.zero;
+        _pickUpAnimTime = 3f;
         StartCoroutine("DisableMovement");
 
     }
@@ -251,7 +255,7 @@ public class PlayerController : Entity
     private IEnumerator DisableMovement()
     {
         _enableMovement = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(_pickUpAnimTime);
         _enableMovement = true;
         _animator.SetBool("FoundWorm", false);
         _animator.SetTrigger("Idle_Encumbered");

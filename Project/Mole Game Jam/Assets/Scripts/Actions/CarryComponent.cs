@@ -86,8 +86,8 @@ public class CarryComponent : MonoBehaviour
         _numOfWormsCarried++;
         DisplayWorm(_numOfWormsCarried);
         Destroy(_targetWorm);
-       
     }
+
     private void RemoveWorm()
     {
         if (_numOfWormsCarried == 0)

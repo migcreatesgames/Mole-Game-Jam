@@ -47,7 +47,6 @@ public class DigComponent : MonoBehaviour
 
     private void EnterState(DigStates state)
     {
-        Debug.Log(_detect.FoundWorm);
         switch (state)
         {
             case DigStates.init_dig:

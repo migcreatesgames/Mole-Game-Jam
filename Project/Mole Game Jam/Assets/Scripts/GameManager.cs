@@ -10,9 +10,7 @@ public class GameManager : MonoBehaviour
     public float WORM_HP { get => _wormHP; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
 
-    [SerializeField] TempUI _tempUI;
 
-    
     void Awake() {
         if (_instance != null)
         {
@@ -23,13 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        //_tempUI.SetStatusText("");
-    }
-
-
     public void GameOver() {
-        _tempUI.SetStatusText("Game over!");
+        //_tempUI.SetStatusText("Game over!");
     }
 }

@@ -29,11 +29,12 @@ public class CarryComponent : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
 
         GameEvents.OnCarry += PickUpWorm;
-        GameEvents.OnDrop += RemoveWorm;
+        GameEvents.OnDrop += DropWorm;
         GameEvents.OnFoundWorm += DugWorm;
     }
 
     void OnTriggerEnter(Collider other) {
+        
         // picking up worm
         var worm = other.GetComponent<Worm>();
         if (worm && _numOfWormsCarried < MAX_num_of_worms_carried)
@@ -41,19 +42,13 @@ public class CarryComponent : MonoBehaviour
             _canPickUp = true;
             _worm = worm;
         }
+        
+        
         //if (other.gameObject.isEditble)
         //{
         //    ///_canEat = true;
         //    //_worm = worm;
         //}
-
-
-        // feeding the nest
-        var nest = other.GetComponent<Nest>();
-        if (nest && _numOfWormsCarried > 0) {
-            nest.RegainHealth(_numOfWormsCarried * GameManager.Instance.WORM_HP);
-            _numOfWormsCarried = 0;
-        }
     }
     void OnTriggerExit(Collider other)
     {
@@ -87,7 +82,7 @@ public class CarryComponent : MonoBehaviour
         Destroy(_targetWorm);
     }
 
-    private void RemoveWorm()
+    private void DropWorm()
     {
         if (_numOfWormsCarried == 0)
             return;

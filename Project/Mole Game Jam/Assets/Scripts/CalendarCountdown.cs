@@ -84,12 +84,12 @@ public class CalendarCountdown : MonoBehaviour
                 break;
             case 750:
                 // is Winter
-                if (season != Seasons.fall)
+                if (season != Seasons.winter)
                 {
-                    season = Seasons.fall;
+                    season = Seasons.winter;
                     FadeOutText(season);
+                    GameEvents.OnTimerFinished?.Invoke();
                 }
-                // on game over
                 break;
             default:
                 break;

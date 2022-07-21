@@ -270,7 +270,11 @@ public class PlayerController : Entity
         StopCoroutine("DisableMovement");
      
     }
-
+    public override void Death()
+    {
+        base.Death();
+        GameManager.Instance.GameOver(FailStates.playerDied);
+    }
     public override void RegainHealth(float healthValue)
     {
         base.RegainHealth(healthValue);

@@ -19,7 +19,7 @@ public class Nest : Entity
 
     public override void Death() {
         base.Death();
-        GameManager.Instance.GameOver();
+        GameManager.Instance.GameOver(FailStates.babiesDied);
     }
     public override void RegainHealth(float healthValue)
     {

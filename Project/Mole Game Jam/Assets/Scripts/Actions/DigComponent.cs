@@ -131,7 +131,8 @@ public class DigComponent : MonoBehaviour
                 break;
             case DetectionResults.dig_floor:
                 _digDown = true;
-                _animator.SetBool("FoundWorm", true);
+                if (_detect.FoundWorm)
+                    _animator.SetBool("FoundWorm", true);
                 valid = true;
                 break;
             case DetectionResults.not_enough_space:

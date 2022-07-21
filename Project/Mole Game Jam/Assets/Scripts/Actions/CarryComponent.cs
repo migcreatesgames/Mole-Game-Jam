@@ -83,6 +83,7 @@ public class CarryComponent : MonoBehaviour
     private void DugWorm()
     {
         _isCarrying = true;
+        _animator.SetBool("Encumbered", true);
         _numOfWormsCarried++;
         DisplayWorm(_numOfWormsCarried);
         Destroy(_targetWorm);

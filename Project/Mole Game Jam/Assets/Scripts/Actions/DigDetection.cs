@@ -35,6 +35,7 @@ public class DigDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log($"_foundWorm: {_foundWorm}");
         if (_debugging)
         {
             Debug.Log($"_checkFloor: {_checkFloor}");

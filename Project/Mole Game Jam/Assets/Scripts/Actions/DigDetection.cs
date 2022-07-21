@@ -108,6 +108,15 @@ public class DigDetection : MonoBehaviour
                 Debug.Log($"target: {CarryComponent.TargetWorm}");
             }
 
+            if (hit.transform.gameObject.tag == "HoleMound")
+            {
+                // do not like this but have to
+                DigComponent.MoundTarget = hit.transform.gameObject;
+                Debug.Log($"target: {CarryComponent.TargetWorm}");
+            }
+
+
+
             //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")
                 _results = DetectionResults.dig_floor;

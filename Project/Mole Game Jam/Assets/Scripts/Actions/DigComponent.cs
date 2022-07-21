@@ -9,6 +9,8 @@ public class DigComponent : MonoBehaviour
     private GameObject _holePrefab;
     [SerializeField]
     private GameObject _wormDugHolePrefab;
+    private static GameObject _moundTarget;
+
     private Animator _animator;
     private DigDetection _detect;
     public enum DigStates
@@ -20,6 +22,7 @@ public class DigComponent : MonoBehaviour
 
     public DigStates DigState { get => _digState; set => _digState = value; }
     public bool CanDig { get => _canDig; set => _canDig = value; }
+    public static GameObject MoundTarget { get => _moundTarget; set => _moundTarget = value; }
 
     private void Start() => Init();
 
@@ -163,6 +166,8 @@ public class DigComponent : MonoBehaviour
         }
         else
         {
+            if (_moundTarget)
+                Destroy(_moundTarget);
             var tmp = Instantiate(_holePrefab, _detect._targetPos2);
             tmp.transform.parent = null;
             tmp.transform.position = _detect._hitPoint2 - new Vector3(0, .1f, 0);

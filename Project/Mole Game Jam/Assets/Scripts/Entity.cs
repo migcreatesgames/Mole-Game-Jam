@@ -30,7 +30,6 @@ public class Entity: MonoBehaviour
             Death();
             return;
         }
-        GameEvents.OnDamageEvent?.Invoke(_health);
     }
 
     public virtual void RegainHealth(float healthValue)

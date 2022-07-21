@@ -263,6 +263,13 @@ public class PlayerController : Entity
      
     }
 
+
+    public override void DamageTaken(float damageValue)
+    {
+        base.DamageTaken(damageValue * Time.deltaTime);
+        GameEvents.OnDamageEvent?.Invoke(Health);
+    }
+
     private IEnumerator RechargeStamina()
     {
         Debug.Log("RechargeStamina called");

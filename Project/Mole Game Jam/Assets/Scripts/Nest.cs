@@ -11,6 +11,8 @@ public class Nest : Entity
     {
         base.Start();
         _ui.SetBabiesHealthText(Health);
+ 
+        
         //OnDamageTakenEvent.AddListener(_ui.SetBabiesHealthText);
         //OnRegainHealthEvent.AddListener(_ui.SetBabiesHealthText);   
     }
@@ -19,6 +21,7 @@ public class Nest : Entity
     {
         if (_enableHealthLoss && IsAlive) {
             DamageTaken(_healthLossRate * Time.deltaTime);
+         
         }
     }
 
@@ -26,5 +29,11 @@ public class Nest : Entity
         base.Death();
         _ui.SetBabiesHealthText(0f);
         GameManager.Instance.GameOver();
+    }
+
+    public override void DamageTaken(float damageValue)
+    {
+        base.DamageTaken(_healthLossRate * Time.deltaTime);
+        GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }
 }

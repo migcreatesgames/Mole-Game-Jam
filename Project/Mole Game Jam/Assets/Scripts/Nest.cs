@@ -5,6 +5,12 @@ public class Nest : Entity
     [SerializeField] private bool _enableHealthLoss;
     [SerializeField] private float _healthLossRate = 1;
 
+    protected override void Start()
+    {
+        base.Start();
+        GameEvents.OnFeedBabies += RegainHealth; 
+    }
+
     void Update()
     {
         if (_enableHealthLoss && IsAlive)
@@ -15,6 +21,12 @@ public class Nest : Entity
         base.Death();
         GameManager.Instance.GameOver();
     }
+    public override void RegainHealth(float healthValue)
+    {
+        base.RegainHealth(healthValue);
+        GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
+    }
+
 
     public override void DamageTaken(float damageValue)
     {

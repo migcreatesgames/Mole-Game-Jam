@@ -22,8 +22,6 @@ public class Entity: MonoBehaviour
 
     public virtual void DamageTaken(float damageValue)
     {
-        Debug.Log($"damageValue: {damageValue}");
-
         _health -= damageValue;
         if (_health <= 0 && _isAlive)
         {
@@ -40,7 +38,6 @@ public class Entity: MonoBehaviour
         } else {
             _health += healthValue;
         }
-        GameEvents.OnHelathUpdateEvent.Invoke(_health) ;
     }
 
     public virtual void RegainStamina(float staminaValue)

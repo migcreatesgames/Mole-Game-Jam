@@ -52,7 +52,7 @@ public class PlayerController : Entity
 
     void Update()
     {
-        Debug.Log($"state: {_state}");
+        //Debug.Log($"state: {_state}");
         if (_inputHandler)
         {
             //_inputHandler.HandleInput(_instance);
@@ -263,6 +263,11 @@ public class PlayerController : Entity
      
     }
 
+    public override void RegainHealth(float healthValue)
+    {
+        base.RegainHealth(healthValue);
+        GameEvents.OnHelathUpdateEvent.Invoke(Health);
+    }
 
     public override void DamageTaken(float damageValue)
     {

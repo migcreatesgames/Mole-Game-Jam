@@ -36,7 +36,7 @@ public class DigDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"_foundWorm: {_foundWorm}");
+        //Debug.Log($"_foundWorm: {_foundWorm}");
         if (_debugging)
         {
             Debug.Log($"_checkFloor: {_checkFloor}");
@@ -105,14 +105,14 @@ public class DigDetection : MonoBehaviour
                 _foundWorm = true;
                 // do not like this but have to
                 CarryComponent.TargetWorm = hit.transform.parent.gameObject;
-                Debug.Log($"target: {CarryComponent.TargetWorm}");
+                //Debug.Log($"target: {CarryComponent.TargetWorm}");
             }
 
             if (hit.transform.gameObject.tag == "HoleMound")
             {
                 // do not like this but have to
                 DigComponent.MoundTarget = hit.transform.gameObject;
-                Debug.Log($"target: {CarryComponent.TargetWorm}");
+                //Debug.Log($"target: {CarryComponent.TargetWorm}");
             }
 
 

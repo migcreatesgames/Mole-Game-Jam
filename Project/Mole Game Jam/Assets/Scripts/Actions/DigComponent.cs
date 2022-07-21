@@ -41,7 +41,7 @@ public class DigComponent : MonoBehaviour
         {
             // check if section in front of player can be dug
             DetectionResults results = _detect.Results;
-            Debug.Log($"results: {_detect.Results}");
+            //Debug.Log($"results: {_detect.Results}");
             _canDig = IsValid(results);
 
             // init dig action

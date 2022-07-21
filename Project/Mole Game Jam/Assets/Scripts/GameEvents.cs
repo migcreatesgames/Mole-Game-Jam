@@ -11,6 +11,8 @@ public static class GameEvents
     public static Action OnCarry;
     public static Action OnDrop;
     public static Action OnFoundWorm;
+    public static Action OnEat;
+    public static Action<float> OnFeedBabies;
 
 
     public static Action<float> OnHelathUpdateEvent;

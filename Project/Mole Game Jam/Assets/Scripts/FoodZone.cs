@@ -7,6 +7,7 @@ public class FoodZone : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Worm>())
         {
+            Debug.Log("feed moles");
             FeedBabies();
         }
     }

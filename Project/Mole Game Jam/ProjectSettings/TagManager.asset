@@ -11,6 +11,8 @@ TagManager:
   - DiggableFloor
   - Hole
   - OneWayDiggableWall
+  - Worm
+  - HoleMound
   layers:
   - Default
   - TransparentFX

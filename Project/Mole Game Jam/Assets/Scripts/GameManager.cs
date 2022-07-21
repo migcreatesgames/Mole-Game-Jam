@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,11 +5,12 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get => _instance; set => _instance = value; }
 
+    private float _moleBabiesHungerValue = 10;
     [SerializeField] float _wormHP = 10;
     public float WORM_HP { get => _wormHP; }
-    [SerializeField] TempUI _tempUI;
+    public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
 
-    
+
     void Awake() {
         if (_instance != null)
         {
@@ -22,18 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        _tempUI.SetStatusText("");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GameOver() {
-        _tempUI.SetStatusText("Game over!");
+        //_tempUI.SetStatusText("Game over!");
     }
 }

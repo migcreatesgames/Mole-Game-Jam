@@ -17,6 +17,7 @@ public class PlayerController : Entity
     private DigComponent _digComponent;
     private CarryComponent _carryComponent;
     private HideComponent _hideComponent;
+    private EatComponent _eatComponent;
     private State _state = State.idle;
 
     private int _rechargeDelay = 2;
@@ -48,6 +49,7 @@ public class PlayerController : Entity
         GameEvents.OnDrop += Drop;
         GameEvents.OnCarry += PickUp;
         GameEvents.OnFoundWorm += DigForWorm;
+        GameEvents.OnEat += Eat; 
     }
 
     void Update()
@@ -111,6 +113,9 @@ public class PlayerController : Entity
 
             if (Input.GetButtonDown("PickUp"))
                 GameEvents.OnCarry?.Invoke();
+
+            if (Input.GetButtonDown("Eat"))
+                GameEvents.OnEat?.Invoke();
 
             if (Input.GetButtonDown("Drop"))
                 GameEvents.OnDrop?.Invoke();
@@ -227,7 +232,10 @@ public class PlayerController : Entity
         }
     }
 
-
+    public void Eat()
+    {
+    
+    }
     public void PickUp()
     {
         if (_carryComponent.CanPickUp)

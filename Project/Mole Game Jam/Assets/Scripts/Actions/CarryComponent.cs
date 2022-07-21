@@ -41,6 +41,12 @@ public class CarryComponent : MonoBehaviour
             _canPickUp = true;
             _worm = worm;
         }
+        //if (other.gameObject.isEditble)
+        //{
+        //    ///_canEat = true;
+        //    //_worm = worm;
+        //}
+
 
         // feeding the nest
         var nest = other.GetComponent<Nest>();

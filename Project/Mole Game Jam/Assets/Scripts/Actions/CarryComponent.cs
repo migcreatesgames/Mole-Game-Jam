@@ -8,7 +8,7 @@ public class CarryComponent : MonoBehaviour
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
     private Worm _worm;
-    private GameObject _targetWorm;
+    private static GameObject _targetWorm;
     [SerializeField] private GameObject[] _worms;
     [SerializeField] private GameObject _consumableWorm;
     private Animator _animator;
@@ -21,6 +21,7 @@ public class CarryComponent : MonoBehaviour
     public int NumOfWormsCarried { get => _numOfWormsCarried; }
     public bool IsCarrying { get => _isCarrying; set => _isCarrying = value; }
     public bool CanPickUp { get => _canPickUp; set => _canPickUp = value; }
+    public static GameObject TargetWorm { get => _targetWorm; set => _targetWorm = value; }
 
     void Awake() {
         Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried,
@@ -41,13 +42,6 @@ public class CarryComponent : MonoBehaviour
             _worm = worm;
         }
 
-
-        if (other.gameObject.tag == "Worm")
-        {
-            _targetWorm = other.transform.parent.gameObject;
-            Debug.Log($"target: {_targetWorm}");
-        }
-
         // feeding the nest
         var nest = other.GetComponent<Nest>();
         if (nest && _numOfWormsCarried > 0) {
@@ -60,8 +54,6 @@ public class CarryComponent : MonoBehaviour
         var worm = other.GetComponent<Worm>();
         if (worm)
             _canPickUp = false;
-
-
     }
     private void PickUpWorm()
     {

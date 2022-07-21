@@ -5901,7 +5901,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7826087, y: 1}
+    m_SensorSize: {x: 1.7788697, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -46014,6 +46014,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4390714991684350333, guid: 9a2dc0c78c376ec4e8c21785dc14f12a, type: 3}
+      propertyPath: m_Radius
+      value: 0.46
+      objectReference: {fileID: 0}
     - target: {fileID: 4390714991896050410, guid: 9a2dc0c78c376ec4e8c21785dc14f12a, type: 3}
       propertyPath: m_Name
       value: WormDiggable
@@ -46306,6 +46310,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1233348360, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
+      propertyPath: SphereRadius
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3697642850386123479, guid: 4d29eb92c39223447a077733aaec9a6e, type: 3}
       propertyPath: _ui
       value: 

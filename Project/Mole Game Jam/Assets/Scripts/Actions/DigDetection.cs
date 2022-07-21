@@ -9,8 +9,9 @@ public class DigDetection : MonoBehaviour
     private bool _foundWorm = false;
 
     public float MAXHitDistance = 10;
+    public float SphereRadius = 1f;
 
-    public Vector3 BoxCastSize1, BoxCastSize2;
+    public Vector3 BoxCastSize;
     public Vector3 _origin;
     public Vector3 _dir1, _dir2;
 
@@ -91,8 +92,8 @@ public class DigDetection : MonoBehaviour
 
         if (!_checkFloor)
             return;
-        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
-        //RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, -transform.up);
+        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, transform.forward);
+        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, -transform.up);
 
         foreach (RaycastHit hit in floorHits)
         {
@@ -100,7 +101,12 @@ public class DigDetection : MonoBehaviour
                 continue;
 
             if (hit.transform.gameObject.tag == "Worm")
+            {
                 _foundWorm = true;
+                // do not like this but have to
+                CarryComponent.TargetWorm = hit.transform.parent.gameObject;
+                Debug.Log($"target: {CarryComponent.TargetWorm}");
+            }
 
             //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")
@@ -121,10 +127,10 @@ public class DigDetection : MonoBehaviour
     private void OnDrawGizmos()
     {
         Debug.DrawRay(_origin, _dir1, Color.red);
-        Gizmos.DrawWireCube(_hitPoint1, BoxCastSize1);
+        Gizmos.DrawWireCube(_hitPoint1, BoxCastSize);
 
         Debug.DrawRay(_hitPoint1, -_dir2, Color.blue);
-        Gizmos.DrawWireSphere(_hitPoint2, .35f);
+        Gizmos.DrawWireSphere(_hitPoint2, SphereRadius);
     }
 }
 

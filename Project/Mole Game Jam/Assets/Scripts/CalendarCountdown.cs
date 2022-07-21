@@ -33,9 +33,12 @@ public class CalendarCountdown : MonoBehaviour
         Debug.Log($"fade: {_enableFade}");
         if (_enableFade)
         {
+            var alpha = textTarget.color.a;
             if (textTarget.alpha != 0)
             {
-                textTarget.alpha -= .01f;
+                Debug.Log(textTarget.alpha);
+                alpha -= 15f * Time.deltaTime;
+                textTarget.color = new Color (textTarget.color.r, textTarget.color.b, textTarget.color.g, alpha);
             }
             else
             {
@@ -62,7 +65,7 @@ public class CalendarCountdown : MonoBehaviour
 
                 break;
 
-            case 100:
+            case 250:
                 // is summer
                 if (season != Seasons.summer)
                 {
@@ -71,7 +74,7 @@ public class CalendarCountdown : MonoBehaviour
                 }
                 break;
             
-            case 300:
+            case 425:
                 // is fall
                 if (season != Seasons.fall)
                 {
@@ -79,7 +82,7 @@ public class CalendarCountdown : MonoBehaviour
                     FadeOutText(season);
                 }
                 break;
-            case 600:
+            case 750:
                 // is Winter
                 if (season != Seasons.fall)
                 {

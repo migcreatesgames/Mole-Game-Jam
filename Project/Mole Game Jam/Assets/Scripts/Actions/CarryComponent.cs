@@ -64,9 +64,11 @@ public class CarryComponent : MonoBehaviour
     private void PickUpWorm(Worm worm)
     {
         _isCarrying = true;
+        if (FoodResevoir.inFoodResevoir)
+            GameEvents.OnFoodRemoved?.Invoke(-1);
         _animator.SetBool("Encumbered", true);
         PlayerController.Instance.PickUp();
-        _numOfWormsCarried++;
+        _numOfWormsCarried++;   
         DisplayWorm(_numOfWormsCarried);
         _canPickUp = false;
         if (worm != null)

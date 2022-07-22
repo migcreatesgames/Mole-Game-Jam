@@ -15,12 +15,6 @@ public class CalendarCountdown : MonoBehaviour
     private Seasons season = Seasons.winter;
     public TextMeshProUGUI[] SeasonNames;
 
-    private void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (currentTime < MaxTime && GameManager.Instance.GameStarted)

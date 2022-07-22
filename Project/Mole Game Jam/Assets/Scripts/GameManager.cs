@@ -24,18 +24,13 @@ public class GameManager : MonoBehaviour
         GameEvents.OnTimerFinished += GameComplete;
     }
 
-    // you die or babies starve
     public void GameOver(FailStates failState) 
     {
         if (failState == FailStates.babiesDied)
-            Debug.Log("game over babies died");
+            Debug.Log("Game Over - babies died");
+        else
+            Debug.Log("Game Over - Player Died");
     }
-
-    // time's up
-    // check how many babies are alive
-    // check if food requirement met
-    // if less, random perecentage of child(s) die.
-    // if more, good ending
     private void GameComplete()
     {
         if (_foodSaved >= _minFoodRequired)
@@ -45,9 +40,27 @@ public class GameManager : MonoBehaviour
     }
     private void GetEndResults()
     {
-        // total 
+        // random perecentage of child(ren) dying based on how much food was saved and total children alive
+        //float totalFoodPercentage = _foodSaved / _minFoodRequired;
+        // if 
+        float d = Random.Range(0f,100f);
+        if ((d -= 30) < 0) 
+        {
+            _babyCount -= 2;
+            Debug.Log($"Not Enough food for the season - only {_babyCount} mole(s) survied"); 
+            Debug.Log($"The rest died of hunger..."); 
+        };
+        if ((d -= 12) < 0) { 
+            Debug.Log($"Not Enough food for the season"); 
+            Debug.Log($"All your babies die"); 
+        };
+        if ((d -= 45) < 0)
+        {
+            _babyCount--;
+            Debug.Log($"Not Enough food for the season - only {_babyCount} mole(s) survied");
+            Debug.Log($"One died of hunger...");
+        };
     }
-
 }
 
 public enum FailStates

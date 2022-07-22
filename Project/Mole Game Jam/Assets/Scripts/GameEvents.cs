@@ -13,6 +13,7 @@ public static class GameEvents
     public static Action OnFoundWorm;
     public static Action OnEat;
     public static Action<float> OnFeedBabies;
+    public static Action OnGameBegin;
     public static Action OnTimerFinished;
     public static Action<int> OnFoodSaved;
     public static Action<int >OnFoodRemoved;

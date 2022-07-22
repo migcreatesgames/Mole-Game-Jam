@@ -23,7 +23,7 @@ public class CalendarCountdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentTime < MaxTime)
+        if (currentTime < MaxTime && GameManager.Instance.GameStarted)
         {
             //Debug.Log($"current time: {currentTime}");
             currentTime += .15f;

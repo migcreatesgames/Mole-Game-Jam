@@ -119,6 +119,9 @@ public class PlayerController : Entity
 
             if (Input.GetButtonDown("Drop"))
                 GameEvents.OnDrop?.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.G))
+                GameEvents.OnGameBegin?.Invoke();
         }
     }
 

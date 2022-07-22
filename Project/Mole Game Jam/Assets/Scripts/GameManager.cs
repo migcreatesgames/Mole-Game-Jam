@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     private int _minFoodRequired = 10;
 
     private float _moleBabiesHungerValue = 10;
-
+    private bool _gameStarted = false;
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
+    public bool GameStarted { get => _gameStarted; set => _gameStarted = value; }
 
     void Awake() {
         if (_instance != null)
@@ -24,10 +25,17 @@ public class GameManager : MonoBehaviour
         GameEvents.OnTimerFinished += GameComplete;
         GameEvents.OnFoodSaved += SaveFood;
         GameEvents.OnFoodRemoved += RemoveFood;
+        GameEvents.OnGameBegin += BeginGame;
+    }
+
+    private void BeginGame()
+    {
+           _gameStarted = true;
     }
 
     public void GameOver(FailStates failState) 
     {
+        _gameStarted = false;
         if (failState == FailStates.babiesDied)
             Debug.Log("Game Over - babies died");
         else
@@ -35,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
     private void GameComplete()
     {
+        _gameStarted = false;
         if (_foodSaved >= _minFoodRequired)
             Debug.Log($"enough food for the season - {_babyCount} mole(s) survied");
         else

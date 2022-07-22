@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodResevoir : MonoBehaviour
 {
+    
     private void OnTriggerEnter(Collider other)
     {
         var worm = other.GetComponent<Worm>();

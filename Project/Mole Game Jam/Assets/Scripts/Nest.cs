@@ -30,7 +30,6 @@ public class Nest : Entity
 
     public override void DamageTaken(float damageValue)
     {
-        Debug.Log($"Health: {Health}");
         base.DamageTaken(damageValue);
         GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }

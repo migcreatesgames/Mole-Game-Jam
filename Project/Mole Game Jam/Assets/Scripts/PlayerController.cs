@@ -283,7 +283,7 @@ public class PlayerController : Entity
 
     public override void DamageTaken(float damageValue)
     {
-        base.DamageTaken(damageValue * Time.deltaTime);
+        base.DamageTaken(damageValue);
         GameEvents.OnDamageEvent?.Invoke(Health);
     }
 

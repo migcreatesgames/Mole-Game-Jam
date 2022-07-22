@@ -64,15 +64,15 @@ public class GameManager : MonoBehaviour
         };
     }
 
-    private void SaveFood()
+    private void SaveFood(int value)
     {
-        _foodSaved++;
+        _foodSaved += value;
         Debug.Log($"food saved:{_foodSaved}");
        
     }
-    private void RemoveFood()
+    private void RemoveFood(int value)
     {
-        _foodSaved--;
+        _foodSaved -= value;
         Debug.Log($"food removed:{_foodSaved}");
       
     }

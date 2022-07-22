@@ -289,7 +289,6 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-        Debug.Log("RechargeStamina called");
         yield return new WaitForSeconds(RechargeDelay);
         _isRecharging = true;
         while (Stamina < MAX_stamina)
@@ -302,7 +301,6 @@ public class PlayerController : Entity
     }
     private void CancelRechargeStamina()
     {
-        Debug.Log("CancelRechargeStamina called");
         _isRecharging = false;
         StopCoroutine(RechargeStamina());
     }

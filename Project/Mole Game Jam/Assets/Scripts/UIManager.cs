@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
     // reference to mana value from playercontroller.
     private float _moleBabiesValue;
 
+    // reference to baby mole bar UI
+    [SerializeField] Image _foodSavedBar;
+    // reference to mana value from playercontroller.
+    private float _foodSavedValue;
+
     public Image StaminaBar { get => _staminaBar; set => _staminaBar = value; }
 
     private void Awake()
@@ -46,6 +51,8 @@ public class UIManager : MonoBehaviour
         GameEvents.OnStaminaUpdateEvent += UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent += UpdateMoleBabiesBar;
         GameEvents.OnHelathUpdateEvent += HandleHealthBar;
+        GameEvents.OnFoodSaved += UpdateFoodSavedBar;
+        GameEvents.OnFoodRemoved += UpdateFoodSavedBar;
     }
 
     private void OnDisable()
@@ -54,6 +61,8 @@ public class UIManager : MonoBehaviour
         GameEvents.OnStaminaUpdateEvent -= UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent -= UpdateMoleBabiesBar;
         GameEvents.OnHelathUpdateEvent -= HandleHealthBar;
+        GameEvents.OnFoodSaved -= UpdateFoodSavedBar;
+        GameEvents.OnFoodRemoved -= UpdateFoodSavedBar;
     }
 
     void Start()
@@ -80,6 +89,7 @@ public class UIManager : MonoBehaviour
         _healthBar = GameObject.Find("HealthBar_Fill").GetComponent<Image>();
         _staminaBar = GameObject.Find("StaminaBar_Fill").GetComponent<Image>();
         _moleBabiesBar = GameObject.Find("MoleBabiesBar_Fill").GetComponent<Image>();
+        _foodSavedBar = GameObject.Find("FoodSavedBar_Fill").GetComponent<Image>();
     }
 
     public void SetUIObjectValues()
@@ -128,6 +138,12 @@ public class UIManager : MonoBehaviour
     void UpdateMoleBabiesBar(float value)
     {
         _moleBabiesValue = value;
-        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxMoleBabies value
+        _moleBabiesBar.fillAmount = _moleBabiesValue /100; // change 100 to maxMoleBabies value
+    }
+
+    void UpdateFoodSavedBar(int value)
+    {
+        _foodSavedValue += value;
+        _foodSavedBar.fillAmount = _foodSavedValue /10; // change 100 to maxMoleBabies value
     }
 }

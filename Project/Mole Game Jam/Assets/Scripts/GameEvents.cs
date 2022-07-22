@@ -14,6 +14,8 @@ public static class GameEvents
     public static Action OnEat;
     public static Action<float> OnFeedBabies;
     public static Action OnTimerFinished;
+    public static Action OnFoodSaved;
+    public static Action OnFoodRemoved;
 
     public static Action<float> OnHelathUpdateEvent;
     public static Action<float> OnStaminaUpdateEvent;
@@ -21,4 +23,4 @@ public static class GameEvents
 
     //public static Action OnAddCameraTarget;
     //public static Action OnRemoveCameraTarget;
-}
+}   

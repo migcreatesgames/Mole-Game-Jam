@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         }
         _instance = this;
         GameEvents.OnTimerFinished += GameComplete;
+        GameEvents.OnFoodSaved += SaveFood;
+        GameEvents.OnFoodRemoved += RemoveFood;
     }
 
     public void GameOver(FailStates failState) 
@@ -60,6 +62,15 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Not Enough food for the season - only {_babyCount} mole(s) survied");
             Debug.Log($"One died of hunger...");
         };
+    }
+
+    private void SaveFood()
+    {
+        _foodSaved++;
+    }
+    private void RemoveFood()
+    {
+        _foodSaved--;
     }
 }
 

@@ -25,18 +25,18 @@ public class CalendarCountdown : MonoBehaviour
     {
         if (currentTime < MaxTime)
         {
-            Debug.Log($"current time: {currentTime}");
+            //Debug.Log($"current time: {currentTime}");
             currentTime += .15f;
             ProgressTime(currentTime);
         }
 
-        Debug.Log($"fade: {_enableFade}");
+        //Debug.Log($"fade: {_enableFade}");
         if (_enableFade)
         {
             var alpha = textTarget.color.a;
             if (textTarget.alpha != 0)
             {
-                Debug.Log(textTarget.alpha);
+                //Debug.Log(textTarget.alpha);
                 alpha -= 15f * Time.deltaTime;
                 textTarget.color = new Color (textTarget.color.r, textTarget.color.b, textTarget.color.g, alpha);
             }
@@ -70,6 +70,7 @@ public class CalendarCountdown : MonoBehaviour
                 if (season != Seasons.summer)
                 {
                     season = Seasons.summer;
+                    _enableFade = true;
                     FadeOutText(season);
                 }
                 break;
@@ -79,6 +80,7 @@ public class CalendarCountdown : MonoBehaviour
                 if (season != Seasons.fall)
                 {
                     season = Seasons.fall;
+                    _enableFade = true;
                     FadeOutText(season);
                 }
                 break;
@@ -87,6 +89,7 @@ public class CalendarCountdown : MonoBehaviour
                 if (season != Seasons.winter)
                 {
                     season = Seasons.winter;
+                    _enableFade = true;
                     FadeOutText(season);
                     GameEvents.OnTimerFinished?.Invoke();
                 }
@@ -107,11 +110,11 @@ public class CalendarCountdown : MonoBehaviour
                 textTarget = SeasonNames[1];
                 textTarget.alpha = 100;
                 break;
-            case Seasons.fall:
+            case Seasons.summer:
                 textTarget = SeasonNames[2];
                 textTarget.alpha = 100;
                 break;
-            case Seasons.summer:
+            case Seasons.fall:
                 textTarget = SeasonNames[3];
                 textTarget.alpha = 100;
                 break;

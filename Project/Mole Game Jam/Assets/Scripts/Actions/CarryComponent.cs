@@ -17,8 +17,8 @@ public class CarryComponent : MonoBehaviour
             return _runSpeedsCarryingWorms[_numOfWormsCarried];
         }
     }
-    int _numOfWormsCarried = 0;
-    public int NumOfWormsCarried { get => _numOfWormsCarried; }
+    static int _numOfWormsCarried = 0;
+    public static int NumOfWormsCarried { get => _numOfWormsCarried; }
     public bool IsCarrying { get => _isCarrying; set => _isCarrying = value; }
     public bool CanPickUp { get => _canPickUp; set => _canPickUp = value; }
     public static GameObject TargetWorm { get => _targetWorm; set => _targetWorm = value; }
@@ -42,14 +42,12 @@ public class CarryComponent : MonoBehaviour
             _canPickUp = true;
             _worm = worm;
         }
-        
-        
-        //if (other.gameObject.isEditble)
-        //{
-        //    ///_canEat = true;
-        //    //_worm = worm;
-        //}
+        if (other.gameObject.tag == "Baby")
+       {
+       
+       }
     }
+
     void OnTriggerExit(Collider other)
     {
         var worm = other.GetComponent<Worm>();
@@ -99,6 +97,23 @@ public class CarryComponent : MonoBehaviour
         var tmp = GameObject.Instantiate(_consumableWorm, transform.position, transform.rotation);
         tmp.transform.parent = null;
     }
+
+    public void EatWorm()
+    {
+        _numOfWormsCarried--;
+        DisplayWorm(_numOfWormsCarried);
+        if (_numOfWormsCarried == 0)
+        {
+            _isCarrying = false;
+            _animator.SetBool("Encumbered", false);
+            HideWorm();
+        }
+    }
+    public void EatFoodFromFloor(IConsummable food)
+    {
+        
+    }
+
     private void DisplayWorm(int nums)
     {
         if (nums > 0)

@@ -21,11 +21,13 @@ public class Nest : Entity
         base.Death();
         GameManager.Instance.GameOver(FailStates.babiesDied);
     }
+
     public override void RegainHealth(float healthValue)
     {
         base.RegainHealth(healthValue);
         GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }
+
     private bool IsDamagedEnabled()
     {
         return _enableHealthLoss && IsAlive && GameManager.Instance.GameStarted;

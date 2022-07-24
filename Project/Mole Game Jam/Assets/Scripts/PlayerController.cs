@@ -28,8 +28,6 @@ public class PlayerController : Entity
     public float _testStaminaCost { get; private set; }
 
     private Animator _animator;
-
-    [SerializeField] TempUI _ui;
     private bool _encumbered;
 
     void Awake()

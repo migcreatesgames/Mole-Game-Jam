@@ -106,6 +106,10 @@ public class CarryComponent : MonoBehaviour
     {
         _numOfWormsCarried--;
         DisplayWorm(_numOfWormsCarried);
+        PlayerController.Instance.RegainHealth(25);
+
+        PlayerController.Instance.Stamina += 50;
+        PlayerController.Instance.RegainStamina(PlayerController.Instance.Stamina);
         if (_numOfWormsCarried == 0)
         {
             _isCarrying = false;
@@ -120,6 +124,10 @@ public class CarryComponent : MonoBehaviour
         if (_targetBaby != null)
         {
             Destroy(_targetBaby.transform.parent.gameObject);
+            PlayerController.Instance.RegainHealth(100);
+            PlayerController.Instance.Stamina = 100;
+            PlayerController.Instance.RegainStamina(PlayerController.Instance.Stamina);
+            GameManager.Instance.EatBaby();
 
         }
         else if(_worm != null)
@@ -127,6 +135,11 @@ public class CarryComponent : MonoBehaviour
 
             if (FoodResevoir.inFoodResevoir)
                 GameEvents.OnFoodRemoved?.Invoke(-1);
+
+            PlayerController.Instance.RegainHealth(25);
+
+            PlayerController.Instance.Stamina += 50;
+            PlayerController.Instance.RegainStamina(PlayerController.Instance.Stamina);
             Destroy(_worm.gameObject);
         }
 

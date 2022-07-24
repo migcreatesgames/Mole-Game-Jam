@@ -85,6 +85,14 @@ public class GameManager : MonoBehaviour
         Debug.Log($"food removed:{_foodSaved}");
       
     }
+
+
+    public void EatBaby()
+    {
+        _babyCount--;
+        if (_babyCount == 0)
+            GameOver(FailStates.babiesDied);
+    }
 }
 
 public enum FailStates

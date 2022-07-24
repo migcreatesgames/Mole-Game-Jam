@@ -14,10 +14,10 @@ public class EatComponent : MonoBehaviour
             GetComponent<CarryComponent>().EatWorm();
             return;
         }
-
-        if (CheckFloorForFood())
+        else
         {
-
+            if (CheckFloorForFood())
+                GetComponent<CarryComponent>().EatFoodFromFloor();
         }
     }
 

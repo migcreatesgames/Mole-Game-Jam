@@ -4,11 +4,13 @@ public class CarryComponent : MonoBehaviour
 {
     private bool _isCarrying = false;
     private bool _canPickUp = false;
+    private bool _nearBaby = false;
     [SerializeField] float[] _runSpeedsCarryingWorms;
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
     private Worm _worm;
     private static GameObject _targetWorm;
+    private static GameObject _targetBaby;
     [SerializeField] private GameObject[] _worms;
     [SerializeField] private GameObject _consumableWorm;
     private Animator _animator;
@@ -43,15 +45,17 @@ public class CarryComponent : MonoBehaviour
             _worm = worm;
         }
         if (other.gameObject.tag == "Baby")
-       {
-       
-       }
+        {
+            //_nearBaby = true;
+            _targetBaby = other.gameObject;
+            _canPickUp = true;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
         var worm = other.GetComponent<Worm>();
-        if (worm)
+        if (worm || other.gameObject.tag == "Baby")
             _canPickUp = false;
     }
     private void PickUpWorm()
@@ -108,10 +112,26 @@ public class CarryComponent : MonoBehaviour
             _animator.SetBool("Encumbered", false);
             HideWorm();
         }
+        _canPickUp = false;
     }
-    public void EatFoodFromFloor(IConsummable food)
+
+    public void EatFoodFromFloor()
     {
-        
+        if (_targetBaby != null)
+        {
+            Destroy(_targetBaby.transform.parent.gameObject);
+
+        }
+        else if(_worm != null)
+        {
+
+            if (FoodResevoir.inFoodResevoir)
+                GameEvents.OnFoodRemoved?.Invoke(-1);
+            Destroy(_worm.gameObject);
+        }
+
+
+        _canPickUp = false;
     }
 
     private void DisplayWorm(int nums)

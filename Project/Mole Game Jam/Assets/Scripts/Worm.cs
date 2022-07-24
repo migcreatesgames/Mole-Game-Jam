@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class Worm : MonoBehaviour, IConsummable
 {
-    private void Start()
+    private void OnEnable()
     {
-        GameEvents.OnEat += GetEaten;
+        //GameEvents.OnEat += GetEaten;
     }
+
+    private void OnDisable()
+    {
+        //GameEvents.OnEat -= GetEaten;
+    }
+
     public void GetEaten()
     {
-        Destroy(gameObject);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 }
+    

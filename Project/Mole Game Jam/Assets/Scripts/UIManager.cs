@@ -1,4 +1,5 @@
 using UnityEngine.UI;
+using TMPro; 
 using UnityEngine;
 
 /// <summary>
@@ -12,9 +13,15 @@ public class UIManager : MonoBehaviour
 
     private PlayerController pc;
 
+
     // reference to canvas group alpha value for HUD gameobject.
     public CanvasGroup hud_CanvasGroup;
     public CanvasGroup eventMenu_CanvasGroup;
+    public TextMeshProUGUI descriptionSucceed_text;
+    public TextMeshProUGUI descriptionFail_text;
+    public GameObject gameFail_GO;
+    public GameObject gameSucceed_GO;
+    
 
     // reference to health bar UI.
     [SerializeField] Image _healthBar;
@@ -80,7 +87,7 @@ public class UIManager : MonoBehaviour
             ToggleEndMenu();
 
         if (Input.GetKeyDown(KeyCode.C))
-            PlayerController.Instance.DamageTaken(1);
+            PlayerController.Instance.DamageTaken(100);
 
         if (Input.GetKeyDown(KeyCode.V))
             PlayerController.Instance.RegainHealth(1);
@@ -140,25 +147,27 @@ public class UIManager : MonoBehaviour
             HideEndMenu();
     }
 
-    public void DisplayEndMenu(FailStates? failState)
+    public void DisplayEndMenu(FailStates failState)
     {
         if (hud_CanvasGroup.alpha == 1)
             UIEvents.OnHUDHide(hud_CanvasGroup);
+        gameFail_GO.SetActive(true);
+        eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, .35f);
+        if (failState == FailStates.babiesDied)
+            descriptionFail_text.text = "All your babies died...";
+        else
+            descriptionFail_text.text = "You died and left your babies alone to starve...";
 
-        if (failState != null)
-        {
-            eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, 128);
-            if (failState == FailStates.babiesDied)
-            {
 
-            }
-            else
-            {
+        UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
+    }
 
-            }
-        }
-        
-
+    public void DisplayEndMenu(string result)
+    {
+        if (hud_CanvasGroup.alpha == 1)
+            UIEvents.OnHUDHide(hud_CanvasGroup);
+        gameSucceed_GO.SetActive(true);
+        descriptionSucceed_text.text = result;
         UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
     }
 

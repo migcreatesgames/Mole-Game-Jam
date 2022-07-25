@@ -122,7 +122,7 @@ public class CarryComponent : MonoBehaviour
     public void EatFoodFromFloor()
     {
         if (_targetBaby != null)
-        {
+        {   
             Destroy(_targetBaby.transform.parent.gameObject);
             PlayerController.Instance.RegainHealth(100);
             PlayerController.Instance.Stamina = 100;

@@ -36,15 +36,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(FailStates failState) 
     {
         _gameStarted = false;
-        if (failState == FailStates.babiesDied)
-        {
-            Debug.Log("Game Over - babies died");
-            PlayerController.Instance.EnableInput = false;
-        }
-        else 
-        { 
-            Debug.Log("Game Over - Player Died");
-        }
+        PlayerController.Instance.EnableInput = false;
         UIManager.Instance.DisplayEndMenu(failState);
     }
     private void GameComplete()
@@ -55,33 +47,34 @@ public class GameManager : MonoBehaviour
     }
     private void GetEndResults()
     {
-        // random perecentage of child(ren) dying based on how much food was saved and total children alive
-        //float totalFoodPercentage = _foodSaved / _minFoodRequired;
-        // if 
+        // random perecentage of child(ren) dying based on how
+        // much food was saved and total children alive
+        string resultSummary = "";
         if (_foodSaved >= _minFoodRequired)
-            Debug.Log($"enough food for the season - {_babyCount} mole(s) survied");
+            resultSummary = $"You've accumulated enough food to feed your babies - {_babyCount + 1} mole(s) survied";
         else
         {
             float d = Random.Range(0f, 100f);
             if ((d -= 30) < 0)
             {
                 _babyCount -= 2;
-                Debug.Log($"Not Enough food for the season - only {_babyCount} mole(s) survied");
-                Debug.Log($"The rest died of hunger...");
+                resultSummary = $"You didn't collect enough food for the Winter - only {_babyCount + 1} mole(s) survied \n" +
+                    $"The rest died of hunger...";
             };
             if ((d -= 12) < 0)
             {
-                Debug.Log($"Not Enough food for the season");
-                Debug.Log($"All your babies die");
+                resultSummary = $"You didn't collect enough food for the Winter \n" +
+                    $"All your babies died...";
             };
             if ((d -= 45) < 0)
             {
                 _babyCount--;
-                Debug.Log($"Not Enough food for the season - only {_babyCount} mole(s) survied");
-                Debug.Log($"One died of hunger...");
+                resultSummary = $"You didn't collect enough food for the Winter - only {_babyCount + 1} mole(s) survied \n" +
+                  $"One died of hunger...";
             };
         }
-        UIManager.Instance.DisplayEndMenu(null);
+     
+        UIManager.Instance.DisplayEndMenu(resultSummary);
     }
 
     private void SaveFood(int value)

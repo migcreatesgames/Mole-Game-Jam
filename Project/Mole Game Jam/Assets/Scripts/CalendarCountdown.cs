@@ -84,7 +84,7 @@ public class CalendarCountdown : MonoBehaviour
                 {
                     season = Seasons.winter;
                     _enableFade = true;
-                    FadeOutText(season);
+                    //FadeOutText(season);
                     GameEvents.OnTimerFinished?.Invoke();
                 }
                 break;

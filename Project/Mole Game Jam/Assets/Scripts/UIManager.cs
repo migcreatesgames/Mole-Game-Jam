@@ -8,12 +8,13 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [HideInInspector]
-    public static UIManager _instance;
+    private static UIManager _instance;
 
     private PlayerController pc;
 
     // reference to canvas group alpha value for HUD gameobject.
     public CanvasGroup hud_CanvasGroup;
+    public CanvasGroup eventMenu_CanvasGroup;
 
     // reference to health bar UI.
     [SerializeField] Image _healthBar;
@@ -36,12 +37,13 @@ public class UIManager : MonoBehaviour
     private float _foodSavedValue;
 
     public Image StaminaBar { get => _staminaBar; set => _staminaBar = value; }
+    public static UIManager Instance { get => _instance; set => _instance = value; }
 
     private void Awake()
     {
-        if (_instance != null)
+        if (Instance != null)
             return;
-        _instance = this;
+        Instance = this;
     }
 
     private void OnEnable()
@@ -75,7 +77,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
-            ToggleHUD();
+            ToggleEndMenu();
 
         if (Input.GetKeyDown(KeyCode.C))
             PlayerController.Instance.DamageTaken(1);
@@ -126,6 +128,43 @@ public class UIManager : MonoBehaviour
             UIEvents.OnHUDHide(hud_CanvasGroup);
         else
             hud_CanvasGroup.alpha = 0;
+    }
+
+
+
+    private void ToggleEndMenu()
+    {
+        if (eventMenu_CanvasGroup.alpha == 0)
+            DisplayEndMenu(null);
+        else
+            HideEndMenu();
+    }
+
+    public void DisplayEndMenu(FailStates? failState)
+    {
+        if (hud_CanvasGroup.alpha == 1)
+            UIEvents.OnHUDHide(hud_CanvasGroup);
+
+        if (failState != null)
+        {
+            eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, 128);
+            if (failState == FailStates.babiesDied)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+        
+
+        UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
+    }
+
+    public void HideEndMenu()
+    {
+        UIEvents.OnHUDHide(eventMenu_CanvasGroup);
     }
 
     public void HandleHealthBar(float value) => _healthBar.fillAmount = value / 100;

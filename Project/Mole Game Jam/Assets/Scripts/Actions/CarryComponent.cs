@@ -142,8 +142,6 @@ public class CarryComponent : MonoBehaviour
             PlayerController.Instance.RegainStamina(PlayerController.Instance.Stamina);
             Destroy(_worm.gameObject);
         }
-
-
         _canPickUp = false;
     }
 

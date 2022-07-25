@@ -9,8 +9,10 @@ public class PlayerController : Entity
     private float MAXDigHoldTime = 3f;
     private float _pickUpAnimTime = 2f;
 
+    private bool _enableInput = true;
     private bool _enableMovement = true;
     private bool _isRecharging = false;
+
     private static PlayerController _instance;
     private InputHandler _inputHandler;
     private MovementComponent _movementComponent;
@@ -25,7 +27,7 @@ public class PlayerController : Entity
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
     public int RechargeDelay { get => _rechargeDelay; set => _rechargeDelay = value; }
-    public float _testStaminaCost { get; private set; }
+    public bool EnableInput { get => _enableInput; set => _enableInput = value; }
 
     private Animator _animator;
     private bool _encumbered;
@@ -53,10 +55,9 @@ public class PlayerController : Entity
     void Update()
     {
         //Debug.Log($"state: {_state}");
-        if (_inputHandler)
+        if (_inputHandler && _enableInput)
         {
-            //_inputHandler.HandleInput(_instance);
-
+            //_inputHandler.HandleInput(_instance);s
             // movement
             if (_enableMovement)
             {
@@ -237,6 +238,7 @@ public class PlayerController : Entity
     {
     
     }
+    
     public void PickUp()
     {
         if (_carryComponent.CanPickUp)
@@ -247,6 +249,7 @@ public class PlayerController : Entity
             StartCoroutine("DisableMovement");
         }
     }
+    
     private void DigForWorm()
     {
         _animator.SetTrigger("Grab");
@@ -271,11 +274,13 @@ public class PlayerController : Entity
         StopCoroutine("DisableMovement");
      
     }
+    
     public override void Death()
     {
         base.Death();
         GameManager.Instance.GameOver(FailStates.playerDied);
     }
+    
     public override void RegainHealth(float healthValue)
     {
         base.RegainHealth(healthValue);
@@ -300,6 +305,7 @@ public class PlayerController : Entity
         _isRecharging = false;
         StopCoroutine(RechargeStamina());
     }
+    
     private void CancelRechargeStamina()
     {
         _isRecharging = false;

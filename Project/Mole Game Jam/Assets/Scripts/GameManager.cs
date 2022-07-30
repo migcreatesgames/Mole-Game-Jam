@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         _foodSaved += value;
         Debug.Log($"food saved:{_foodSaved}");
-       
+        
     }
     private void RemoveFood(int value)
     {

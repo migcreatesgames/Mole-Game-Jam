@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitGame()
     {
-        IntroPlaying = true;
+        _introPlaying = true;
         yield return new WaitForSeconds(_introLength);
         StartGame();
     }
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.EnableInput = true;
         PlayerController.Instance.EnableMovement = true;
         CameraManager.Instance.EnableMainCamera();
-        IntroPlaying = false;
+        _introPlaying = false;
         StopCoroutine("StartGame");
     }
 

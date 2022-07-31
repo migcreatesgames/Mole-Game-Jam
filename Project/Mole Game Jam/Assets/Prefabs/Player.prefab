@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minHitDistance: 1
   MAXHitDistance: 10
-  BoxCastSize1: {x: 0.25, y: 0.25, z: 0.25}
-  BoxCastSize2: {x: 1, y: 1, z: 1}
+  SphereRadius: 0.35
+  BoxCastSize: {x: 0, y: 0, z: 0}
   _origin: {x: 0, y: 0, z: 0}
   _dir1: {x: 0, y: 0, z: 0}
   _dir2: {x: 0, y: 0, z: 0}
@@ -359,6 +359,8 @@ GameObject:
   - component: {fileID: 7842952907510312127}
   - component: {fileID: 1843245585}
   - component: {fileID: 9151564592078568248}
+  - component: {fileID: 1843245587}
+  - component: {fileID: 1843245598}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -427,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4138e8fce64af74b93935394e3fca3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ui: {fileID: 0}
+  _targetTransform: {fileID: 0}
 --- !u!114 &7635563426439201111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +525,40 @@ MonoBehaviour:
   AmmountToGround: 0.75
   stepRate: 0.08
   MaxStepRate: 0.08
+--- !u!114 &1843245587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770208113249358771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c63d980f81f414e8a584b6a5320c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &1843245598
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770208113249358771}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &3777142611386262588
 PrefabInstance:
   m_ObjectHideFlags: 0

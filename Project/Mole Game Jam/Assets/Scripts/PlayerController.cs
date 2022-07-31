@@ -58,7 +58,8 @@ public class PlayerController : Entity
         GameEvents.OnDrop += Drop;
         GameEvents.OnCarry += PickUp;
         GameEvents.OnFoundWorm += DigForWorm;
-        GameEvents.OnEat += Eat; 
+        GameEvents.OnEat += Eat;
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -140,7 +141,6 @@ public class PlayerController : Entity
             if (Input.GetButtonDown("Dig"))
                 GameManager.Instance.StartGame();
             navMeshAgent.destination = _targetTransform.position;
-          
         }
     }
     private float Distance()

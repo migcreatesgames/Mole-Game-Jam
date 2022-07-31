@@ -54,81 +54,95 @@ public class PlayerController : Entity
 
     void Update()
     {
-        //Debug.Log($"state: {_state}");
-        if (_inputHandler && _enableInput)
+        if (!GameManager.Instance.IntroPlaying)
         {
-            //_inputHandler.HandleInput(_instance);s
-            // movement
-            if (_enableMovement)
+            //Debug.Log($"state: {_state}");
+            if (_inputHandler && _enableInput)
             {
-                _xInput = Input.GetAxisRaw("Horizontal");
-                _yInput = Input.GetAxisRaw("Vertical");
-                if (_state != State.hiding || _state != State.digging)
+                //_inputHandler.HandleInput(_instance);s
+                // movement
+                if (_enableMovement)
                 {
-                    //if (!_isRecharging && Stamina < MAX_stamina)
-                    //    StartCoroutine(RechargeStamina());
+                    _xInput = Input.GetAxisRaw("Horizontal");
+                    _yInput = Input.GetAxisRaw("Vertical");
+                    if (_state != State.hiding || _state != State.digging)
+                    {
+                        //if (!_isRecharging && Stamina < MAX_stamina)
+                        //    StartCoroutine(RechargeStamina());
 
-                    if (_xInput == 0 && _yInput == 0)
-                        EnterState(State.idle);
+                        if (_xInput == 0 && _yInput == 0)
+                            EnterState(State.idle);
 
-                    else
-                        EnterState(State.walking);
+                        else
+                            EnterState(State.walking);
+                    }
                 }
-            }
 
-            // digging
-            if (Input.GetButton("Dig"))
-            {
-                if (_state != State.hiding)
-                    EnterState(State.digging);
-            }
-
-            if (Input.GetButtonUp("Dig"))
-                ExitState(State.digging);
-
-            // hiding 
-            if (Input.GetButton("Hide"))
-            {
-                if (_state != State.hiding && _state != State.digging)
+                // digging
+                if (Input.GetButton("Dig"))
                 {
-                    if (Stamina > 1)
-                        EnterState(State.hiding);
+                    if (_state != State.hiding)
+                        EnterState(State.digging);
                 }
-                if (_state == State.hiding)
+
+                if (Input.GetButtonUp("Dig"))
+                    ExitState(State.digging);
+
+                // hiding 
+                if (Input.GetButton("Hide"))
                 {
-                    if (Stamina == 0)
-                        ExitState(State.hiding);
-                    Stamina -= .5f;
+                    if (_state != State.hiding && _state != State.digging)
+                    {
+                        if (Stamina > 1)
+                            EnterState(State.hiding);
+                    }
+                    if (_state == State.hiding)
+                    {
+                        if (Stamina == 0)
+                            ExitState(State.hiding);
+                        Stamina -= .5f;
+                        GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                    }
+                }
+
+
+                if (Input.GetButtonUp("Hide"))
+                {
+                    ExitState(State.hiding);
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 }
+
+                if (Input.GetButtonDown("PickUp"))
+                    GameEvents.OnCarry?.Invoke();
+
+                if (Input.GetButtonDown("Eat"))
+                    GameEvents.OnEat?.Invoke();
+
+                if (Input.GetButtonDown("Drop"))
+                    GameEvents.OnDrop?.Invoke();
+
+                if (Input.GetKeyDown(KeyCode.G))
+                    GameEvents.OnGameBegin?.Invoke();
             }
-
-
-            if (Input.GetButtonUp("Hide"))
-            {
-                ExitState(State.hiding);
-                GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-            }
-
-            if (Input.GetButtonDown("PickUp"))
-                GameEvents.OnCarry?.Invoke();
-
-            if (Input.GetButtonDown("Eat"))
-                GameEvents.OnEat?.Invoke();
-
-            if (Input.GetButtonDown("Drop"))
-                GameEvents.OnDrop?.Invoke();
-
-            if (Input.GetKeyDown(KeyCode.G))
-                GameEvents.OnGameBegin?.Invoke();
+        }
+        else
+        {
+            // skip intro cutscene
+            if (Input.GetButtonDown("Dig"))
+                GameManager.Instance.StartGame();
         }
     }
 
     void FixedUpdate()
     {
-        Speed = _carryComponent.RunSpeedCarryingWorms;
-        if (_enableMovement)
-            _movementComponent.Move(_xInput, _yInput, Speed);
+        if (!GameManager.Instance.IntroPlaying)
+        {
+            if (_enableMovement)
+            {
+                Speed = _carryComponent.RunSpeedCarryingWorms;
+                _movementComponent.Move(_xInput, _yInput, Speed);
+            }
+        }
     }
 
     private void EnterState(State state)

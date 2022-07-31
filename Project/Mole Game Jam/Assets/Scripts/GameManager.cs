@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,12 +10,16 @@ public class GameManager : MonoBehaviour
     private int _minFoodRequired = 10;
 
     private float _moleBabiesHungerValue = 10;
+    private float _introLength = 3f; // get length from timeline
+
     private bool _gameStarted = false;
+    private bool _introPlaying = false;
 
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
     public bool GameStarted { get => _gameStarted; set => _gameStarted = value; }
+    public bool IntroPlaying { get => _introPlaying; set => _introPlaying = value; }
 
     void Awake() {
         if (_instance != null)
@@ -27,14 +32,26 @@ public class GameManager : MonoBehaviour
         GameEvents.OnFoodSaved += SaveFood;
         GameEvents.OnFoodRemoved += RemoveFood;
         GameEvents.OnGameBegin += BeginGame;
+        BeginGame();
     }
 
-    private void BeginGame()
+    private void BeginGame() => StartCoroutine("InitGame");
+
+    private IEnumerator InitGame()
+    {
+        IntroPlaying = true;
+        yield return new WaitForSeconds(_introLength);
+        StartGame();
+    }
+    
+    public void StartGame()
     {
         _gameStarted = true;
         PlayerController.Instance.EnableInput = true;
         PlayerController.Instance.EnableMovement = true;
         CameraManager.Instance.EnableMainCamera();
+        IntroPlaying = false;
+        StopCoroutine("StartGame");
     }
 
     public void GameOver(FailStates failState) 

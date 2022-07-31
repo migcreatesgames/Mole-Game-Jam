@@ -33,6 +33,7 @@ public class PlayerController : Entity
     public State State { get => _state; set => _state = value; }
     public int RechargeDelay { get => _rechargeDelay; set => _rechargeDelay = value; }
     public bool EnableInput { get => _enableInput; set => _enableInput = value; }
+    public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
 
     private Animator _animator;
     private bool _encumbered;
@@ -136,7 +137,9 @@ public class PlayerController : Entity
             // skip intro cutscene
             if (Input.GetButtonDown("Dig"))
                 GameManager.Instance.StartGame();
-            _navMeshAgent.destination = _targetTransform.position;
+            // handles ai movement for cutscene
+            if (_navMeshAgent.enabled)
+                _navMeshAgent.destination = _targetTransform.position;
         }
     }
     private float Distance()
@@ -335,6 +338,7 @@ public class PlayerController : Entity
         _isRecharging = false;
         StopCoroutine(RechargeStamina());
     }
+
 }
 
 public enum State { idle, walking, digging, hiding }

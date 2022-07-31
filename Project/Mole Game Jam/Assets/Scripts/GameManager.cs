@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     private int _minFoodRequired = 10;
 
     private float _moleBabiesHungerValue = 10;
-    private float _introLength = 3f; // get length from timeline
+    private float _introLength = 7f; // get length from timeline
+    private float _curIntoTime = 0;
 
     private bool _gameStarted = false;
     private bool _introPlaying = false;
+    private int counter;
 
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
@@ -41,13 +43,24 @@ public class GameManager : MonoBehaviour
     private IEnumerator InitGame()
     {
         _introPlaying = true;
-        yield return new WaitForSeconds(_introLength);
+        
+        counter = (int)_introLength;
+        while (counter > 0)
+        {
+            // enable ai movement for intro cutscene 
+            if (counter == 3)
+                PlayerController.Instance.NavMeshAgent.enabled = true;
+
+            yield return new WaitForSeconds(1);
+            counter--;
+        }
         StartGame();
     }
     
     public void StartGame()
     {
         _gameStarted = true;
+        PlayerController.Instance.NavMeshAgent.enabled = false;
         PlayerController.Instance.EnableInput = true;
         PlayerController.Instance.EnableMovement = true;
         CameraManager.Instance.EnableMainCamera();

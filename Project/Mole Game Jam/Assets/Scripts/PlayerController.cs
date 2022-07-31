@@ -10,7 +10,7 @@ public class PlayerController : Entity
     private float _pickUpAnimTime = 2f;
 
     private bool _enableInput = true;
-    private bool _enableMovement = true;
+    private bool _enableMovement = false;
     private bool _isRecharging = false;
 
     private static PlayerController _instance;

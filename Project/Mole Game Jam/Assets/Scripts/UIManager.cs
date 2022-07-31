@@ -13,7 +13,6 @@ public class UIManager : MonoBehaviour
 
     private PlayerController pc;
 
-
     // reference to canvas group alpha value for HUD gameobject.
     public CanvasGroup hud_CanvasGroup;
     public CanvasGroup eventMenu_CanvasGroup;
@@ -22,7 +21,6 @@ public class UIManager : MonoBehaviour
     public GameObject gameFail_GO;
     public GameObject gameSucceed_GO;
     
-
     // reference to health bar UI.
     [SerializeField] Image _healthBar;
     // reference to health value from playercontroller.
@@ -155,7 +153,6 @@ public class UIManager : MonoBehaviour
             descriptionFail_text.text = "All your babies died...";
         else
             descriptionFail_text.text = "You died and left your babies alone to starve...";
-
 
         UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
     }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     private float _moleBabiesHungerValue = 10;
     private bool _gameStarted = false;
+
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
@@ -30,21 +31,28 @@ public class GameManager : MonoBehaviour
 
     private void BeginGame()
     {
-           _gameStarted = true;
+        _gameStarted = true;
+        PlayerController.Instance.EnableInput = true;
+        PlayerController.Instance.EnableMovement = true;
+        CameraManager.Instance.EnableMainCamera();
     }
 
     public void GameOver(FailStates failState) 
     {
         _gameStarted = false;
         PlayerController.Instance.EnableInput = false;
+        PlayerController.Instance.EnableMovement = false;
         UIManager.Instance.DisplayEndMenu(failState);
     }
+
     private void GameComplete()
     {
         _gameStarted = false;
         PlayerController.Instance.EnableInput = false;
+        PlayerController.Instance.EnableMovement = false;
         GetEndResults();
     }
+
     private void GetEndResults()
     {
         // random perecentage of child(ren) dying based on how
@@ -73,7 +81,7 @@ public class GameManager : MonoBehaviour
                   $"One died of hunger...";
             };
         }
-     
+        
         UIManager.Instance.DisplayEndMenu(resultSummary);
     }
 
@@ -81,15 +89,13 @@ public class GameManager : MonoBehaviour
     {
         _foodSaved += value;
         Debug.Log($"food saved:{_foodSaved}");
-        
     }
+
     private void RemoveFood(int value)
     {
         _foodSaved += value;
         Debug.Log($"food removed:{_foodSaved}");
-      
     }
-
 
     public void EatBaby()
     {

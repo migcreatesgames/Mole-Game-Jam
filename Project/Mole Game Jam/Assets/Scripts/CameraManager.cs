@@ -1,5 +1,4 @@
 using Cinemachine;
-using System;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -28,11 +27,20 @@ public class CameraManager : MonoBehaviour
         _main_VC = GameObject.Find("CM vcam_Main").GetComponent<CinemachineVirtualCamera>();
         _intro_VC = GameObject.Find("CM vcam_IntroShot").GetComponent<CinemachineVirtualCamera>();
 
-        _curCam = _intro_VC;
-        _curCam.Priority = 1000;
-        _main_VC.Priority = 0;
+        EnableIntroCamera();
     }
 
+    public void EnableMainCamera()
+    {
+        _intro_VC.Priority = 0;
+        _curCam = _main_VC;
+        _curCam.Priority = 1000;
+    }
 
-
+    public void EnableIntroCamera()
+    {
+        _main_VC.Priority = 0;
+        _curCam = _intro_VC;
+        _curCam.Priority = 1000;
+    }
 }

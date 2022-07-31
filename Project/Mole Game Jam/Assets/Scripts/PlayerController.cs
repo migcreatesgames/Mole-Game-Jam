@@ -15,12 +15,8 @@ public class PlayerController : Entity
     private bool _isRecharging = false; 
 
 
-
-
-    private Transform _transform;
     public Transform _targetTransform;
-
-    private NavMeshAgent navMeshAgent;
+    private NavMeshAgent _navMeshAgent;
 
     private static PlayerController _instance;
     private InputHandler _inputHandler;
@@ -59,7 +55,7 @@ public class PlayerController : Entity
         GameEvents.OnCarry += PickUp;
         GameEvents.OnFoundWorm += DigForWorm;
         GameEvents.OnEat += Eat;
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -140,7 +136,7 @@ public class PlayerController : Entity
             // skip intro cutscene
             if (Input.GetButtonDown("Dig"))
                 GameManager.Instance.StartGame();
-            navMeshAgent.destination = _targetTransform.position;
+            _navMeshAgent.destination = _targetTransform.position;
         }
     }
     private float Distance()

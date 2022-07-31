@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public bool IntroPlaying { get => _introPlaying; set => _introPlaying = value; }
 
 
-    //testing token for gitbash 
     void Awake() {
         if (_instance != null)
         {

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private int _minFoodRequired = 10;
 
     private float _moleBabiesHungerValue = 10;
-    private float _introLength = 20f; // get length from timeline
+    private float _introLength = 30f; // get length from timeline
     private float _curIntoTime = 0;
 
     private bool _gameStarted = false;
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         while (counter > 0)
         {
             // enable ai movement for intro cutscene 
-            if (counter == _introLength - 18)
+            if (counter == _introLength - 20)
                 PlayerController.Instance.NavMeshAgent.enabled = true;
 
             yield return new WaitForSeconds(1);

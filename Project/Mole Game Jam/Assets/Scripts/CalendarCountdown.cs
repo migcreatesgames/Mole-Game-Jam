@@ -24,7 +24,6 @@ public class CalendarCountdown : MonoBehaviour
             ProgressTime(currentTime);
         }
 
-        Debug.Log($"fade: {_enableFade}");
         if (_enableFade)
         {
             var alpha = textTarget.color.a;

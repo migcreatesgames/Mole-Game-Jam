@@ -16,6 +16,7 @@ public class PlayerController : Entity
 
 
     public Transform _targetTransform;
+    public GameObject mainLight;
     private NavMeshAgent _navMeshAgent;
 
     private static PlayerController _instance;
@@ -337,6 +338,11 @@ public class PlayerController : Entity
     {
         _isRecharging = false;
         StopCoroutine(RechargeStamina());
+    }
+
+    public void EnableMainLight()
+    {
+        mainLight.SetActive(true);
     }
 
 }

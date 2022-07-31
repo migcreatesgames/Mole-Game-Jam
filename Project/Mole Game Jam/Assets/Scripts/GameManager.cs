@@ -51,8 +51,13 @@ public class GameManager : MonoBehaviour
         while (counter > 0)
         {
             // enable ai movement for intro cutscene 
+            if (counter == 9)
+                PlayerController.Instance.EnableMainLight();
             if (counter == _introLength - 28)
+            {
                 PlayerController.Instance.NavMeshAgent.enabled = true;
+               
+            }
 
             yield return new WaitForSeconds(1);
             counter--;
@@ -63,6 +68,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _directorTImeline.SetActive(false);
+        PlayerController.Instance.EnableMainLight();
         _gameStarted = true;
         PlayerController.Instance.NavMeshAgent.enabled = false;
         PlayerController.Instance.EnableInput = true;

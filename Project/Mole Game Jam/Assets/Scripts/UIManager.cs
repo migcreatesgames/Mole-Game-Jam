@@ -137,8 +137,6 @@ public class UIManager : MonoBehaviour
             hud_CanvasGroup.alpha = 0;
     }
 
-
-
     private void ToggleEndMenu()
     {
         if (eventMenu_CanvasGroup.alpha == 0)

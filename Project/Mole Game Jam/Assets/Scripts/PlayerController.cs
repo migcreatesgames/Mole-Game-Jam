@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : Entity
 {
@@ -11,7 +12,15 @@ public class PlayerController : Entity
 
     private bool _enableInput = true;
     private bool _enableMovement = false;
-    private bool _isRecharging = false;
+    private bool _isRecharging = false; 
+
+
+
+
+    private Transform _transform;
+    public Transform _targetTransform;
+
+    private NavMeshAgent navMeshAgent;
 
     private static PlayerController _instance;
     private InputHandler _inputHandler;
@@ -130,9 +139,14 @@ public class PlayerController : Entity
             // skip intro cutscene
             if (Input.GetButtonDown("Dig"))
                 GameManager.Instance.StartGame();
+            navMeshAgent.destination = _targetTransform.position;
+          
         }
     }
-
+    private float Distance()
+    {
+        return Vector3.Distance(transform.position, _targetTransform.position);
+    }
     void FixedUpdate()
     {
         if (!GameManager.Instance.IntroPlaying)

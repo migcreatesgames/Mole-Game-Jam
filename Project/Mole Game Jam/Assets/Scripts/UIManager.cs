@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
         if (Instance != null)
             return;
         Instance = this;
+        HideHUD();
     }
 
     private void OnEnable()
@@ -119,7 +120,7 @@ public class UIManager : MonoBehaviour
             HideHUD();
     }
 
-    private void DisplayHUD()
+    public void DisplayHUD()
     {
         if (UIEvents.OnHUDDisplay != null)
             UIEvents.OnHUDDisplay(hud_CanvasGroup);

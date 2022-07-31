@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -16,7 +17,8 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted = false;
     private bool _introPlaying = false;
     private int counter;
-
+    
+    private GameObject _directorTImeline; 
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
         GameEvents.OnFoodSaved += SaveFood;
         GameEvents.OnFoodRemoved += RemoveFood;
         GameEvents.OnGameBegin += BeginGame;
+        _directorTImeline = GameObject.Find("DirectorTimeline");
         BeginGame();
     }
 
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        _directorTImeline.SetActive(false);
         _gameStarted = true;
         PlayerController.Instance.NavMeshAgent.enabled = false;
         PlayerController.Instance.EnableInput = true;
@@ -71,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(FailStates failState) 
     {
         _gameStarted = false;
+        UIManager.Instance.HideHUD();
         PlayerController.Instance.EnableInput = false;
         PlayerController.Instance.EnableMovement = false;
         UIManager.Instance.DisplayEndMenu(failState);
@@ -79,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void GameComplete()
     {
         _gameStarted = false;
+        UIManager.Instance.HideHUD();
         PlayerController.Instance.EnableInput = false;
         PlayerController.Instance.EnableMovement = false;
         GetEndResults();

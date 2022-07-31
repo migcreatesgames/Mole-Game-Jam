@@ -24,20 +24,22 @@ public class CalendarCountdown : MonoBehaviour
             ProgressTime(currentTime);
         }
 
-        //Debug.Log($"fade: {_enableFade}");
+        Debug.Log($"fade: {_enableFade}");
         if (_enableFade)
         {
             var alpha = textTarget.color.a;
+            if (textTarget.alpha <= 0)
+            {
+                UIManager.Instance.DisplayHUD();
+                _enableFade = false;
+            }
             if (textTarget.alpha != 0)
             {
                 //Debug.Log(textTarget.alpha);
                 alpha -= 15f * Time.deltaTime;
                 textTarget.color = new Color (textTarget.color.r, textTarget.color.b, textTarget.color.g, alpha);
             }
-            else
-            {
-                _enableFade = false;
-            }
+           
         }
     }
 
@@ -55,33 +57,35 @@ public class CalendarCountdown : MonoBehaviour
                     _enableFade = true;
                     FadeOutText(season);
                 }
-                   
 
                 break;
 
-            case 250:
+            case 500:
                 // is summer
                 if (season != Seasons.summer)
                 {
+                    UIManager.Instance.HideHUD();
                     season = Seasons.summer;
                     _enableFade = true;
                     FadeOutText(season);
                 }
                 break;
             
-            case 425:
+            case 1000:
                 // is fall
                 if (season != Seasons.fall)
                 {
+                    UIManager.Instance.HideHUD();
                     season = Seasons.fall;
                     _enableFade = true;
                     FadeOutText(season);
                 }
                 break;
-            case 750:
+            case 1500:
                 // is Winter
                 if (season != Seasons.winter)
                 {
+                    UIManager.Instance.HideHUD();
                     season = Seasons.winter;
                     _enableFade = true;
                     //FadeOutText(season);

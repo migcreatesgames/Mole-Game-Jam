@@ -62,10 +62,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 23.466666666666665
+    m_Start: 23.25
     m_ClipIn: 0
     m_Asset: {fileID: -6124732798251600427}
-    m_Duration: 2.0833333333333357
+    m_Duration: 1.3500000000000014
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4613641046353560070}
     m_EaseInDuration: 0
@@ -247,10 +247,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: CM vcam_introFollow
   - m_Version: 1
-    m_Start: 25.55
+    m_Start: 24.85
     m_ClipIn: 0
     m_Asset: {fileID: 1770648272815912948}
-    m_Duration: 4.399999999999999
+    m_Duration: 5.099999999999998
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4001462248852718683}
     m_EaseInDuration: 0
@@ -361,25 +361,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -505,7 +487,7 @@ MonoBehaviour:
     m_Start: 23.033333333333335
     m_ClipIn: 0
     m_Asset: {fileID: -75816520913838269}
-    m_Duration: 2.5166666666666657
+    m_Duration: 1.8166666666666664
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4001462248852718683}
     m_EaseInDuration: 0
@@ -1165,10 +1147,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 25.9
+    m_Start: 25.216666666666665
     m_ClipIn: 0
     m_Asset: {fileID: -4619953062257717943}
-    m_Duration: 1.4333333333333336
+    m_Duration: 2.116666666666667
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7845464783847950165}
     m_EaseInDuration: 0

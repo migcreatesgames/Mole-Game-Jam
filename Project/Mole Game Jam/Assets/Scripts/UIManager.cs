@@ -1,4 +1,5 @@
 using UnityEngine.UI;
+using TMPro; 
 using UnityEngine;
 
 /// <summary>
@@ -8,13 +9,18 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [HideInInspector]
-    public static UIManager _instance;
+    private static UIManager _instance;
 
     private PlayerController pc;
 
     // reference to canvas group alpha value for HUD gameobject.
     public CanvasGroup hud_CanvasGroup;
-
+    public CanvasGroup eventMenu_CanvasGroup;
+    public TextMeshProUGUI descriptionSucceed_text;
+    public TextMeshProUGUI descriptionFail_text;
+    public GameObject gameFail_GO;
+    public GameObject gameSucceed_GO;
+    
     // reference to health bar UI.
     [SerializeField] Image _healthBar;
     // reference to health value from playercontroller.
@@ -30,13 +36,20 @@ public class UIManager : MonoBehaviour
     // reference to mana value from playercontroller.
     private float _moleBabiesValue;
 
+    // reference to baby mole bar UI
+    [SerializeField] Image _foodSavedBar;
+    // reference to mana value from playercontroller.
+    private float _foodSavedValue;
+
     public Image StaminaBar { get => _staminaBar; set => _staminaBar = value; }
+    public static UIManager Instance { get => _instance; set => _instance = value; }
 
     private void Awake()
     {
-        if (_instance != null)
+        if (Instance != null)
             return;
-        _instance = this;
+        Instance = this;
+        HideHUD();
     }
 
     private void OnEnable()
@@ -46,6 +59,8 @@ public class UIManager : MonoBehaviour
         GameEvents.OnStaminaUpdateEvent += UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent += UpdateMoleBabiesBar;
         GameEvents.OnHelathUpdateEvent += HandleHealthBar;
+        GameEvents.OnFoodSaved += UpdateFoodSavedBar;
+        GameEvents.OnFoodRemoved += UpdateFoodSavedBar;
     }
 
     private void OnDisable()
@@ -54,6 +69,8 @@ public class UIManager : MonoBehaviour
         GameEvents.OnStaminaUpdateEvent -= UpdateStaminaBar;
         GameEvents.OnMoleBabiesHungerUpdateEvent -= UpdateMoleBabiesBar;
         GameEvents.OnHelathUpdateEvent -= HandleHealthBar;
+        GameEvents.OnFoodSaved -= UpdateFoodSavedBar;
+        GameEvents.OnFoodRemoved -= UpdateFoodSavedBar;
     }
 
     void Start()
@@ -66,10 +83,10 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
-            ToggleHUD();
+            ToggleEndMenu();
 
         if (Input.GetKeyDown(KeyCode.C))
-            PlayerController.Instance.DamageTaken(1);
+            PlayerController.Instance.DamageTaken(100);
 
         if (Input.GetKeyDown(KeyCode.V))
             PlayerController.Instance.RegainHealth(1);
@@ -80,6 +97,7 @@ public class UIManager : MonoBehaviour
         _healthBar = GameObject.Find("HealthBar_Fill").GetComponent<Image>();
         _staminaBar = GameObject.Find("StaminaBar_Fill").GetComponent<Image>();
         _moleBabiesBar = GameObject.Find("MoleBabiesBar_Fill").GetComponent<Image>();
+        _foodSavedBar = GameObject.Find("FoodSavedBar_Fill").GetComponent<Image>();
     }
 
     public void SetUIObjectValues()
@@ -102,7 +120,7 @@ public class UIManager : MonoBehaviour
             HideHUD();
     }
 
-    private void DisplayHUD()
+    public void DisplayHUD()
     {
         if (UIEvents.OnHUDDisplay != null)
             UIEvents.OnHUDDisplay(hud_CanvasGroup);
@@ -118,6 +136,42 @@ public class UIManager : MonoBehaviour
             hud_CanvasGroup.alpha = 0;
     }
 
+    private void ToggleEndMenu()
+    {
+        if (eventMenu_CanvasGroup.alpha == 0)
+            DisplayEndMenu(null);
+        else
+            HideEndMenu();
+    }
+
+    public void DisplayEndMenu(FailStates failState)
+    {
+        if (hud_CanvasGroup.alpha == 1)
+            UIEvents.OnHUDHide(hud_CanvasGroup);
+        gameFail_GO.SetActive(true);
+        eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, .35f);
+        if (failState == FailStates.babiesDied)
+            descriptionFail_text.text = "All your babies died...";
+        else
+            descriptionFail_text.text = "You died and left your babies alone to starve...";
+
+        UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
+    }
+
+    public void DisplayEndMenu(string result)
+    {
+        if (hud_CanvasGroup.alpha == 1)
+            UIEvents.OnHUDHide(hud_CanvasGroup);
+        gameSucceed_GO.SetActive(true);
+        descriptionSucceed_text.text = result;
+        UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
+    }
+
+    public void HideEndMenu()
+    {
+        UIEvents.OnHUDHide(eventMenu_CanvasGroup);
+    }
+
     public void HandleHealthBar(float value) => _healthBar.fillAmount = value / 100;
 
     void UpdateStaminaBar(float value)
@@ -128,6 +182,12 @@ public class UIManager : MonoBehaviour
     void UpdateMoleBabiesBar(float value)
     {
         _moleBabiesValue = value;
-        _moleBabiesBar.fillAmount = _moleBabiesValue / 100; // change 100 to maxMoleBabies value
+        _moleBabiesBar.fillAmount = _moleBabiesValue /100; // change 100 to maxMoleBabies value
+    }
+
+    void UpdateFoodSavedBar(int value)
+    {
+        _foodSavedValue += value;
+        _foodSavedBar.fillAmount = _foodSavedValue /10; // change 100 to maxMoleBabies value
     }
 }

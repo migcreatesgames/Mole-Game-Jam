@@ -11,7 +11,7 @@ public class Entity: MonoBehaviour
     protected float MAX_stamina = 100f;
 
     public float Health { get => _health; protected set => _health = value; }
-    public float Stamina { get => _stamina; protected set => _stamina = value; }
+    public float Stamina { get => _stamina; set => _stamina = value; }
     public float Speed { get => _speed; protected set => _speed = value; }
     public bool IsAlive { get => _isAlive; }
 

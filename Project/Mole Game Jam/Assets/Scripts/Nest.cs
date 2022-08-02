@@ -13,20 +13,25 @@ public class Nest : Entity
 
     void Update()
     {
-        if (_enableHealthLoss && IsAlive)
+        if (IsDamagedEnabled())
             DamageTaken(_healthLossRate * Time.deltaTime);
     }
 
     public override void Death() {
         base.Death();
-        GameManager.Instance.GameOver();
+        GameManager.Instance.GameOver(FailStates.babiesDied);
     }
+
     public override void RegainHealth(float healthValue)
     {
         base.RegainHealth(healthValue);
         GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }
 
+    private bool IsDamagedEnabled()
+    {
+        return _enableHealthLoss && IsAlive && GameManager.Instance.GameStarted;
+    }
 
     public override void DamageTaken(float damageValue)
     {

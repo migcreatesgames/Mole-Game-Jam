@@ -13,6 +13,7 @@ TagManager:
   - OneWayDiggableWall
   - Worm
   - HoleMound
+  - Baby
   layers:
   - Default
   - TransparentFX

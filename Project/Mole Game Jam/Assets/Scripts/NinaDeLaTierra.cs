@@ -33,7 +33,7 @@ public class NinaDeLaTierra : MonoBehaviour
     void Update()
     {
         float targetRange = 4.5f;
-        if (Distance() < targetRange && PlayerController.Instance.GetComponent<HideComponent>().IsVisible)
+        if (Distance() < targetRange)
         {
             navMeshAgent.destination = Player.position;
         }

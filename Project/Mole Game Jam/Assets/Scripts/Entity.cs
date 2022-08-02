@@ -1,23 +1,34 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity: MonoBehaviour
 {
     private float _health;
-    private float _stamina = 100;
+    [SerializeField] protected float _defaultHealth = 100f;
+    private float _stamina;
     private float _speed = 5.0f;
     private bool _isAlive = true; 
+    
 
     protected float MAX_health = 100f;
     protected float MAX_stamina = 100f;
 
     public float Health { get => _health; protected set => _health = value; }
-    public float Stamina { get => _stamina; set => _stamina = value; }
+    public float Stamina { get => _stamina; protected set => _stamina = value; }
     public float Speed { get => _speed; protected set => _speed = value; }
     public bool IsAlive { get => _isAlive; }
 
-    protected virtual void Start() 
-    {
-        _health = MAX_health;
+    //public OnDamageTaken OnDamageTakenEvent;
+    public UnityEvent<float> OnDamageTakenEvent;
+    public UnityEvent<float> OnRegainHealthEvent;
+    public UnityEvent OnDeathEvent;
+
+
+    protected virtual void Start() {
+        _health = _defaultHealth;
+        OnDamageTakenEvent = new UnityEvent<float>();
+        OnRegainHealthEvent = new UnityEvent<float>();
+        OnDeathEvent = new UnityEvent();
     }
 
     public virtual void DamageTaken(float damageValue)
@@ -28,6 +39,7 @@ public class Entity: MonoBehaviour
             Death();
             return;
         }
+        OnDamageTakenEvent.Invoke(Health);
     }
 
     public virtual void RegainHealth(float healthValue)
@@ -38,14 +50,15 @@ public class Entity: MonoBehaviour
         } else {
             _health += healthValue;
         }
+        OnRegainHealthEvent.Invoke(Health);
     }
 
     public virtual void RegainStamina(float staminaValue)
     {
-        GameEvents.OnStaminaUpdateEvent(staminaValue);
+
     }
 
-    public void StaminaUsed(float staminaValue)
+    public void StaminaUsed()
     {
 
     }
@@ -57,7 +70,9 @@ public class Entity: MonoBehaviour
         //Play death animation
         //Play scene loading animation
         // Load Main Menu scene
-        //OnDeathEvent.Invoke();
+        OnDeathEvent.Invoke();
     }
+
+    
 }
 

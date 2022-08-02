@@ -6,12 +6,10 @@ public class DigDetection : MonoBehaviour
     private float _minHitDistance = 1f;
     private bool _detectionEnabled = true;
     private bool _checkFloor = false;
-    private bool _foundWorm = false;
 
     public float MAXHitDistance = 10;
-    public float SphereRadius = 1f;
 
-    public Vector3 BoxCastSize;
+    public Vector3 BoxCastSize1, BoxCastSize2;
     public Vector3 _origin;
     public Vector3 _dir1, _dir2;
 
@@ -32,12 +30,13 @@ public class DigDetection : MonoBehaviour
     public DetectionResults Results { get => _results; set => _results = value; }
     public Transform DigTargetPos { get => _digTargetPos; set => _digTargetPos = value; }
     public GameObject TargetWall { get => _targetWall; set => _targetWall = value; }
-    public bool FoundWorm { get => _foundWorm; set => _foundWorm = value; }
 
     private void FixedUpdate()
     {
         if (_debugging)
+        {
             Debug.Log($"_checkFloor: {_checkFloor}");
+        }
         if (_detectionEnabled)
             Detect();
     }
@@ -51,7 +50,7 @@ public class DigDetection : MonoBehaviour
         _dir2 = (_targetPos1.position - _targetPos2.position);
         _hitPoint1 = _targetPos1.position;
         _hitPoint2 = _targetPos2.position;
-        _foundWorm = false;
+
         RaycastHit[] wallHits = Physics.RaycastAll(_origin, _dir1, 1f);
         if (wallHits.Length == 0)
             _checkFloor = true;
@@ -60,7 +59,7 @@ public class DigDetection : MonoBehaviour
         {
             if (hit.transform != null)
             {
-                //Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+                Debug.Log($"_hitPoint1 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
 
                 if (hit.transform.gameObject.tag == "DiggableWall")
                 {
@@ -89,32 +88,17 @@ public class DigDetection : MonoBehaviour
 
         if (!_checkFloor)
             return;
-        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, transform.forward);
-        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, -transform.up);
+        
+        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, -_dir2);
+        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, .1f, transform.forward);
+        //RaycastHit[] floorDetect = Physics.SphereCastAll(_hitPoint2, .1f, -transform.up);
 
         foreach (RaycastHit hit in floorHits)
         {
             if (hit.transform.gameObject.tag == "Player")
                 continue;
 
-            if (hit.transform.gameObject.tag == "Worm")
-            {
-                _foundWorm = true;
-                // do not like this but have to
-                CarryComponent.TargetWorm = hit.transform.parent.gameObject;
-                //Debug.Log($"target: {CarryComponent.TargetWorm}");
-            }
-
-            if (hit.transform.gameObject.tag == "HoleMound")
-            {
-                // do not like this but have to
-                DigComponent.MoundTarget = hit.transform.gameObject;
-                //Debug.Log($"target: {CarryComponent.TargetWorm}");
-            }
-
-
-
-            //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
+            Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");
             if (hit.transform.gameObject.tag == "DiggableFloor")
                 _results = DetectionResults.dig_floor;
             if (hit.transform.gameObject.tag == "Hole")
@@ -133,10 +117,10 @@ public class DigDetection : MonoBehaviour
     private void OnDrawGizmos()
     {
         Debug.DrawRay(_origin, _dir1, Color.red);
-        Gizmos.DrawWireCube(_hitPoint1, BoxCastSize);
+        Gizmos.DrawWireCube(_hitPoint1, BoxCastSize1);
 
         Debug.DrawRay(_hitPoint1, -_dir2, Color.blue);
-        Gizmos.DrawWireSphere(_hitPoint2, SphereRadius);
+        Gizmos.DrawWireSphere(_hitPoint2, .35f);
     }
 }
 

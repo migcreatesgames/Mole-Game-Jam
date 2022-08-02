@@ -37,6 +37,10 @@ public class NinaDeLaTierra : MonoBehaviour
         {
             navMeshAgent.destination = Player.position;
         }
+        //else
+        //{
+        //    navMeshAgent.destination = nextPos.position;
+        //}
         else
         {
             Patrol();
@@ -46,7 +50,8 @@ public class NinaDeLaTierra : MonoBehaviour
 
     public void Patrol()
     {
-        if (transform.position == nextPos.position)
+        //Vector3 Mypos = ;
+        if (Vector3.Distance(navMeshAgent.destination, nextPos.position) <= .75f)
         {
             Delay -= Time.deltaTime;
             if (Delay <= 0)
@@ -65,7 +70,7 @@ public class NinaDeLaTierra : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, nextPos.position, speed * Time.deltaTime);
+            navMeshAgent.destination = nextPos.position;
         }
     }
 

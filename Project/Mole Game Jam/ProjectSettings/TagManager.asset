@@ -11,14 +11,17 @@ TagManager:
   - DiggableFloor
   - Hole
   - OneWayDiggableWall
+  - Worm
+  - HoleMound
+  - Baby
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Stealth
   - Water
   - UI
-  - 
+  - Hole
   - 
   - 
   - 

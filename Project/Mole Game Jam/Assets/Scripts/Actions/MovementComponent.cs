@@ -18,5 +18,4 @@ public class MovementComponent : MonoBehaviour
             transform.rotation = 
                 Quaternion.LookRotation(movementDirection, Vector3.up);
     }
-    
 }

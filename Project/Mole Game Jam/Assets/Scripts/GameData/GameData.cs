@@ -22,12 +22,9 @@ public class GameData : ScriptableObject
     public float BurrowStaminaCost;
 
     [Header("Gameplay Settings")]
-    //[Header("MoleBaby Settings")]
-    [Tooltip("how fast baby hunger value goes down")]
+    [Tooltip("Base value for how fast baby hunger value goes down")]
     public float MoleBabyHungerScale;
 
-    // duration of the year in mins/fps
-    [Tooltip("how fast baby hunger value goes down")]
+    [Tooltip("Duration a year last")]
     public float CalandarDuration;
-
 }

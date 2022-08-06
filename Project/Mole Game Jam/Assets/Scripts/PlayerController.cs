@@ -75,9 +75,6 @@ public class PlayerController : Entity
                     _yInput = Input.GetAxisRaw("Vertical");
                     if (_state != State.hiding || _state != State.digging)
                     {
-                        //if (!_isRecharging && Stamina < MAX_stamina)
-                        //    StartCoroutine(RechargeStamina());
-
                         if (_xInput == 0 && _yInput == 0)
                             EnterState(State.idle);
 
@@ -128,16 +125,13 @@ public class PlayerController : Entity
 
                 if (Input.GetButtonDown("Drop"))
                     GameEvents.OnDrop?.Invoke();
-
-                if (Input.GetKeyDown(KeyCode.G))
-                    GameEvents.OnGameBegin?.Invoke();
             }
         }
         else
         {
             // skip intro cutscene
             if (Input.GetButtonDown("Dig"))
-                GameManager.Instance.StartGame();
+                GameEvents.OnGameBegin?.Invoke();
             // handles ai movement for cutscene
             if (_navMeshAgent.enabled)
                 _navMeshAgent.destination = _targetTransform.position;
@@ -323,8 +317,9 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-        yield return new WaitForSeconds(RechargeDelay);
         _isRecharging = true;
+        yield return new WaitForSeconds(RechargeDelay);
+       
         while (Stamina < MAX_stamina)
         {
             RegainStamina(Stamina += MAX_stamina / 100);

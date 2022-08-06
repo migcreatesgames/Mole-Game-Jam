@@ -7,21 +7,22 @@ public class GameData : ScriptableObject
     public float PlayerHealth;
     public float PlayerStamina;
 
-    public float PlayerBurrowSpeed;
-
     [Tooltip("Player's default movement speed")]
     public float MovementSpeed;
+    [Tooltip("Player's default digging speed")]
+    public float PlayerDigSpeed;
+    [Tooltip("Player's default digging speed")]
+    public float DigStaminaCost;
+    [Tooltip("Player's default burrow speed")]
+    public float PlayerBurrowSpeed;
 
     [Header("Gameplay Settings")]
     //[Header("MoleBaby Settings")]
-    // how fast baby hunger value goes down
     [Tooltip("how fast baby hunger value goes down")]
-    public float DEFAULT_BabyHungerScale;
-
+    public float MoleBabyHungerScale;
 
     // duration of the year in mins/fps
-    //[Header("Calandar Settings")]
-    public int MAX_calandarTime;
-
+    [Tooltip("how fast baby hunger value goes down")]
+    public float CalandarDuration;
 
 }

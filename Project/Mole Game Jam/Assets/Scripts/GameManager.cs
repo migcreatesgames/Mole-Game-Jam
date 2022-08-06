@@ -5,18 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+    [SerializeField ]private GameData _gameData;
 
     private int _babyCount = 3; 
     private int _foodSaved = 0;
     private int _minFoodRequired = 10;
+    private int _introCounter;
 
     private float _moleBabiesHungerValue = 10;
     private float _introLength = 38f; // get length from timeline
-    private float _curIntoTime = 0;
 
     private bool _gameStarted = false;
     private bool _introPlaying = false;
-    private int counter;
     
     private GameObject _directorTImeline; 
     public static GameManager Instance { get => _instance; set => _instance = value; }
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
     public bool GameStarted { get => _gameStarted; set => _gameStarted = value; }
     public bool IntroPlaying { get => _introPlaying; set => _introPlaying = value; }
-
+    public GameData GameData { get => _gameData; }
 
     void Awake() {
         if (_instance != null)
@@ -36,28 +36,27 @@ public class GameManager : MonoBehaviour
         GameEvents.OnTimerFinished += GameComplete;
         GameEvents.OnFoodSaved += SaveFood;
         GameEvents.OnFoodRemoved += RemoveFood;
-        GameEvents.OnGameBegin += BeginGame;
+        GameEvents.OnGameBegin += StartGame;
         _directorTImeline = GameObject.Find("DirectorTimeline");
-        BeginGame();
+        BeginIntroCutscene();
     }
 
-    private void BeginGame() => StartCoroutine("InitGame");
+    private void BeginIntroCutscene() => StartCoroutine("IntroCutscene");
 
-    private IEnumerator InitGame()
+    private IEnumerator IntroCutscene()
     {
         _introPlaying = true;
-        
-        counter = (int)_introLength;
-        while (counter > 0)
+        _introCounter = (int)_introLength;
+        while (_introCounter > 0)
         {
             // enable ai movement for intro cutscene 
-            if (counter == 8)
+            if (_introCounter == 8)
                 PlayerController.Instance.EnableMainLight();
-            if (counter == _introLength - 28)
+            if (_introCounter == _introLength - 28)
                 PlayerController.Instance.NavMeshAgent.enabled = true;
 
             yield return new WaitForSeconds(1);
-            counter--;
+            _introCounter--;
         }
         StartGame();
     }

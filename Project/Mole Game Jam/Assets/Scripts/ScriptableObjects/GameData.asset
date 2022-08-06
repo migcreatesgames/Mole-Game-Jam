@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32f61ae55cea3e469e7ea8254db016a, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  MAX_PlayerHealth: 100
-  MAX_PlayerStamina: 100
-  DEFAULT_PlayerBurrowSpeed: 0
-  DEFAULT_MovementSpeed: 0
+  PlayerHealth: 100
+  PlayerStamina: 100
+  MovementSpeed: 0
+  PlayerDigSpeed: 0
+  DigStaminaCost: 0
+  PlayerBurrowSpeed: 0
+  MoleBabyHungerScale: 1
+  CalandarDuration: 5000

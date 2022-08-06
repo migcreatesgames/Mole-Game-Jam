@@ -13,10 +13,10 @@ public class Nest : Entity
         GameEvents.OnGameBegin += EnableHealthLoss;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (IsDamagedEnabled())
-            DamageTaken(_healthLossRate * Time.deltaTime);
+            DamageTaken((_healthLossRate * ((int)GameManager.Instance.BabyCount / 3f)) * Time.fixedDeltaTime);
     }
 
     public override void Death() {
@@ -41,6 +41,7 @@ public class Nest : Entity
 
     public override void DamageTaken(float damageValue)
     {
+        Debug.Log($"damageValue: {damageValue}");
         base.DamageTaken(damageValue);
         GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }

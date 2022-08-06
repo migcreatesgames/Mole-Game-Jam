@@ -19,7 +19,7 @@ MonoBehaviour:
   - 3.5
   - 3
   - 2.5
-  PlayerDigSpeed: 0
+  DigDuration: 3
   DigStaminaCost: 0.1
   PlayerBurrowSpeed: 5
   BurrowStaminaCost: 0.5

@@ -12,8 +12,8 @@ public class GameData : ScriptableObject
 
     public float[] EncumberedSpeeds; 
 
-    [Tooltip("Player's default digging speed")]
-    public float PlayerDigSpeed;
+    [Tooltip("Duration it takes to dig a hole/worm")]
+    public float DigDuration;
     [Tooltip("Player's default digging speed")]
     public float DigStaminaCost;
     [Tooltip("Player's default burrow speed")]

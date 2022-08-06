@@ -63,6 +63,7 @@ public class PlayerController : Entity
         MAX_health = GameManager.Instance.GameData.PlayerHealth;
         MAX_stamina = GameManager.Instance.GameData.PlayerStamina;
         MAX_speed = GameManager.Instance.GameData.MovementSpeed;
+        MAXDigHoldTime = GameManager.Instance.GameData.DigDuration;
         _carryComponent.EncumberedSpeeds[0] = GameManager.Instance.GameData.MovementSpeed;
         for (int i = 1; i < _carryComponent.EncumberedSpeeds.Length; i++)
         {
@@ -148,11 +149,6 @@ public class PlayerController : Entity
             if (_navMeshAgent.enabled)
                 _navMeshAgent.destination = _targetTransform.position;
         }
-    }
-
-    private float Distance()
-    {
-        return Vector3.Distance(transform.position, _targetTransform.position);
     }
 
     void FixedUpdate()
@@ -354,6 +350,7 @@ public class PlayerController : Entity
     {
         mainLight.SetActive(true);
     }
+
 }
 
 public enum State { idle, walking, digging, hiding }

@@ -25,7 +25,7 @@ public class CalendarCountdown : MonoBehaviour
     {
         if (_currentTime < _gameLengthDuration && GameManager.Instance.GameStarted)
         {
-            Debug.Log($"current time: {_currentTime}");
+            //Debug.Log($"current time: {_currentTime}");
             _currentTime += .1f;
             ProgressTime(_currentTime);
         }

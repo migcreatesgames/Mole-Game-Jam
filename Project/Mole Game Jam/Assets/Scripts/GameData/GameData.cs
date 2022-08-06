@@ -3,20 +3,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameData", menuName = "ScriptableObjects/GameDataScriptableObject")]
 public class GameData : ScriptableObject
 {
-   
-    public float MAX_PlayerHealth;
-    public float MAX_PlayerStamina;
+    [Header("Default Player Settings")]
+    public float PlayerHealth;
+    public float PlayerStamina;
 
-    public float DEFAULT_PlayerBurrowSpeed;
-    // base move movement speed for player
-    public float DEFAULT_MovementSpeed;
+    public float PlayerBurrowSpeed;
+
+    [Tooltip("Player's default movement speed")]
+    public float MovementSpeed;
+
+    [Header("Gameplay Settings")]
+    //[Header("MoleBaby Settings")]
+    // how fast baby hunger value goes down
+    [Tooltip("how fast baby hunger value goes down")]
+    public float DEFAULT_BabyHungerScale;
 
 
     // duration of the year in mins/fps
-    // MAX_calandarTime
+    //[Header("Calandar Settings")]
+    public int MAX_calandarTime;
 
-
-    // how fast baby hunger value goes down
-    //defaultBabyHungerScale
 
 }

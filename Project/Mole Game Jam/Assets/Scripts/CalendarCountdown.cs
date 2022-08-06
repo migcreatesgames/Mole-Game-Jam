@@ -87,16 +87,11 @@ public class CalendarCountdown : MonoBehaviour
     private void CalculateSeasonsDurations()
     {
         int tmp = (int)(_gameLengthDuration / 3);
-        Debug.Log($"tmp: {tmp}");
-
+    
         _seasonTimes.Spring = 0;
-        Debug.Log($"_seasonTimes.Spring: {_seasonTimes.Spring}");
         _seasonTimes.Summer = tmp;
-        Debug.Log($"_seasonTimes.Summer: {_seasonTimes.Summer}");
-        _seasonTimes.Fall = tmp*2;
-        Debug.Log($"_seasonTimes.Fall: {_seasonTimes.Fall}");
+        _seasonTimes.Fall = tmp * 2;
         _seasonTimes.Winter = (int)_gameLengthDuration;
-        Debug.Log($"_seasonTimes.Winter: {_seasonTimes.Winter}");
     }
     
     private void SetText(Seasons season)

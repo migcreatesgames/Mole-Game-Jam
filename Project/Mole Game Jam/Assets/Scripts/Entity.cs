@@ -4,11 +4,12 @@ public class Entity: MonoBehaviour
 {
     private float _health;
     private float _stamina = 100;
-    private float _speed = 5.0f;
+    private float _speed = 4.0f;
     private bool _isAlive = true; 
 
     protected float MAX_health = 100f;
     protected float MAX_stamina = 100f;
+    protected float MAX_speed = 4;
 
     public float Health { get => _health; protected set => _health = value; }
     public float Stamina { get => _stamina; set => _stamina = value; }

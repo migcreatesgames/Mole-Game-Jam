@@ -9,12 +9,17 @@ public class GameData : ScriptableObject
 
     [Tooltip("Player's default movement speed")]
     public float MovementSpeed;
+
+    public float[] EncumberedSpeeds; 
+
     [Tooltip("Player's default digging speed")]
     public float PlayerDigSpeed;
     [Tooltip("Player's default digging speed")]
     public float DigStaminaCost;
     [Tooltip("Player's default burrow speed")]
     public float PlayerBurrowSpeed;
+    [Tooltip("Player's default digging speed")]
+    public float BurrowStaminaCost;
 
     [Header("Gameplay Settings")]
     //[Header("MoleBaby Settings")]

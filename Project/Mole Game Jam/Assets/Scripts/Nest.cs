@@ -31,8 +31,8 @@ public class Nest : Entity
     }
 
     private void EnableHealthLoss() => _enableHealthLoss = true;
+    
     private void DisableHealthLoss() => _enableHealthLoss = false;
-
 
     private bool IsDamagedEnabled()
     {

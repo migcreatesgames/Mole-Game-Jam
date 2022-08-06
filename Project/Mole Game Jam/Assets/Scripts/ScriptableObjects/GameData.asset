@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerHealth: 100
   PlayerStamina: 100
-  MovementSpeed: 0
+  MovementSpeed: 4
+  EncumberedSpeeds:
+  - 3.5
+  - 3
+  - 2.5
   PlayerDigSpeed: 0
-  DigStaminaCost: 0
-  PlayerBurrowSpeed: 0
+  DigStaminaCost: 0.1
+  PlayerBurrowSpeed: 5
+  BurrowStaminaCost: 0.5
   MoleBabyHungerScale: 1
   CalandarDuration: 5000

@@ -52,10 +52,6 @@ public class PlayerController : Entity
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
         _hideComponent = GetComponent<HideComponent>();
-        GameEvents.OnDrop += Drop;
-        GameEvents.OnCarry += PickUp;
-        GameEvents.OnFoundWorm += DigForWorm;
-        GameEvents.OnEat += Eat;
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
     protected override void Start()
@@ -73,6 +69,21 @@ public class PlayerController : Entity
         
 
         base.Start();
+    }
+    public void OnEnable()
+    {
+        GameEvents.OnDrop += Drop;
+        GameEvents.OnCarry += PickUp;
+        GameEvents.OnFoundWorm += DigForWorm;
+        GameEvents.OnEat += Eat;
+    }
+
+    public void OnDisable ()
+    {
+        GameEvents.OnDrop -= Drop;
+        GameEvents.OnCarry -= PickUp;
+        GameEvents.OnFoundWorm -= DigForWorm;
+        GameEvents.OnEat -= Eat;    
     }
 
     void Update()

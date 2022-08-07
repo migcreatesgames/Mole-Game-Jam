@@ -1,9 +1,9 @@
 using System;
 /// <summary>
-/// static class that store generic Game Events. 
+/// class that stores generic static action Game Events. 
 /// </summary>
 
-public static class GameEvents
+public class GameEvents
 {
     public static Action OnKilledEvent;
     public static Action OnCarry;

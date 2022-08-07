@@ -4,7 +4,15 @@ public class EatComponent : MonoBehaviour
 {
     private void Start()
     {
-        GameEvents.OnEat += Eat;    
+    }
+    private void OnEnable()
+    {
+        GameEvents.OnEat += Eat;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnEat -= Eat;
     }
 
     private void Eat()

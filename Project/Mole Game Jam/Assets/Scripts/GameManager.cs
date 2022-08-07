@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -28,7 +27,8 @@ public class GameManager : MonoBehaviour
     public bool IntroPlaying { get => _introPlaying; set => _introPlaying = value; }
     public GameData GameData { get => _gameData; }
 
-    void Awake() {
+    void Awake() 
+    {
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
         InitGame();
     }
+
     private void InitGame()
     {
         GameEvents.OnTimerFinished += GameComplete;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _directorTImeline.SetActive(false);
+        StopCoroutine("IntroCutscene");
         PlayerController.Instance.EnableMainLight();
         _gameStarted = true;
         PlayerController.Instance.NavMeshAgent.enabled = false;
@@ -77,7 +79,6 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.EnableMovement = true;
         CameraManager.Instance.EnableMainCamera();
         _introPlaying = false;
-        StopCoroutine("StartGame");
     }
 
     public void GameOver(FailStates failState) 
@@ -128,6 +129,14 @@ public class GameManager : MonoBehaviour
         }
         
         UIManager.Instance.DisplayEndMenu(resultSummary);
+    }
+
+    public void OnDisable()
+    {
+        GameEvents.OnTimerFinished -= GameComplete;
+        GameEvents.OnFoodSaved -= SaveFood;
+        GameEvents.OnFoodRemoved -= RemoveFood;
+        GameEvents.OnGameBegin -= StartGame;
     }
 
     private void SaveFood(int value)

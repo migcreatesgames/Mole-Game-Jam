@@ -29,10 +29,20 @@ public class CarryComponent : MonoBehaviour
         Debug.AssertFormat(EncumberedSpeeds.Length - 1 >= MAX_num_of_worms_carried,
                             "Run speed list shorter than max number of worms carried");
         _animator = GetComponentInChildren<Animator>();
+    }
 
+    private void OnEnable()
+    {
         GameEvents.OnCarry += PickUpWorm;
         GameEvents.OnDrop += DropWorm;
         GameEvents.OnFoundWorm += DugWorm;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnCarry -= PickUpWorm;
+        GameEvents.OnDrop -= DropWorm;
+        GameEvents.OnFoundWorm -= DugWorm;
     }
 
     void OnTriggerEnter(Collider other) {

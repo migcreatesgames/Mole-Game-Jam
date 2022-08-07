@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     [SerializeField ]private GameData _gameData;
 
+    private bool _gameInit = false;
+
     private int _babyCount = 3; 
     private int _foodSaved = 0;
     private int _minFoodRequired = 10;
@@ -17,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     private bool _gameStarted = false;
     private bool _introPlaying = false;
-    
-    private GameObject _directorTImeline; 
+
+    [SerializeField] GameObject _directorTImeline; 
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float MoleBabiesHungerValue { get => _moleBabiesHungerValue; set => _moleBabiesHungerValue = value; }
     public int BabyCount { get => _babyCount; set => _babyCount = value; }
@@ -33,6 +35,10 @@ public class GameManager : MonoBehaviour
             return;
         }
         _instance = this;
+        InitGame();
+    }
+    private void InitGame()
+    {
         GameEvents.OnTimerFinished += GameComplete;
         GameEvents.OnFoodSaved += SaveFood;
         GameEvents.OnFoodRemoved += RemoveFood;

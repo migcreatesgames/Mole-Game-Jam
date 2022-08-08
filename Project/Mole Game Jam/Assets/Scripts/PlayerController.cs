@@ -316,6 +316,7 @@ public class PlayerController : Entity
         _enableMovement = true;
         _animator.SetBool("FoundWorm", false);
         _animator.SetTrigger("Idle_Encumbered");
+        //_carryComponent.DugWorm();
         StopCoroutine("DisableMovement");
     }
     

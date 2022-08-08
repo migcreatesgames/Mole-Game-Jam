@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// singletone manager class that handles UI elements.
+/// singleton manager class that handles UI elements.
 /// </summary>
 
 public class UIManager : MonoBehaviour
@@ -179,6 +179,7 @@ public class UIManager : MonoBehaviour
         _staminaValue = value;
         _staminaBar.fillAmount = _staminaValue / 100; // change 100 to maxStamina
     }
+    
     void UpdateMoleBabiesBar(float value)
     {
         _moleBabiesValue = value;

@@ -19,6 +19,12 @@ public class Nest : Entity
             DamageTaken((_healthLossRate * ((int)GameManager.Instance.BabyCount / 3f)) * Time.fixedDeltaTime);
     }
 
+    private void OnDisable()
+    {
+        GameEvents.OnFeedBabies -= RegainHealth;
+        GameEvents.OnGameBegin -= EnableHealthLoss;
+    }
+
     public override void Death() {
         base.Death();
         GameManager.Instance.GameOver(FailStates.babiesDied);

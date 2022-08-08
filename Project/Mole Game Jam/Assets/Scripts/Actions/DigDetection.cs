@@ -40,7 +40,6 @@ public class DigDetection : MonoBehaviour
         {
             Debug.Log($"_checkFloor: {_checkFloor}");
             Debug.Log($"_foundWorm: {_foundWorm}");
-
         }
         if (_detectionEnabled)
             Detect();
@@ -93,9 +92,8 @@ public class DigDetection : MonoBehaviour
 
         if (!_checkFloor)
             return;
-        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, -_dir2);
-        //RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, -transform.up);
 
+        RaycastHit[] floorHits = Physics.SphereCastAll(_hitPoint2, SphereRadius, -_dir2);
         foreach (RaycastHit hit in floorHits)
         {
             if (hit.transform.gameObject.tag == "Player")
@@ -106,14 +104,14 @@ public class DigDetection : MonoBehaviour
                 _foundWorm = true;
                 // do not like this but have to
                 CarryComponent.TargetWorm = hit.transform.parent.gameObject;
-                Debug.Log($"target: {CarryComponent.TargetWorm}");  
+                //Debug.Log($"target: {CarryComponent.TargetWorm}");  
             }
 
             if (hit.transform.gameObject.tag == "HoleMound")
             {
                 // do not like this but have to
                 DigComponent.MoundTarget = hit.transform.gameObject;
-                Debug.Log($"target: {CarryComponent.TargetWorm}");
+                //Debug.Log($"target: {CarryComponent.TargetWorm}");
             }
 
             //Debug.Log($"_hitPoint2 is hitting: {hit.transform.gameObject.name} | {hit.transform.gameObject.tag}");

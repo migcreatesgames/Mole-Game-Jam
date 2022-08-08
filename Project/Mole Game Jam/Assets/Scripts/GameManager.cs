@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         _directorTImeline.SetActive(false);
         StopCoroutine("IntroCutscene");
+        PlayerController.Instance.EnableMovement = true;
         PlayerController.Instance.EnableMainLight();
         _gameStarted = true;
         PlayerController.Instance.NavMeshAgent.enabled = false;

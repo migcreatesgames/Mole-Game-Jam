@@ -1,42 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class Nest : Entity
 {
-    
-    [SerializeField] private bool _enableHealthLoss;
-    [SerializeField] private float _healthLossRate = 1;
-    
-    [SerializeField] TempUI _ui;
-    
-    // Start is called before the first frame update
+    private bool _enableHealthLoss = false;
+    private float _healthLossRate;
+
     protected override void Start()
     {
         base.Start();
-        _ui.SetBabiesHealthText(Health);
-        OnDamageTakenEvent.AddListener(_ui.SetBabiesHealthText);
-        OnRegainHealthEvent.AddListener(_ui.SetBabiesHealthText);
-        
+        _healthLossRate = GameManager.Instance.GameData.MoleBabyHungerScale;
+        GameEvents.OnFeedBabies += RegainHealth;
+        GameEvents.OnGameBegin += EnableHealthLoss;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (_enableHealthLoss && IsAlive) {
-            DamageTaken(_healthLossRate * Time.deltaTime);
-        }
+        if (IsDamagedEnabled())
+            DamageTaken((_healthLossRate * ((int)GameManager.Instance.BabyCount / 3f)) * Time.fixedDeltaTime);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnFeedBabies -= RegainHealth;
+        GameEvents.OnGameBegin -= EnableHealthLoss;
     }
 
     public override void Death() {
         base.Death();
-        _ui.SetBabiesHealthText(0f);
-        GameManager.Instance.GameOver();
-
+        GameManager.Instance.GameOver(FailStates.babiesDied);
     }
 
-    
+    public override void RegainHealth(float healthValue)
+    {
+        base.RegainHealth(healthValue);
+        GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
+    }
 
+    private void EnableHealthLoss() => _enableHealthLoss = true;
     
+    private void DisableHealthLoss() => _enableHealthLoss = false;
+
+    private bool IsDamagedEnabled()
+    {
+        return _enableHealthLoss && IsAlive && GameManager.Instance.GameStarted;
+    }
+
+    public override void DamageTaken(float damageValue)
+    {
+        base.DamageTaken(damageValue);
+        GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
+    }
 }

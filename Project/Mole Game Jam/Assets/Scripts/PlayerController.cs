@@ -108,18 +108,20 @@ public class PlayerController : Entity
                     }
                 }
 
+             
                 // digging
-                if (Input.GetButton("Dig"))
+                if (Input.GetAxis("Dig") == 1)
                 {
                     if (_state != State.hiding)
                         EnterState(State.digging);
                 }
 
-                if (Input.GetButtonUp("Dig"))
+                if (Input.GetAxis("Dig")  == 0)
                     ExitState(State.digging);
+               
 
                 // hiding 
-                if (Input.GetButton("Hide"))
+                if (Input.GetAxis("Hide") == 1)
                 {
                     if (_state != State.hiding && _state != State.digging)
                     {
@@ -135,11 +137,10 @@ public class PlayerController : Entity
                     }
                 }
 
-                if (Input.GetButtonUp("Hide"))
-                {
+                if (Input.GetAxis("Hide") == 0)
                     ExitState(State.hiding);
-                    GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-                }
+
+
 
                 if (Input.GetButtonDown("PickUp"))
                     GameEvents.OnCarry?.Invoke();
@@ -154,7 +155,7 @@ public class PlayerController : Entity
         else
         {
             // skip intro cutscene
-            if (Input.GetButtonDown("Dig"))
+            if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
                 GameEvents.OnGameBegin?.Invoke();
             // handles ai movement for cutscene
             if (_navMeshAgent.enabled)
@@ -268,12 +269,13 @@ public class PlayerController : Entity
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
+                GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 StartCoroutine("RechargeStamina");
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
                     _animator.SetBool("Encumbered", true);
-                EnterState(State.idle);
+
                 break;
             default:
                 break;
@@ -361,7 +363,6 @@ public class PlayerController : Entity
     {
         mainLight.SetActive(true);
     }
-
 }
 
 public enum State { idle, walking, digging, hiding }

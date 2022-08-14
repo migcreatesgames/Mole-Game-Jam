@@ -22,6 +22,6 @@ MonoBehaviour:
   DigDuration: 3
   DigStaminaCost: 0.1
   PlayerBurrowSpeed: 5
-  BurrowStaminaCost: 0.5
+  BurrowStaminaCost: 2.5
   MoleBabyHungerScale: 1
   CalandarDuration: 5000

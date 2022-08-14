@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     [SerializeField ]private GameData _gameData;
 
-    private bool _gameInit = false;
-
     private int _babyCount = 3; 
     private int _foodSaved = 0;
     private int _minFoodRequired = 10;

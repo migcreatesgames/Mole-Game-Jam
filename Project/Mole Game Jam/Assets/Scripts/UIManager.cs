@@ -150,6 +150,8 @@ public class UIManager : MonoBehaviour
             UIEvents.OnHUDHide(hud_CanvasGroup);
         gameFail_GO.SetActive(true);
         eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, .35f);
+        eventMenu_CanvasGroup.gameObject.GetComponentInChildren<Button>().interactable = true;
+
         if (failState == FailStates.babiesDied)
             descriptionFail_text.text = "All your babies died...";
         else
@@ -163,6 +165,7 @@ public class UIManager : MonoBehaviour
         if (hud_CanvasGroup.alpha == 1)
             UIEvents.OnHUDHide(hud_CanvasGroup);
         gameSucceed_GO.SetActive(true);
+        eventMenu_CanvasGroup.gameObject.GetComponentInChildren<Button>().interactable = true;
         descriptionSucceed_text.text = result;
         UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
     }

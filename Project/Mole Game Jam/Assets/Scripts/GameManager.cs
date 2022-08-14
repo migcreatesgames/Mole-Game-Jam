@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     [SerializeField ]private GameData _gameData;
+    [SerializeField ]private GameObject _musicSource;
 
     private int _babyCount = 3; 
     private int _foodSaved = 0;
@@ -69,6 +70,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _directorTImeline.SetActive(false);
+        UIManager.Instance.HideIntoCutsceneDialog();
+        SoundManager.PlayMusicTrack();
         StopCoroutine("IntroCutscene");
         PlayerController.Instance.EnableMovement = true;
         PlayerController.Instance.EnableMainLight();

@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     // reference to canvas group alpha value for HUD gameobject.
     public CanvasGroup hud_CanvasGroup;
     public CanvasGroup eventMenu_CanvasGroup;
+    public CanvasGroup dialog_CanvasGroup;
     public TextMeshProUGUI descriptionSucceed_text;
     public TextMeshProUGUI descriptionFail_text;
     public GameObject gameFail_GO;
@@ -82,14 +83,15 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-            ToggleEndMenu();
+        //if (Input.GetKeyDown(KeyCode.I))
+        //    ToggleEndMenu();
 
-        if (Input.GetKeyDown(KeyCode.C))
-            PlayerController.Instance.DamageTaken(100);
-
-        if (Input.GetKeyDown(KeyCode.V))
-            PlayerController.Instance.RegainHealth(1);
+        // test UI
+        //if (Input.GetKeyDown(KeyCode.C))
+        //    PlayerController.Instance.DamageTaken(100);
+        //
+        //if (Input.GetKeyDown(KeyCode.V))
+        //    PlayerController.Instance.RegainHealth(1);
     }
 
     private void SetUIObjects()
@@ -150,7 +152,9 @@ public class UIManager : MonoBehaviour
             UIEvents.OnHUDHide(hud_CanvasGroup);
         gameFail_GO.SetActive(true);
         eventMenu_CanvasGroup.gameObject.GetComponent<Image>().color = new Color(255, 0, 0, .35f);
-        eventMenu_CanvasGroup.gameObject.GetComponentInChildren<Button>().interactable = true;
+        var buttons = eventMenu_CanvasGroup.gameObject.GetComponentsInChildren<Button>();
+        foreach (var button in buttons)
+            button.interactable = true;
 
         if (failState == FailStates.babiesDied)
             descriptionFail_text.text = "All your babies died...";
@@ -165,7 +169,11 @@ public class UIManager : MonoBehaviour
         if (hud_CanvasGroup.alpha == 1)
             UIEvents.OnHUDHide(hud_CanvasGroup);
         gameSucceed_GO.SetActive(true);
-        eventMenu_CanvasGroup.gameObject.GetComponentInChildren<Button>().interactable = true;
+        var buttons = eventMenu_CanvasGroup.gameObject.GetComponentsInChildren<Button>();
+        foreach (var button in buttons)
+            button.interactable = true;
+            
+        //interactable = true;
         descriptionSucceed_text.text = result;
         UIEvents.OnHUDDisplay?.Invoke(eventMenu_CanvasGroup);
     }
@@ -173,6 +181,10 @@ public class UIManager : MonoBehaviour
     public void HideEndMenu()
     {
         UIEvents.OnHUDHide(eventMenu_CanvasGroup);
+    }
+    public void HideIntoCutsceneDialog()
+    {
+        dialog_CanvasGroup.gameObject.SetActive(false);
     }
 
     public void HandleHealthBar(float value) => _healthBar.fillAmount = value / 100;

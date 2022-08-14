@@ -108,7 +108,6 @@ public class PlayerController : Entity
                     }
                 }
 
-             
                 // digging
                 if (Input.GetAxis("Dig") == 1)
                 {
@@ -150,6 +149,20 @@ public class PlayerController : Entity
 
                 if (Input.GetButtonDown("Drop"))
                     GameEvents.OnDrop?.Invoke();
+
+                if (Input.GetButtonDown("Drop"))
+                    GameEvents.OnDrop?.Invoke();
+
+                if (Input.GetButtonDown("Reload"))
+                {
+                    GetComponent<ReloadScene>().ReloadCurrentScene();
+                }
+
+                if (Input.GetButtonDown("ExitApp"))
+                {
+                    Application.Quit();
+                }
+
             }
         }
         else

@@ -5,7 +5,7 @@ public class CarryComponent : MonoBehaviour
     private bool _isCarrying = false;
     private bool _canPickUp = false;
     private bool _nearBaby = false;
-    [SerializeField] float[] _runSpeedsCarryingWorms;
+    public float[] EncumberedSpeeds;
     [SerializeField] private int MAX_num_of_worms_carried = 3;
 
     private Worm _worm;
@@ -16,7 +16,7 @@ public class CarryComponent : MonoBehaviour
     private Animator _animator;
     public float RunSpeedCarryingWorms {
         get {
-            return _runSpeedsCarryingWorms[_numOfWormsCarried];
+            return EncumberedSpeeds[_numOfWormsCarried];
         }
     }
     static int _numOfWormsCarried = 0;
@@ -26,13 +26,23 @@ public class CarryComponent : MonoBehaviour
     public static GameObject TargetWorm { get => _targetWorm; set => _targetWorm = value; }
 
     void Awake() {
-        Debug.AssertFormat(_runSpeedsCarryingWorms.Length - 1 >= MAX_num_of_worms_carried,
+        Debug.AssertFormat(EncumberedSpeeds.Length - 1 >= MAX_num_of_worms_carried,
                             "Run speed list shorter than max number of worms carried");
         _animator = GetComponentInChildren<Animator>();
+    }
 
+    private void OnEnable()
+    {
         GameEvents.OnCarry += PickUpWorm;
         GameEvents.OnDrop += DropWorm;
         GameEvents.OnFoundWorm += DugWorm;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnCarry -= PickUpWorm;
+        GameEvents.OnDrop -= DropWorm;
+        GameEvents.OnFoundWorm -= DugWorm;
     }
 
     void OnTriggerEnter(Collider other) {

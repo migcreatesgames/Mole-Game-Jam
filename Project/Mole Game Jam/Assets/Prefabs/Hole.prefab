@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6335922027319603917}
   - component: {fileID: 3021962804412827464}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Hole
   m_TagString: Hole
   m_Icon: {fileID: 0}
@@ -55,21 +55,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6335922027319603917}
     m_Modifications:
-    - target: {fileID: 1000013077552036, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1000013108148550, guid: c1c076c911f3d59418741aee85f57056, type: 3}
       propertyPath: m_Name
       value: Kick-Out Hole (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013108148550, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013280061584, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1000013280061584, guid: c1c076c911f3d59418741aee85f57056, type: 3}
       propertyPath: m_IsActive
@@ -257,21 +245,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6335922027319603917}
     m_Modifications:
-    - target: {fileID: 1000013077552036, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1000013108148550, guid: c1c076c911f3d59418741aee85f57056, type: 3}
       propertyPath: m_Name
       value: Kick-Out Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013108148550, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013280061584, guid: c1c076c911f3d59418741aee85f57056, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000012077596330, guid: c1c076c911f3d59418741aee85f57056, type: 3}
       propertyPath: m_RootOrder

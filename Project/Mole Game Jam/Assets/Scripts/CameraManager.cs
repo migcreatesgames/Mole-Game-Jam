@@ -26,8 +26,6 @@ public class CameraManager : MonoBehaviour
     {
         _main_VC = GameObject.Find("CM vcam_Main").GetComponent<CinemachineVirtualCamera>();
         _intro_VC = GameObject.Find("CM vcam_IntroDolly").GetComponent<CinemachineVirtualCamera>();
-
-        //EnableIntroCamera();
     }
 
     public void EnableMainCamera()

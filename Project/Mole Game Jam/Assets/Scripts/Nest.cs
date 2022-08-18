@@ -2,19 +2,27 @@ using UnityEngine;
 
 public class Nest : Entity
 {
-    [SerializeField] private bool _enableHealthLoss;
-    [SerializeField] private float _healthLossRate = 1;
+    private bool _enableHealthLoss = false;
+    private float _healthLossRate;
 
     protected override void Start()
     {
         base.Start();
-        GameEvents.OnFeedBabies += RegainHealth; 
+        _healthLossRate = GameManager.Instance.GameData.MoleBabyHungerScale;
+        GameEvents.OnFeedBabies += RegainHealth;
+        GameEvents.OnGameBegin += EnableHealthLoss;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (IsDamagedEnabled())
-            DamageTaken(_healthLossRate * Time.deltaTime);
+            DamageTaken((_healthLossRate * ((int)GameManager.Instance.BabyCount / 3f)) * Time.fixedDeltaTime);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnFeedBabies -= RegainHealth;
+        GameEvents.OnGameBegin -= EnableHealthLoss;
     }
 
     public override void Death() {
@@ -27,6 +35,10 @@ public class Nest : Entity
         base.RegainHealth(healthValue);
         GameEvents.OnMoleBabiesHungerUpdateEvent?.Invoke(Health);
     }
+
+    private void EnableHealthLoss() => _enableHealthLoss = true;
+    
+    private void DisableHealthLoss() => _enableHealthLoss = false;
 
     private bool IsDamagedEnabled()
     {

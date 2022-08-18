@@ -14,7 +14,6 @@ public class PlayerController : Entity
     private bool _enableMovement = false;
     private bool _isRecharging = false; 
 
-
     public Transform _targetTransform;
     public GameObject mainLight;
     private NavMeshAgent _navMeshAgent;
@@ -53,11 +52,38 @@ public class PlayerController : Entity
         _digComponent = GetComponent<DigComponent>();
         _carryComponent = GetComponent<CarryComponent>();
         _hideComponent = GetComponent<HideComponent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+    protected override void Start()
+    {
+        MAX_health = GameManager.Instance.GameData.PlayerHealth;
+        MAX_stamina = GameManager.Instance.GameData.PlayerStamina;
+        MAX_speed = GameManager.Instance.GameData.MovementSpeed;
+        MAXDigHoldTime = GameManager.Instance.GameData.DigDuration;
+        _carryComponent.EncumberedSpeeds[0] = GameManager.Instance.GameData.MovementSpeed;
+        for (int i = 1; i < _carryComponent.EncumberedSpeeds.Length; i++)
+        {
+            _carryComponent.EncumberedSpeeds[i] =
+                GameManager.Instance.GameData.EncumberedSpeeds[i - 1];
+        }
+        
+
+        base.Start();
+    }
+    public void OnEnable()
+    {
         GameEvents.OnDrop += Drop;
         GameEvents.OnCarry += PickUp;
         GameEvents.OnFoundWorm += DigForWorm;
         GameEvents.OnEat += Eat;
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    public void OnDisable ()
+    {
+        GameEvents.OnDrop -= Drop;
+        GameEvents.OnCarry -= PickUp;
+        GameEvents.OnFoundWorm -= DigForWorm;
+        GameEvents.OnEat -= Eat;    
     }
 
     void Update()
@@ -75,12 +101,8 @@ public class PlayerController : Entity
                     _yInput = Input.GetAxisRaw("Vertical");
                     if (_state != State.hiding || _state != State.digging)
                     {
-                        //if (!_isRecharging && Stamina < MAX_stamina)
-                        //    StartCoroutine(RechargeStamina());
-
                         if (_xInput == 0 && _yInput == 0)
                             EnterState(State.idle);
-
                         else
                             EnterState(State.walking);
                     }
@@ -108,11 +130,10 @@ public class PlayerController : Entity
                     {
                         if (Stamina == 0)
                             ExitState(State.hiding);
-                        Stamina -= .5f;
+                        Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     }
                 }
-
 
                 if (Input.GetButtonUp("Hide"))
                 {
@@ -128,32 +149,29 @@ public class PlayerController : Entity
 
                 if (Input.GetButtonDown("Drop"))
                     GameEvents.OnDrop?.Invoke();
-
-                if (Input.GetKeyDown(KeyCode.G))
-                    GameEvents.OnGameBegin?.Invoke();
             }
         }
         else
         {
             // skip intro cutscene
             if (Input.GetButtonDown("Dig"))
-                GameManager.Instance.StartGame();
+                GameEvents.OnGameBegin?.Invoke();
             // handles ai movement for cutscene
             if (_navMeshAgent.enabled)
                 _navMeshAgent.destination = _targetTransform.position;
         }
     }
-    private float Distance()
-    {
-        return Vector3.Distance(transform.position, _targetTransform.position);
-    }
+
     void FixedUpdate()
     {
         if (!GameManager.Instance.IntroPlaying)
         {
             if (_enableMovement)
             {
-                Speed = _carryComponent.RunSpeedCarryingWorms;
+                if (_state == State.hiding)
+                    Speed = GameManager.Instance.GameData.PlayerBurrowSpeed;
+                else 
+                    Speed = _carryComponent.RunSpeedCarryingWorms;                
                 _movementComponent.Move(_xInput, _yInput, Speed);
             }
         }
@@ -196,7 +214,7 @@ public class PlayerController : Entity
                             CancelRechargeStamina();
 
                         curDigHoldTime += .01f;
-                        Stamina -= .1f;
+                        Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     }
                 }
@@ -208,7 +226,7 @@ public class PlayerController : Entity
                         CancelRechargeStamina();
 
                     curDigHoldTime += .01f;
-                    Stamina -= .1f;
+                    Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 }
 
@@ -284,7 +302,6 @@ public class PlayerController : Entity
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         _pickUpAnimTime = 3f;
         StartCoroutine("DisableMovement");
-
     }
 
     public void Drop()
@@ -300,7 +317,6 @@ public class PlayerController : Entity
         _animator.SetBool("FoundWorm", false);
         _animator.SetTrigger("Idle_Encumbered");
         StopCoroutine("DisableMovement");
-     
     }
     
     public override void Death()
@@ -323,8 +339,9 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-        yield return new WaitForSeconds(RechargeDelay);
         _isRecharging = true;
+        yield return new WaitForSeconds(RechargeDelay);
+       
         while (Stamina < MAX_stamina)
         {
             RegainStamina(Stamina += MAX_stamina / 100);

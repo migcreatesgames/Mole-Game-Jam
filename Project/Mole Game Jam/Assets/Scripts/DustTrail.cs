@@ -33,7 +33,6 @@ public class DustTrail : MonoBehaviour
                 {
                     //print("spawn dust trail");
                     canSpawnDustTrail = true;
-                    Debug.Log("shoudl spawm dust trao;");
                     SpawnDustTrail();
                 }
             }

@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class EatComponent : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
-        GameEvents.OnEat += Eat;    
+        GameEvents.OnEat += Eat;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnEat -= Eat;
     }
 
     private void Eat()

@@ -3,120 +3,143 @@ using TMPro;
 
 public class CalendarCountdown : MonoBehaviour
 {
-    public float MaxTime = 100000000f; // let's keep this around 5 mins max
-    private float currentTime = 0;
+    private float _gameLengthDuration = 0;
+    private float _currentTime = 0;
 
     private bool _enableFade = false;
 
-    private TextMeshProUGUI textTarget;
+    private TextMeshProUGUI _textTarget;
 
-    public enum Seasons { winter, spring, fall, summer }
+    private Seasons _season = Seasons.winter;
+    private SeasonTimes _seasonTimes;
 
-    private Seasons season = Seasons.winter;
     public TextMeshProUGUI[] SeasonNames;
 
-    void Update()
+    private void Awake()
     {
-        if (currentTime < MaxTime && GameManager.Instance.GameStarted)
+        _gameLengthDuration = GameManager.Instance.GameData.CalandarDuration;
+        CalculateSeasonsDurations();
+    }
+
+    void FixedUpdate()
+    {
+        if (_currentTime < _gameLengthDuration && GameManager.Instance.GameStarted)
         {
-            //Debug.Log($"current time: {currentTime}");
-            currentTime += .15f;
-            ProgressTime(currentTime);
+            //Debug.Log($"current time: {_currentTime}");
+            _currentTime += .1f;
+            ProgressTime(_currentTime);
         }
 
         if (_enableFade)
-        {
-            var alpha = textTarget.color.a;
-            if (textTarget.alpha <= 0)
-            {
-                UIManager.Instance.DisplayHUD();
-                _enableFade = false;
-            }
-            if (textTarget.alpha != 0)
-            {
-                //Debug.Log(textTarget.alpha);
-                alpha -= 15f * Time.deltaTime;
-                textTarget.color = new Color (textTarget.color.r, textTarget.color.b, textTarget.color.g, alpha);
-            }
-           
-        }
+            FadeOutText(Time.fixedDeltaTime);
     }
 
     private void ProgressTime(float time) 
     {
         int tmpTime = Mathf.RoundToInt(time);
-        switch (tmpTime)
+
+        // game start
+
+        if (tmpTime == _seasonTimes.Spring)
         {
-            case 0:
-                // game start
-                // is spring
-                if (season != Seasons.spring)
-                {
-                    season = Seasons.spring;
-                    _enableFade = true;
-                    FadeOutText(season);
-                }
-
-                break;
-
-            case 500:
-                // is summer
-                if (season != Seasons.summer)
-                {
-                    UIManager.Instance.HideHUD();
-                    season = Seasons.summer;
-                    _enableFade = true;
-                    FadeOutText(season);
-                }
-                break;
-            
-            case 1000:
-                // is fall
-                if (season != Seasons.fall)
-                {
-                    UIManager.Instance.HideHUD();
-                    season = Seasons.fall;
-                    _enableFade = true;
-                    FadeOutText(season);
-                }
-                break;
-            case 1500:
-                // is Winter
-                if (season != Seasons.winter)
-                {
-                    UIManager.Instance.HideHUD();
-                    season = Seasons.winter;
-                    _enableFade = true;
-                    //FadeOutText(season);
-                    GameEvents.OnTimerFinished?.Invoke();
-                }
-                break;
-            default:
-                break;
+            if (_season != Seasons.spring)
+            {
+                _season = Seasons.spring;
+                _enableFade = true;
+                SetText(_season);
+            }
+        }
+        else if (tmpTime == _seasonTimes.Summer)
+        {
+            // is summer
+            if (_season != Seasons.summer)
+            {
+                UIManager.Instance.HideHUD();
+                _season = Seasons.summer;
+                _enableFade = true;
+                SetText(_season);
+            }
+        }
+        else if (tmpTime == _seasonTimes.Fall)
+        {
+            // is fall
+            if (_season != Seasons.fall)
+            {
+                UIManager.Instance.HideHUD();
+                _season = Seasons.fall;
+                _enableFade = true;
+                SetText(_season);
+            }
+        }
+        else if (tmpTime == _seasonTimes.Winter)
+        {
+            // is Winter
+            if (_season != Seasons.winter)
+            {
+                UIManager.Instance.HideHUD();
+                _season = Seasons.winter;
+                _enableFade = true;
+                GameEvents.OnTimerFinished?.Invoke();
+            }
         }
     }
-    private void FadeOutText(Seasons season)
+    
+    private void CalculateSeasonsDurations()
+    {
+        int tmp = (int)(_gameLengthDuration / 3);
+    
+        _seasonTimes.Spring = 0;
+        _seasonTimes.Summer = tmp;
+        _seasonTimes.Fall = tmp * 2;
+        _seasonTimes.Winter = (int)_gameLengthDuration;
+    }
+    
+    private void SetText(Seasons season)
     {
         switch (season)
         {
             case Seasons.winter:
-                textTarget = SeasonNames[0];
-                textTarget.alpha = 100;
+                _textTarget = SeasonNames[0];
+                _textTarget.alpha = 100;
                 break;
             case Seasons.spring:
-                textTarget = SeasonNames[1];
-                textTarget.alpha = 100;
+                _textTarget = SeasonNames[1];
+                _textTarget.alpha = 100;
                 break;
             case Seasons.summer:
-                textTarget = SeasonNames[2];
-                textTarget.alpha = 100;
+                _textTarget = SeasonNames[2];
+                _textTarget.alpha = 100;
                 break;
             case Seasons.fall:
-                textTarget = SeasonNames[3];
-                textTarget.alpha = 100;
+                _textTarget = SeasonNames[3];
+                _textTarget.alpha = 100;
                 break;
             default:
                 break;
         }
     }
+
+    private void FadeOutText(float time)
+    {
+        var alpha = _textTarget.color.a;
+        if (_textTarget.alpha <= 0)
+        {
+            UIManager.Instance.DisplayHUD();
+            _enableFade = false;
+        }
+        if (_textTarget.alpha != 0)
+        {
+            alpha -= 15f * time;
+            _textTarget.color = new Color(_textTarget.color.r, _textTarget.color.b, _textTarget.color.g, alpha);
+        }
+    }
+}
+
+public enum Seasons { winter, spring, fall, summer }
+struct SeasonTimes
+{
+    public int Spring;
+    public int Summer;
+    public int Fall;
+    public int Winter;
 }

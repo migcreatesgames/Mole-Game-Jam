@@ -27,11 +27,10 @@ public class PlayerController : Entity
     private EatComponent _eatComponent;
     private State _state = State.idle;
 
-    private int _rechargeDelay = 2;
+    private int _rechargeDelay = 5;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
-    public int RechargeDelay { get => _rechargeDelay; set => _rechargeDelay = value; }
     public bool EnableInput { get => _enableInput; set => _enableInput = value; }
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
 
@@ -93,7 +92,7 @@ public class PlayerController : Entity
             //Debug.Log($"state: {_state}");
             if (_inputHandler && _enableInput)
             {
-                //_inputHandler.HandleInput(_instance);s
+                Debug.Log($"_isRecharging: {_isRecharging}");
                 // movement
                 if (_enableMovement)
                 {
@@ -117,7 +116,6 @@ public class PlayerController : Entity
 
                 if (Input.GetAxis("Dig")  == 0)
                     ExitState(State.digging);
-               
 
                 // hiding 
                 if (Input.GetAxis("Hide") == 1)
@@ -130,16 +128,14 @@ public class PlayerController : Entity
                     if (_state == State.hiding)
                     {
                         if (Stamina == 0)
-                            ExitState(State.hiding);
+                            EnterState(State.idle); // changed this from ExitState(State.hiding);
                         Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     }
                 }
 
-                if (Input.GetAxis("Hide") == 0)
-                    ExitState(State.hiding);
-
-
+                else if (Input.GetAxis("Hide") == 0 && _state == State.hiding) 
+                    ExitState(State.hiding); 
 
                 if (Input.GetButtonDown("PickUp"))
                     GameEvents.OnCarry?.Invoke();
@@ -154,9 +150,7 @@ public class PlayerController : Entity
                     GameEvents.OnDrop?.Invoke();
 
                 if (Input.GetButtonDown("Reload"))
-                {
                     GetComponent<ReloadScene>().ReloadCurrentScene();
-                }
 
                 if (Input.GetButtonDown("ExitApp"))
                 {
@@ -193,6 +187,7 @@ public class PlayerController : Entity
 
     private void EnterState(State state)
     {
+      
         switch (state)
         {
             case State.idle:
@@ -219,8 +214,8 @@ public class PlayerController : Entity
                 // start digging
                 if (curDigHoldTime == 0)
                 {
-                    // start digging
                     _digComponent.Dig(this);
+
                     if (_digComponent.CanDig)
                     {
                         // stop stamina recharge
@@ -236,9 +231,6 @@ public class PlayerController : Entity
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime && _digComponent)
                 {
-                    if (_isRecharging)
-                        CancelRechargeStamina();
-
                     curDigHoldTime += .01f;
                     Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
@@ -276,14 +268,18 @@ public class PlayerController : Entity
             case State.walking:
                 break;
             case State.digging:
+                if (_state != State.digging)
+                    break;
                 _digComponent.StopDig();
-                StartCoroutine("RechargeStamina");
+                if (!_isRecharging)
+                    StartCoroutine("RechargeStamina");
                 curDigHoldTime = 0f;
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-                StartCoroutine("RechargeStamina");
+                if (!_isRecharging)
+                    StartCoroutine("RechargeStamina");
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
@@ -355,21 +351,21 @@ public class PlayerController : Entity
     private IEnumerator RechargeStamina()
     {
         _isRecharging = true;
-        yield return new WaitForSeconds(RechargeDelay);
+        yield return new WaitForSeconds(_rechargeDelay);
        
         while (Stamina < MAX_stamina)
         {
             RegainStamina(Stamina += MAX_stamina / 100);
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.01f);
         }
         _isRecharging = false;
         StopCoroutine(RechargeStamina());
     }
     
     private void CancelRechargeStamina()
-    {
-        _isRecharging = false;
+    {   
         StopCoroutine(RechargeStamina());
+        _isRecharging = false;
     }
 
     public void EnableMainLight()

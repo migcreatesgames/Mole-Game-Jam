@@ -132,7 +132,7 @@ public class PlayerController : Entity
                     }
                     if (Stamina <= 0)
                     {
-                        Stamina = 0;
+                        Stamina = 0; // force to whole number
                         ExitState(State.digging);
                     }  
                 }
@@ -162,12 +162,11 @@ public class PlayerController : Entity
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     if (Stamina <= 0)
                     {
-                        Stamina = 0; // weird fix but works
+                        Stamina = 0; // force to whole number
                         ExitState(State.hiding);
                     }
                 }
-
-                
+    
                 if (Input.GetButtonDown("PickUp"))
                     GameEvents.OnCarry?.Invoke();
 
@@ -250,11 +249,10 @@ public class PlayerController : Entity
 
                 if (_isRecharging)
                     CancelRechargeStamina();
+
                 // start digging
                 if (curDigHoldTime == 0)
-                {
                     _digComponent.Dig(this);
-                }
 
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime)
@@ -307,10 +305,6 @@ public class PlayerController : Entity
               
                 break;
             case State.hiding:
-                Debug.Log("exit hiding");
-                //if (_state != State.hiding)
-                //    break;
-
                 _hideComponent.UnHide();
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 if (GetComponent<DustTrail>().EnableDustTrails)
@@ -390,15 +384,13 @@ public class PlayerController : Entity
             RegainStamina(Stamina += .1f);
             yield return new WaitForSeconds(.01f);
         }
-        Debug.Log("out of the loop");
-        Stamina = 100;
+        Stamina = 100; // force to whole number
         _isRecharging = false;
     }
     
     private void StartRecharge()
     {
         _isRecharging = true;
-        //Debug.Log($"_lastCoroutine current {_lastCoroutine.Current}");
         _lastCoroutine = RechargeStamina();
         StartCoroutine(_lastCoroutine);
     }

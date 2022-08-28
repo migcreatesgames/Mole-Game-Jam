@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             _introCounter--;
         }
-        StartGame();
+        GameEvents.OnGameBegin?.Invoke();
     }
     
     public void StartGame()

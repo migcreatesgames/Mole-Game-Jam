@@ -62,14 +62,12 @@ public class PlayerController : Entity
         MAX_speed = GameManager.Instance.GameData.MovementSpeed;
         MAXDigHoldTime = GameManager.Instance.GameData.DigDuration;
         _carryComponent.EncumberedSpeeds[0] = GameManager.Instance.GameData.MovementSpeed;
-        _lastCoroutine = RechargeStamina();
         for (int i = 1; i < _carryComponent.EncumberedSpeeds.Length; i++)
         {
             _carryComponent.EncumberedSpeeds[i] =
                 GameManager.Instance.GameData.EncumberedSpeeds[i - 1];
         }
         
-
         base.Start();
     }
     public void OnEnable()
@@ -248,8 +246,6 @@ public class PlayerController : Entity
                 if (curDigHoldTime == 0)
                 {
                     _digComponent.Dig(this);
-                    // stop stamina recharge
-                   
                 }
 
                 // continue digging
@@ -263,7 +259,6 @@ public class PlayerController : Entity
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime)
                 {
-                    
                     _digComponent.HoleCompleted();
                     ExitState(State.digging);
                 }
@@ -386,13 +381,12 @@ public class PlayerController : Entity
         Debug.Log("out of the loop");
         Stamina = 100;
         _isRecharging = false;
-        //StopCoroutine(_lastCoroutine);
     }
     
     private void StartRecharge()
     {
         _isRecharging = true;
-        Debug.Log($"_lastCoroutine current {_lastCoroutine.Current}");
+        //Debug.Log($"_lastCoroutine current {_lastCoroutine.Current}");
         _lastCoroutine = RechargeStamina();
         StartCoroutine(_lastCoroutine);
     }

@@ -12,7 +12,8 @@ public class PlayerController : Entity
 
     private bool _enableInput = true;
     private bool _enableMovement = false;
-    private bool _isRecharging = false; 
+    private bool _isRecharging = false;
+    private bool _holdingDigButton = false;
 
     public Transform _targetTransform;
     public GameObject mainLight;
@@ -26,8 +27,9 @@ public class PlayerController : Entity
     private HideComponent _hideComponent;
     private EatComponent _eatComponent;
     private State _state = State.idle;
+    private IEnumerator _lastCoroutine = null;
 
-    private int _rechargeDelay = 5;
+    private float _rechargeDelay = 3f;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
@@ -60,6 +62,7 @@ public class PlayerController : Entity
         MAX_speed = GameManager.Instance.GameData.MovementSpeed;
         MAXDigHoldTime = GameManager.Instance.GameData.DigDuration;
         _carryComponent.EncumberedSpeeds[0] = GameManager.Instance.GameData.MovementSpeed;
+        _lastCoroutine = RechargeStamina();
         for (int i = 1; i < _carryComponent.EncumberedSpeeds.Length; i++)
         {
             _carryComponent.EncumberedSpeeds[i] =
@@ -89,7 +92,10 @@ public class PlayerController : Entity
     {
         if (!GameManager.Instance.IntroPlaying)
         {
-            //Debug.Log($"state: {_state}");
+            Debug.Log($"state: {_state}");
+            //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
+            Debug.Log($"canDig: {_digComponent.CanDig}");
+            //
             if (_inputHandler && _enableInput)
             {
                 Debug.Log($"_isRecharging: {_isRecharging}");
@@ -110,12 +116,18 @@ public class PlayerController : Entity
                 // digging
                 if (Input.GetAxis("Dig") == 1)
                 {
+                    _holdingDigButton = true;
                     if (_state != State.hiding)
                         EnterState(State.digging);
+
                 }
 
-                if (Input.GetAxis("Dig")  == 0)
+                if (Input.GetAxis("Dig") == 0)
+                {
+                    _holdingDigButton = false;
+                    curDigHoldTime = 0f;
                     ExitState(State.digging);
+                }
 
                 // hiding 
                 if (Input.GetAxis("Hide") == 1)
@@ -183,16 +195,23 @@ public class PlayerController : Entity
                 _movementComponent.Move(_xInput, _yInput, Speed);
             }
         }
+
+        //if (Input.GetAxis("Dig") == 1 && _state == State.digging)
+            //curDigHoldTime += .1f;
+      
     }
 
     private void EnterState(State state)
     {
-      
         switch (state)
         {
             case State.idle:
                 _state = State.idle;
-
+                if (!_holdingDigButton)
+                {
+                    if (!_isRecharging && Stamina != MAX_stamina)
+                        StartRecharge();
+                }
                 if (!_carryComponent.IsCarrying)
                     _animator.SetTrigger("Idle");
                 else
@@ -201,6 +220,9 @@ public class PlayerController : Entity
 
             case State.walking:
                 _state = State.walking;
+                if (!_isRecharging && Stamina != MAX_stamina)
+                    StartRecharge();
+
                 if (!_carryComponent.IsCarrying)
                     _animator.SetTrigger("Walk");
                 else
@@ -210,35 +232,43 @@ public class PlayerController : Entity
             case State.digging:
                 if (_state != State.digging)
                     _state = State.digging;
-
+                
+             
                 // start digging
                 if (curDigHoldTime == 0)
                 {
                     _digComponent.Dig(this);
 
-                    if (_digComponent.CanDig)
+                    if (Stamina > 0)
                     {
                         // stop stamina recharge
                         if (_isRecharging)
                             CancelRechargeStamina();
 
-                        curDigHoldTime += .01f;
+                        curDigHoldTime += .1f;
                         Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                     }
                 }
 
                 // continue digging
-                if (curDigHoldTime < MAXDigHoldTime && _digComponent)
+                if (curDigHoldTime < MAXDigHoldTime)
                 {
-                    curDigHoldTime += .01f;
+                    if (Stamina == 0)
+                    {
+                        ExitState(State.digging);
+                        break;
+                    }
+
+                    curDigHoldTime += .1f;
                     Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 }
 
                 // stop digging
-                if (curDigHoldTime >= MAXDigHoldTime && _digComponent.CanDig)
+                if (curDigHoldTime >= MAXDigHoldTime)
                     _digComponent.HoleCompleted();
+
 
                 break;
 
@@ -270,16 +300,15 @@ public class PlayerController : Entity
             case State.digging:
                 if (_state != State.digging)
                     break;
+
                 _digComponent.StopDig();
-                if (!_isRecharging)
-                    StartCoroutine("RechargeStamina");
-                curDigHoldTime = 0f;
+                EnableMovement = true;
+
+                EnterState(State.idle);
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-                if (!_isRecharging)
-                    StartCoroutine("RechargeStamina");
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
@@ -352,20 +381,27 @@ public class PlayerController : Entity
     {
         _isRecharging = true;
         yield return new WaitForSeconds(_rechargeDelay);
-       
         while (Stamina < MAX_stamina)
         {
-            RegainStamina(Stamina += MAX_stamina / 100);
+
+            Debug.Log($"stamina: {Stamina}");
+            RegainStamina(Stamina += 1f);
             yield return new WaitForSeconds(.01f);
         }
+        Stamina = 100;
+        Debug.Log("out of loop");
         _isRecharging = false;
-        StopCoroutine(RechargeStamina());
+        StopCoroutine(_lastCoroutine);
     }
-    
+    private void StartRecharge()
+    {
+        StartCoroutine(_lastCoroutine);
+    }
+
     private void CancelRechargeStamina()
-    {   
-        StopCoroutine(RechargeStamina());
+    {
         _isRecharging = false;
+        StopCoroutine(_lastCoroutine);
     }
 
     public void EnableMainLight()

@@ -242,13 +242,14 @@ public class PlayerController : Entity
                 if (_state != State.digging)
                     _state = State.digging;
 
+                if (_isRecharging)
+                    CancelRechargeStamina();
                 // start digging
                 if (curDigHoldTime == 0)
                 {
                     _digComponent.Dig(this);
                     // stop stamina recharge
-                    if (_isRecharging)
-                        CancelRechargeStamina();
+                   
                 }
 
                 // continue digging
@@ -261,7 +262,11 @@ public class PlayerController : Entity
 
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime)
+                {
+                    
                     _digComponent.HoleCompleted();
+                    ExitState(State.digging);
+                }
 
                 break;
 
@@ -378,6 +383,7 @@ public class PlayerController : Entity
             RegainStamina(Stamina += .1f);
             yield return new WaitForSeconds(.01f);
         }
+        Debug.Log("out of the loop");
         Stamina = 100;
         _isRecharging = false;
         //StopCoroutine(_lastCoroutine);
@@ -386,6 +392,8 @@ public class PlayerController : Entity
     private void StartRecharge()
     {
         _isRecharging = true;
+        Debug.Log($"_lastCoroutine current {_lastCoroutine.Current}");
+        _lastCoroutine = RechargeStamina();
         StartCoroutine(_lastCoroutine);
     }
 

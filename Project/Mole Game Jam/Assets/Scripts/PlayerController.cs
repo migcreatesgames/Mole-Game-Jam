@@ -14,6 +14,7 @@ public class PlayerController : Entity
     private bool _enableMovement = false;
     private bool _isRecharging = false;
     private bool _holdingDigButton = false;
+    private bool _holdingBurrowButton = false;
 
     public Transform _targetTransform;
     public GameObject mainLight;
@@ -90,13 +91,20 @@ public class PlayerController : Entity
     {
         if (!GameManager.Instance.IntroPlaying)
         {
-            //Debug.Log($"state: {_state}");
+            Debug.Log($"state: {_state}");
             Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
             //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
             //Debug.Log($"canDig: {_digComponent.CanDig}");
             if (_inputHandler && _enableInput)
             {
+                if (Input.GetAxis("Hide") == 0)
+                {
+                    _holdingBurrowButton = false;
+                    if(_state == State.hiding)
+                        ExitState(State.hiding);
+                }
+         
                 // movement
                 if (_enableMovement)
                 {
@@ -112,7 +120,7 @@ public class PlayerController : Entity
                 }
 
                 // digging
-                if (Input.GetAxis("Dig") == 1)
+                if (Input.GetAxis("Dig") == 1 && !_holdingBurrowButton)
                 {
                     _holdingDigButton = true;
                     if (_isRecharging)
@@ -121,11 +129,15 @@ public class PlayerController : Entity
                     {
                         if (Stamina > 0)
                             EnterState(State.digging);
-                        else
-                            ExitState(State.digging);
                     }
+                    if (Stamina <= 0)
+                    {
+                        Stamina = 0;
+                        ExitState(State.digging);
+                    }  
                 }
 
+                // not holding dig trigger
                 if (Input.GetAxis("Dig") == 0)
                 {
                     _holdingDigButton = false;
@@ -136,33 +148,31 @@ public class PlayerController : Entity
                 }
 
                 // hiding 
-                if (Input.GetAxis("Hide") == 1)
+                if (Input.GetAxis("Hide") == 1 && !_holdingDigButton)
                 {
-                    if (_state != State.hiding && _state != State.digging)
+                    _holdingBurrowButton = true;
+                    if (_isRecharging)
+                        CancelRechargeStamina();
+                    if (_state != State.hiding )
                     {
-                        if (Stamina > 1)
+                        if (Stamina > 0)
                             EnterState(State.hiding);
                     }
-                    if (_state == State.hiding)
+                    Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
+                    GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                    if (Stamina <= 0)
                     {
-                        if (Stamina == 0)
-                            EnterState(State.idle); // changed this from ExitState(State.hiding);
-                        Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
-                        GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                        Stamina = 0; // weird fix but works
+                        ExitState(State.hiding);
                     }
                 }
 
-                else if (Input.GetAxis("Hide") == 0 && _state == State.hiding) 
-                    ExitState(State.hiding); 
-
+                
                 if (Input.GetButtonDown("PickUp"))
                     GameEvents.OnCarry?.Invoke();
 
                 if (Input.GetButtonDown("Eat"))
                     GameEvents.OnEat?.Invoke();
-
-                if (Input.GetButtonDown("Drop"))
-                    GameEvents.OnDrop?.Invoke();
 
                 if (Input.GetButtonDown("Drop"))
                     GameEvents.OnDrop?.Invoke();
@@ -188,6 +198,8 @@ public class PlayerController : Entity
         }
     }
 
+
+    
     void FixedUpdate()
     {
         if (!GameManager.Instance.IntroPlaying)
@@ -201,10 +213,6 @@ public class PlayerController : Entity
                 _movementComponent.Move(_xInput, _yInput, Speed);
             }
         }
-
-        //if (Input.GetAxis("Dig") == 1 && _state == State.digging)
-            //curDigHoldTime += .1f;
-      
     }
 
     private void EnterState(State state)
@@ -266,11 +274,12 @@ public class PlayerController : Entity
                 break;
 
             case State.hiding:
+                
                 _state = State.hiding;
 
-                // stop stamina recharge
                 if (_isRecharging)
                     CancelRechargeStamina();
+
                 if (_animator.GetBool("Encumbered"))
                     _encumbered = true;
                 if (!GetComponent<DustTrail>().EnableDustTrails)
@@ -295,17 +304,20 @@ public class PlayerController : Entity
                     break;
                 _digComponent.StopDig();
                 EnableMovement = true;
-                EnterState(State.idle);
-
+              
                 break;
             case State.hiding:
+                Debug.Log("exit hiding");
+                //if (_state != State.hiding)
+                //    break;
+
                 _hideComponent.UnHide();
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 if (GetComponent<DustTrail>().EnableDustTrails)
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
                     _animator.SetBool("Encumbered", true);
-
+                
                 break;
 
             default:

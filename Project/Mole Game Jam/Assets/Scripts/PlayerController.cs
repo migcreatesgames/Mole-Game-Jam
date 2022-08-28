@@ -29,7 +29,7 @@ public class PlayerController : Entity
     private State _state = State.idle;
     private IEnumerator _lastCoroutine = null;
 
-    private float _rechargeDelay = 5f;
+    private float _rechargeDelay = 3f;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
@@ -92,14 +92,13 @@ public class PlayerController : Entity
     {
         if (!GameManager.Instance.IntroPlaying)
         {
-            Debug.Log($"state: {_state}");
+            //Debug.Log($"state: {_state}");
+            Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
             //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
-            Debug.Log($"canDig: {_digComponent.CanDig}");
-            //
+            //Debug.Log($"canDig: {_digComponent.CanDig}");
             if (_inputHandler && _enableInput)
             {
-                Debug.Log($"_isRecharging: {_isRecharging}");
                 // movement
                 if (_enableMovement)
                 {
@@ -120,7 +119,6 @@ public class PlayerController : Entity
                     _holdingDigButton = true;
                     if (_isRecharging)
                         CancelRechargeStamina();
-                    Debug.Log($"holding trigger: {_holdingDigButton}");
                     if (_state != State.hiding)
                     {
                         if (Stamina > 0)
@@ -133,8 +131,10 @@ public class PlayerController : Entity
                 if (Input.GetAxis("Dig") == 0)
                 {
                     _holdingDigButton = false;
+
                     curDigHoldTime = 0f;
-                    ExitState(State.digging);
+                    if (_state == State.digging)
+                        ExitState(State.digging);
                 }
 
                 // hiding 
@@ -293,10 +293,10 @@ public class PlayerController : Entity
             case State.digging:
                 if (_state != State.digging)
                     break;
-
                 _digComponent.StopDig();
                 EnableMovement = true;
                 EnterState(State.idle);
+
                 break;
             case State.hiding:
                 _hideComponent.UnHide();
@@ -307,6 +307,7 @@ public class PlayerController : Entity
                     _animator.SetBool("Encumbered", true);
 
                 break;
+
             default:
                 break;
         }
@@ -371,24 +372,20 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-    
         yield return new WaitForSeconds(_rechargeDelay);
         while (Stamina < MAX_stamina)
         {
-
-            //Debug.Log($"stamina: {Stamina}");
             RegainStamina(Stamina += .1f);
             yield return new WaitForSeconds(.01f);
         }
         Stamina = 100;
-        Debug.Log("out of loop");
         _isRecharging = false;
-        StopCoroutine(_lastCoroutine);
+        //StopCoroutine(_lastCoroutine);
     }
+    
     private void StartRecharge()
     {
         _isRecharging = true;
-        Debug.Log("StartRecharge Called");
         StartCoroutine(_lastCoroutine);
     }
 

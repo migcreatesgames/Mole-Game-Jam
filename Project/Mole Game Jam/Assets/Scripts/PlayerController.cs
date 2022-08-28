@@ -29,7 +29,7 @@ public class PlayerController : Entity
     private State _state = State.idle;
     private IEnumerator _lastCoroutine = null;
 
-    private float _rechargeDelay = 3f;
+    private float _rechargeDelay = 5f;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
@@ -93,6 +93,7 @@ public class PlayerController : Entity
         if (!GameManager.Instance.IntroPlaying)
         {
             Debug.Log($"state: {_state}");
+            //Debug.Log($"stamina: {Stamina}");
             //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
             Debug.Log($"canDig: {_digComponent.CanDig}");
             //
@@ -117,9 +118,16 @@ public class PlayerController : Entity
                 if (Input.GetAxis("Dig") == 1)
                 {
                     _holdingDigButton = true;
+                    if (_isRecharging)
+                        CancelRechargeStamina();
+                    Debug.Log($"holding trigger: {_holdingDigButton}");
                     if (_state != State.hiding)
-                        EnterState(State.digging);
-
+                    {
+                        if (Stamina > 0)
+                            EnterState(State.digging);
+                        else
+                            ExitState(State.digging);
+                    }
                 }
 
                 if (Input.GetAxis("Dig") == 0)
@@ -220,7 +228,7 @@ public class PlayerController : Entity
 
             case State.walking:
                 _state = State.walking;
-                if (!_isRecharging && Stamina != MAX_stamina)
+                if (!_isRecharging && Stamina < MAX_stamina)
                     StartRecharge();
 
                 if (!_carryComponent.IsCarrying)
@@ -230,36 +238,22 @@ public class PlayerController : Entity
                 break;
 
             case State.digging:
+ 
                 if (_state != State.digging)
                     _state = State.digging;
-                
-             
+
                 // start digging
                 if (curDigHoldTime == 0)
                 {
                     _digComponent.Dig(this);
-
-                    if (Stamina > 0)
-                    {
-                        // stop stamina recharge
-                        if (_isRecharging)
-                            CancelRechargeStamina();
-
-                        curDigHoldTime += .1f;
-                        Stamina -= GameManager.Instance.GameData.DigStaminaCost;
-                        GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-                    }
+                    // stop stamina recharge
+                    if (_isRecharging)
+                        CancelRechargeStamina();
                 }
 
                 // continue digging
                 if (curDigHoldTime < MAXDigHoldTime)
                 {
-                    if (Stamina == 0)
-                    {
-                        ExitState(State.digging);
-                        break;
-                    }
-
                     curDigHoldTime += .1f;
                     Stamina -= GameManager.Instance.GameData.DigStaminaCost;
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
@@ -268,7 +262,6 @@ public class PlayerController : Entity
                 // stop digging
                 if (curDigHoldTime >= MAXDigHoldTime)
                     _digComponent.HoleCompleted();
-
 
                 break;
 
@@ -303,7 +296,6 @@ public class PlayerController : Entity
 
                 _digComponent.StopDig();
                 EnableMovement = true;
-
                 EnterState(State.idle);
                 break;
             case State.hiding:
@@ -379,13 +371,13 @@ public class PlayerController : Entity
 
     private IEnumerator RechargeStamina()
     {
-        _isRecharging = true;
+    
         yield return new WaitForSeconds(_rechargeDelay);
         while (Stamina < MAX_stamina)
         {
 
-            Debug.Log($"stamina: {Stamina}");
-            RegainStamina(Stamina += 1f);
+            //Debug.Log($"stamina: {Stamina}");
+            RegainStamina(Stamina += .1f);
             yield return new WaitForSeconds(.01f);
         }
         Stamina = 100;
@@ -395,6 +387,8 @@ public class PlayerController : Entity
     }
     private void StartRecharge()
     {
+        _isRecharging = true;
+        Debug.Log("StartRecharge Called");
         StartCoroutine(_lastCoroutine);
     }
 

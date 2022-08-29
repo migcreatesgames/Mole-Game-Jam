@@ -93,6 +93,7 @@ public class PlayerController : Entity
         if (!GameManager.Instance.IntroPlaying)
         {
             Debug.Log($"state: {_state}");
+           
             Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
             //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
@@ -376,6 +377,8 @@ public class PlayerController : Entity
     public override void DamageTaken(float damageValue)
     {
         base.DamageTaken(damageValue);
+        Debug.Log($"health: {Health}");
+        Debug.Log($"damageValue: {damageValue}");
         GameEvents.OnDamageEvent?.Invoke(Health);
     }
 

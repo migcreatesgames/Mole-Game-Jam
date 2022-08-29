@@ -18,8 +18,28 @@ public class NinaDeLaTierra : MonoBehaviour
     {
         if (Distance() < targetRange && PlayerController.Instance.GetComponent<HideComponent>().IsVisible)
         {
-            navMeshAgent.destination = Player.position;
+            if (!CheckForObstructions(Player.position))
+            {
+                navMeshAgent.destination = Player.position;
+                Debug.Log("can approach player");
+            }
+            else
+            {
+                Debug.Log("obstructed");
+            }
         }
+    }
+
+    private bool CheckForObstructions(Vector3 targetPos)
+    {
+        RaycastHit hit;
+        Vector3 dir = (T.position - targetPos);
+        if (Physics.Raycast(T.position, dir, out hit, targetRange))
+        {
+            if (hit.collider.gameObject.tag == "Wall" || hit.collider.gameObject.tag == "DiggableWall")
+                return true;
+        }
+        return false;
     }
 
     private float Distance()

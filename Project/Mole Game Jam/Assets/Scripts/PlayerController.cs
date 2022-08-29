@@ -29,8 +29,8 @@ public class PlayerController : Entity
     private EatComponent _eatComponent;
     private State _state = State.idle;
     private IEnumerator _lastCoroutine = null;
-
-    private float _rechargeDelay = 3f;
+  
+    private float _rechargeDelay = 2f;
     public static PlayerController Instance { get => _instance; set => _instance = value; }
     public bool EnableMovement { get => _enableMovement; set => _enableMovement = value; }
     public State State { get => _state; set => _state = value; }
@@ -62,6 +62,7 @@ public class PlayerController : Entity
         MAX_stamina = GameManager.Instance.GameData.PlayerStamina;
         MAX_speed = GameManager.Instance.GameData.MovementSpeed;
         MAXDigHoldTime = GameManager.Instance.GameData.DigDuration;
+        _rechargeDelay = GameManager.Instance.GameData.StaminaRechargeDelay;
         _carryComponent.EncumberedSpeeds[0] = GameManager.Instance.GameData.MovementSpeed;
         for (int i = 1; i < _carryComponent.EncumberedSpeeds.Length; i++)
         {
@@ -258,7 +259,10 @@ public class PlayerController : Entity
                 if (curDigHoldTime < MAXDigHoldTime)
                 {
                     curDigHoldTime += .1f;
-                    Stamina -= GameManager.Instance.GameData.DigStaminaCost;
+                    if (_digComponent.DigDown == true)
+                        Stamina -= GameManager.Instance.GameData.DigStaminaCost;
+                    else
+                        Stamina -= (GameManager.Instance.GameData.DigStaminaCost * 1.25f);
                     GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 }
 

@@ -321,6 +321,7 @@ public class PlayerController : Entity
                     GetComponent<DustTrail>().EnableDustTrails = false;
                 if (_encumbered)
                     _animator.SetBool("Encumbered", true);
+                EnterState(State.idle);
                 break;
 
             default:

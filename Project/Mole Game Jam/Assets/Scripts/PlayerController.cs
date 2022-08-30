@@ -16,6 +16,7 @@ public class PlayerController : Entity
     private bool _holdingDigButton = false;
     private bool _holdingBurrowButton = false;
 
+    public bool ActionsEnabled = true; 
     public Transform _targetTransform;
     public GameObject mainLight;
     private NavMeshAgent _navMeshAgent;
@@ -120,55 +121,58 @@ public class PlayerController : Entity
                             EnterState(State.walking);
                     }
                 }
-
-                // digging
-                if (Input.GetAxis("Dig") == 1 && !_holdingBurrowButton)
+                if (ActionsEnabled)
                 {
-                    _holdingDigButton = true;
-                    if (_isRecharging)
-                        CancelRechargeStamina();
-                    if (_state != State.hiding)
+                    // digging
+                    if (Input.GetAxis("Dig") == 1 && !_holdingBurrowButton)
                     {
-                        if (Stamina > 0)
-                            EnterState(State.digging);
+                        _holdingDigButton = true;
+                        if (_isRecharging)
+                            CancelRechargeStamina();
+                        if (_state != State.hiding)
+                        {
+                            if (Stamina > 0)
+                                EnterState(State.digging);
+                        }
+                        if (Stamina <= 0)
+                        {
+                            Stamina = 0; // force to whole number
+                            ExitState(State.digging);
+                        }
                     }
-                    if (Stamina <= 0)
+
+                    // not holding dig trigger
+                    if (Input.GetAxis("Dig") == 0)
                     {
-                        Stamina = 0; // force to whole number
-                        ExitState(State.digging);
-                    }  
+                        _holdingDigButton = false;
+
+                        curDigHoldTime = 0f;
+                        if (_state == State.digging)
+                            ExitState(State.digging);
+                    }
+
+                    // hiding 
+                    if (Input.GetAxis("Hide") == 1 && !_holdingDigButton)
+                    {
+                        _holdingBurrowButton = true;
+                        if (_isRecharging)
+                            CancelRechargeStamina();
+                        if (_state != State.hiding)
+                        {
+                            if (Stamina > 0)
+                                EnterState(State.hiding);
+                        }
+                        Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
+                        GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
+                        if (Stamina <= 0)
+                        {
+                            Stamina = 0; // force to whole number
+                            ExitState(State.hiding);
+                        }
+                    }
+
                 }
 
-                // not holding dig trigger
-                if (Input.GetAxis("Dig") == 0)
-                {
-                    _holdingDigButton = false;
-
-                    curDigHoldTime = 0f;
-                    if (_state == State.digging)
-                        ExitState(State.digging);
-                }
-
-                // hiding 
-                if (Input.GetAxis("Hide") == 1 && !_holdingDigButton)
-                {
-                    _holdingBurrowButton = true;
-                    if (_isRecharging)
-                        CancelRechargeStamina();
-                    if (_state != State.hiding )
-                    {
-                        if (Stamina > 0)
-                            EnterState(State.hiding);
-                    }
-                    Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
-                    GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
-                    if (Stamina <= 0)
-                    {
-                        Stamina = 0; // force to whole number
-                        ExitState(State.hiding);
-                    }
-                }
-    
                 if (Input.GetButtonDown("PickUp"))
                     GameEvents.OnCarry?.Invoke();
 
@@ -216,7 +220,8 @@ public class PlayerController : Entity
         }
     }
 
-    private void EnterState(State state)
+
+    public void EnterState(State state)
     {
         switch (state)
         {
@@ -294,7 +299,7 @@ public class PlayerController : Entity
         }
     }
 
-    private void ExitState(State state)
+    public void ExitState(State state)
     {
         switch (state)
         {

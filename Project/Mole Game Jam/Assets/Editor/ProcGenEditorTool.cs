@@ -31,8 +31,6 @@ public class ProcGenEditorTool : EditorWindow
         for (int i = 0; i < _blocks.Length; i++)
             Debug.Log($"_blocks[{i}] = {_blocks[i].name}");
 
-    
-
     }
 
     public static void SwapBlocks()

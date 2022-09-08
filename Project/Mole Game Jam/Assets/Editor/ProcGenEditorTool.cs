@@ -30,6 +30,9 @@ public class ProcGenEditorTool : EditorWindow
         
         for (int i = 0; i < _blocks.Length; i++)
             Debug.Log($"_blocks[{i}] = {_blocks[i].name}");
+
+    
+
     }
 
     public static void SwapBlocks()
@@ -37,23 +40,21 @@ public class ProcGenEditorTool : EditorWindow
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Wall");
         for (int i = 0; i < blocks.Length; i++)
         {
-            blocks[i] = GenerateNewBlock(blocks[i].transform);
-
+            GenerateNewBlock(blocks[i].transform);
         }
     }
 
-    private static GameObject GenerateNewBlock(Transform target)
+    private static void GenerateNewBlock(Transform target)
     {
         // get new block
-        int index = UnityEngine.Random.Range(0, _possibleValues.Length); 
+        int index = UnityEngine.Random.Range(0, _possibleValues.Length);
+        DestroyImmediate(target.Find("standardBlock01"));
         GameObject tmpBlock = Instantiate(_blocks[_possibleValues[index]], target);
         tmpBlock.transform.position = Vector3.zero;
 
         //target.gameObject.GetComponentInChildren<MeshRenderer>();
         // destroy old block mesh
 
-
-        return null;
     }
 
     private Vector2 GenerateNewRotation()

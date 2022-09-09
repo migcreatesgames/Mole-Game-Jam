@@ -11,9 +11,7 @@ public class ProcGenEditorTool : EditorWindow
     private static int[] _possibleValues = new int[] {0, 1, 0, 2, 0, 3, 0, 4, 0, 5};
     private static GameObject[] _blocks;
     private static ProceduralGeneration _blockData;
-    /// <summary>
-    /// 
-    /// </summary>
+
     public void OnGUI()
     {
         EditorGUILayout.LabelField("Level", "hello");
@@ -44,6 +42,7 @@ public class ProcGenEditorTool : EditorWindow
             Init();
         }
     }
+    
     public static void SwapBlocks()
     {
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Wall");

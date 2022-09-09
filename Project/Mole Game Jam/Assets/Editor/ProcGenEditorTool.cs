@@ -5,11 +5,8 @@ using System;
 [Serializable]
 public class ProcGenEditorTool : EditorWindow
 {
-
-    private static EditorWindow _window;
-
     private static int[] _possibleValues = new int[] {0, 1, 0, 2, 0, 3, 0, 4, 0, 5};
-    private static GameObject[] _blocks;
+    private static GameObject[] _blockMeshes;
     private static ProceduralGeneration _blockData;
 
     public void OnGUI()
@@ -37,7 +34,7 @@ public class ProcGenEditorTool : EditorWindow
             var SOpath = GetPathToBlocksScriptableObject();
 
             _blockData = (ProceduralGeneration)AssetDatabase.LoadAssetAtPath(SOpath, typeof(ProceduralGeneration));
-            _blocks = _blockData.Blocks;
+            _blockMeshes = _blockData.Blocks;
 
             Init();
         }
@@ -57,7 +54,7 @@ public class ProcGenEditorTool : EditorWindow
     {
         int index = UnityEngine.Random.Range(0, _possibleValues.Length);
 
-        GameObject tmpBlock = Instantiate(_blocks[_possibleValues[index]], target);
+        GameObject tmpBlock = Instantiate(_blockMeshes[_possibleValues[index]], target);
 
         tmpBlock.transform.localPosition = Vector3.zero;
         tmpBlock.transform.localRotation = GenerateNewRotation();

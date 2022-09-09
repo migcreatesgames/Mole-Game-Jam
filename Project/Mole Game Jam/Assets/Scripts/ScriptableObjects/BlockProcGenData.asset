@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BlockProcGenData
   m_EditorClassIdentifier: 
   Blocks:
-  - {fileID: 919132149155446097, guid: 81723272834c89545ae1c3e8c50970c4, type: 3}
-  - {fileID: 919132149155446097, guid: 28520592918ac8b428ae3434ea828a51, type: 3}
-  - {fileID: 919132149155446097, guid: 70e229443c269e54ba0db6b5ef31caa9, type: 3}
-  - {fileID: 919132149155446097, guid: ef28eb1ec3d65ce4d93b7f67bc9bd8a9, type: 3}
-  - {fileID: 919132149155446097, guid: 558593ce8b38f6c4ea5ff5e0f0f72de7, type: 3}
-  - {fileID: 919132149155446097, guid: 6524bb073e8080a46a91af2c26f3d39f, type: 3}
+  - {fileID: 3710388233047903522, guid: 40461fa249e34ad4b8a4a29581604989, type: 3}
+  - {fileID: 4230674367748132131, guid: afefe1a80a81654469a0940d9a1b0bfa, type: 3}
+  - {fileID: 3366411576046882984, guid: 9274870bcfc0732499b88ad4f1e06ddc, type: 3}
+  - {fileID: 4538365643181615536, guid: f55458a3e71c4a347ba36d17475e2cd5, type: 3}
+  - {fileID: 1094788961750690259, guid: 8ca7377726cd4284da77b7d2a2aaf6a6, type: 3}
+  - {fileID: 6573760327790366806, guid: d2d48dcc5e89be44daa52f08ebed41fc, type: 3}

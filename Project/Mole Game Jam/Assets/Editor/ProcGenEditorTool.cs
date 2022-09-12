@@ -25,20 +25,20 @@ public class ProcGenEditorTool : EditorWindow
     }
 
     // This method will be called on load or recompile
-    [InitializeOnLoadMethod]
-    private static void OnLoad()
-    {
-        // if no data exists yet create and reference a new instance
-        if (!_blockData)
-        {
-            var SOpath = GetPathToBlocksScriptableObject();
-
-            _blockData = (ProceduralGeneration)AssetDatabase.LoadAssetAtPath(SOpath, typeof(ProceduralGeneration));
-            _blockMeshes = _blockData.Blocks;
-
-            Init();
-        }
-    }
+    //[InitializeOnLoadMethod]
+    //private static void OnLoad()
+    //{
+    //    // if no data exists yet create and reference a new instance
+    //    if (!_blockData)
+    //    {
+    //        var SOpath = GetPathToBlocksScriptableObject();
+    //
+    //        _blockData = (ProceduralGeneration)AssetDatabase.LoadAssetAtPath(SOpath, typeof(ProceduralGeneration));
+    //        _blockMeshes = _blockData.Blocks;
+    //
+    //        Init();
+    //    }
+    //}
     
     public static void SwapBlocks()
     {

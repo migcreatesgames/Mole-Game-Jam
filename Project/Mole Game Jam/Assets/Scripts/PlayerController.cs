@@ -95,12 +95,12 @@ public class PlayerController : Entity
     {
         if (!GameManager.Instance.IntroPlaying)
         {
-            Debug.Log($"state: {_state}");
+            //Debug.Log($"state: {_state}");
            
-            Debug.Log($"holding dig button: {_holdingDigButton}");
+            //Debug.Log($"holding dig button: {_holdingDigButton}");
             ///Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
-            Debug.Log($"curDigHoldTime: {curDigHoldTime}");
+            //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
             //Debug.Log($"canDig: {_digComponent.CanDig}");
             if (_inputHandler && _enableInput)
             {

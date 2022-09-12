@@ -57,6 +57,7 @@ public class PlayerController : Entity
         _hideComponent = GetComponent<HideComponent>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
+    
     protected override void Start()
     {
         MAX_health = GameManager.Instance.GameData.PlayerHealth;
@@ -73,6 +74,7 @@ public class PlayerController : Entity
         
         base.Start();
     }
+    
     public void OnEnable()
     {
         GameEvents.OnDrop += Drop;
@@ -95,13 +97,14 @@ public class PlayerController : Entity
         {
             Debug.Log($"state: {_state}");
            
-            Debug.Log($"isRecharging: {_isRecharging}");
+            Debug.Log($"holding dig button: {_holdingDigButton}");
+            ///Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
-            //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
+            Debug.Log($"curDigHoldTime: {curDigHoldTime}");
             //Debug.Log($"canDig: {_digComponent.CanDig}");
             if (_inputHandler && _enableInput)
             {
-                if (Input.GetAxis("Hide") == 0)
+                if (Input.GetAxis("Hide") == 0 || Input.GetButtonUp("HidePC"))
                 {
                     _holdingBurrowButton = false;
                     if(_state == State.hiding)
@@ -113,6 +116,7 @@ public class PlayerController : Entity
                 {
                     _xInput = Input.GetAxisRaw("Horizontal");
                     _yInput = Input.GetAxisRaw("Vertical");
+
                     if (_state != State.hiding || _state != State.digging)
                     {
                         if (_xInput == 0 && _yInput == 0)
@@ -124,9 +128,10 @@ public class PlayerController : Entity
                 if (ActionsEnabled)
                 {
                     // digging
-                    if (Input.GetAxis("Dig") == 1 && !_holdingBurrowButton)
+                    if (( Input.GetAxis("Dig") == 1 || Input.GetKey("right shift")) && !_holdingBurrowButton)
                     {
                         _holdingDigButton = true;
+
                         if (_isRecharging)
                             CancelRechargeStamina();
                         if (_state != State.hiding)
@@ -140,19 +145,22 @@ public class PlayerController : Entity
                             ExitState(State.digging);
                         }
                     }
-
-                    // not holding dig trigger
-                    if (Input.GetAxis("Dig") == 0)
+                    else
                     {
-                        _holdingDigButton = false;
+                        // not holding dig trigger
+                        if (Input.GetKeyUp(KeyCode.RightShift) || Input.GetAxis("Dig") == 0)
+                        {
+                            _holdingDigButton = false;
 
-                        curDigHoldTime = 0f;
-                        if (_state == State.digging)
-                            ExitState(State.digging);
+                            curDigHoldTime = 0f;
+                            if (_state == State.digging)
+                                ExitState(State.digging);
+                        }
                     }
 
+
                     // hiding 
-                    if (Input.GetAxis("Hide") == 1 && !_holdingDigButton)
+                    if ((Input.GetAxis("Hide") == 1 || Input.GetButton("HidePC")) && !_holdingDigButton)
                     {
                         _holdingBurrowButton = true;
                         if (_isRecharging)
@@ -195,7 +203,7 @@ public class PlayerController : Entity
         else
         {
             // skip intro cutscene
-            if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Return))
                 GameEvents.OnGameBegin?.Invoke();
             // handles ai movement for cutscene
             if (_navMeshAgent.enabled)
@@ -203,8 +211,6 @@ public class PlayerController : Entity
         }
     }
 
-
-    
     void FixedUpdate()
     {
         if (!GameManager.Instance.IntroPlaying)
@@ -219,7 +225,6 @@ public class PlayerController : Entity
             }
         }
     }
-
 
     public void EnterState(State state)
     {

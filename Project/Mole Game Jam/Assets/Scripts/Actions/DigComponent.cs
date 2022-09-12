@@ -20,8 +20,6 @@ public class DigComponent : MonoBehaviour
 
     private DigStates _digState = DigStates.digging_complete;
 
-    public DigStates DigState { get => _digState; set => _digState = value; }
-    public bool CanDig { get => _canDig; set => _canDig = value; }
     public static GameObject MoundTarget { get => _moundTarget; set => _moundTarget = value; }
     public bool DigDown { get => _digDown; set => _digDown = value; }
 
@@ -35,7 +33,6 @@ public class DigComponent : MonoBehaviour
 
     public void Dig(Entity digger)
     {
-
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         if (_digState == DigStates.digging_complete)

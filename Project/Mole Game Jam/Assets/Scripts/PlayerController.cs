@@ -95,9 +95,10 @@ public class PlayerController : Entity
     {
         if (!GameManager.Instance.IntroPlaying)
         {
-            //Debug.Log($"state: {_state}");
-           
+           // Debug.Log($"state: {_state}");
+
             //Debug.Log($"holding dig button: {_holdingDigButton}");
+            //Debug.Log($"holding burrow button: {_holdingBurrowButton}");
             ///Debug.Log($"isRecharging: {_isRecharging}");
             //Debug.Log($"stamina: {Stamina}");
             //Debug.Log($"curDigHoldTime: {curDigHoldTime}");
@@ -122,7 +123,11 @@ public class PlayerController : Entity
                         if (_xInput == 0 && _yInput == 0)
                             EnterState(State.idle);
                         else
-                            EnterState(State.walking);
+                        {
+                            // ugly hack to fix no stamina/holing burrow -> walk
+                            if(!_holdingBurrowButton)
+                                EnterState(State.walking);
+                        }
                     }
                 }
                 if (ActionsEnabled)
@@ -160,25 +165,27 @@ public class PlayerController : Entity
 
 
                     // hiding 
-                    if ((Input.GetAxis("Hide") == 1 || Input.GetButton("HidePC")) && !_holdingDigButton)
+                    if ((Input.GetAxis("Hide") == 1 || Input.GetKey(KeyCode.Space)) && !_holdingDigButton)
                     {
                         _holdingBurrowButton = true;
                         if (_isRecharging)
                             CancelRechargeStamina();
                         if (_state != State.hiding)
                         {
-                            if (Stamina > 0)
+                            if (Stamina > 0 + (GameManager.Instance.GameData.BurrowStaminaCost * 3))
                                 EnterState(State.hiding);
                         }
                         Stamina -= GameManager.Instance.GameData.BurrowStaminaCost;
                         GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                         if (Stamina <= 0)
                         {
-                            Stamina = 0; // force to whole number
-                            ExitState(State.hiding);
+                            if (_state == State.hiding)
+                            {
+                                Stamina = 0; // force to whole number
+                                ExitState(State.hiding);
+                            }
                         }
                     }
-
                 }
 
                 if (Input.GetButtonDown("PickUp"))
@@ -232,7 +239,7 @@ public class PlayerController : Entity
         {
             case State.idle:
                 _state = State.idle;
-                if (!_holdingDigButton)
+                if (!_holdingDigButton || !_holdingBurrowButton)
                 {
                     if (!_isRecharging && Stamina != MAX_stamina)
                         StartRecharge();
@@ -319,7 +326,7 @@ public class PlayerController : Entity
                 EnableMovement = true;
               
                 break;
-            case State.hiding:
+            case State.hiding:  
                 _hideComponent.UnHide();
                 GameEvents.OnStaminaUpdateEvent?.Invoke(Stamina);
                 if (GetComponent<DustTrail>().EnableDustTrails)
